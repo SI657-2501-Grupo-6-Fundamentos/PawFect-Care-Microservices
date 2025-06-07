@@ -7,13 +7,15 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="petmanagement" />
-        <module name="registry-service" />
         <module name="medicalappointment" />
+        <module name="iam_service" />
+        <module name="registry-service" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="iam_service" options="-parameters" />
       <module name="medicalappointment" options="-parameters" />
       <module name="petmanagement" options="-parameters" />
       <module name="registry-service" options="-parameters" />
