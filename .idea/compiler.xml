@@ -6,11 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="veterinary-service" />
         <module name="appointment-service" />
-        <module name="feedback-service" />
         <module name="pet-service" />
         <module name="registry-service" />
+        <module name="veterinary-service" />
+        <module name="veterinary-schedule-service" />
+        <module name="feedback-service" />
         <module name="client-service" />
       </profile>
     </annotationProcessing>
@@ -22,6 +23,7 @@
       <module name="feedback-service" options="-parameters" />
       <module name="pet-service" options="-parameters" />
       <module name="registry-service" options="-parameters" />
+      <module name="veterinary-schedule-service" options="-parameters" />
       <module name="veterinary-service" options="-parameters" />
     </option>
   </component>
