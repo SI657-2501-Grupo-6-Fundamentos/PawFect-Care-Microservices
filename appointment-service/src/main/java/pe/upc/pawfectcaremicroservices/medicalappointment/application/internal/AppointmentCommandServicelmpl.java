@@ -15,7 +15,6 @@ public class AppointmentCommandServicelmpl implements AppointmentCommandService 
 
     private final AppointmentRepository appointmentRepository;
     /*private final ExternalPetService externalPetService;*/
-    /*private final MedicalAppointmentRepository medicalAppointmentRepository;*/
 
     public AppointmentCommandServicelmpl(
             AppointmentRepository appointmentRepository,
@@ -25,7 +24,6 @@ public class AppointmentCommandServicelmpl implements AppointmentCommandService 
     ) {
         this.appointmentRepository = appointmentRepository;
         /*this.externalPetService = externalPetService;*/
-        /*this.medicalAppointmentRepository = medicalAppointmentRepository;*/
     }
 
     @Override
