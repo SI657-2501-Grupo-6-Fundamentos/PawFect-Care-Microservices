@@ -1,4 +1,4 @@
-package pe.upc.pawfectcaremicroservices.account_service.infrastructure.persistence.jpa;
+package pe.upc.pawfectcaremicroservices.account_service.infrastructure.persistence.jpa.repositories;
 
 import org.springframework.stereotype.Repository;
 import pe.upc.pawfectcaremicroservices.account_service.domain.model.aggregates.User;

@@ -8,7 +8,11 @@ public class UserResourceAssembler {
         UserResource resource = new UserResource();
         resource.setId(user.getId());
         resource.setEmail(user.getEmail());
-        resource.setRoles(user.getRoles().stream().map(r -> r.getName()).collect(Collectors.toSet()));
+        resource.setRoles(
+                user.getRoles().stream()
+                        .map(r -> r.getName().name())
+                        .collect(Collectors.toSet())
+        );
         return resource;
     }
 }

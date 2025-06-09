@@ -4,6 +4,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pe.upc.pawfectcaremicroservices.account_service.domain.model.aggregates.User;
 import pe.upc.pawfectcaremicroservices.account_service.domain.model.aggregates.Role;
+import pe.upc.pawfectcaremicroservices.account_service.domain.model.valueobjects.RoleName;
 import pe.upc.pawfectcaremicroservices.account_service.domain.repository.UserRepository;
 import pe.upc.pawfectcaremicroservices.account_service.infrastructure.persistence.jpa.repositories.JpaRoleRepository;
 import java.util.Set;
@@ -27,7 +28,13 @@ public class RegisterService {
         if (password.length() < 6) {
             throw new IllegalArgumentException("La contraseña debe tener al menos 6 caracteres");
         }
-        Role role = roleRepository.findByName(roleName)
+        RoleName enumRole;
+        try {
+            enumRole = RoleName.valueOf(roleName.toUpperCase());
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Rol no válido");
+        }
+        Role role = roleRepository.findByName(enumRole)
                 .orElseThrow(() -> new IllegalArgumentException("Rol no válido"));
         User user = User.builder()
                 .email(email)
