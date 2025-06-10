@@ -9,9 +9,9 @@
         <module name="appointment-service" />
         <module name="pet-service" />
         <module name="medical-record-service" />
+        <module name="schedule-service" />
         <module name="registry-service" />
         <module name="veterinary-service" />
-        <module name="veterinary-schedule-service" />
         <module name="feedback-service" />
         <module name="client-service" />
       </profile>
@@ -25,7 +25,7 @@
       <module name="medical-record-service" options="-parameters" />
       <module name="pet-service" options="-parameters" />
       <module name="registry-service" options="-parameters" />
-      <module name="veterinary-schedule-service" options="-parameters" />
+      <module name="schedule-service" options="-parameters" />
       <module name="veterinary-service" options="-parameters" />
     </option>
   </component>

@@ -2,5 +2,7 @@ package pe.upc.pawfectcaremicroservices.medicalrecordservice.domain.model.comman
 
 import java.time.LocalDate;
 
-public record UpdateMedicalRecordCommand(Long id, String title, String notes) {
+public record UpdateMedicalRecordCommand(Long id,
+                                         String title,
+                                         String notes) {
 }
