@@ -8,12 +8,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="appointment-service" />
-        <module name="pet-service" />
         <module name="medical-record-service" />
+        <module name="pet-service" />
         <module name="schedule-service" />
         <module name="registry-service" />
         <module name="veterinary-service" />
         <module name="feedback-service" />
+        <module name="account-service" />
         <module name="client-service" />
       </profile>
       <profile name="Annotation profile for account-service" enabled="true">
@@ -23,7 +24,6 @@
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
         </processorPath>
-        <module name="account-service" />
         <module name="profile-service" />
       </profile>
     </annotationProcessing>
