@@ -3,6 +3,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pe.upc.pawfectcaremicroservices.account_service.application.internal.AuthService;
 import pe.upc.pawfectcaremicroservices.account_service.interfaces.rest.resources.LoginRequest;
+import pe.upc.pawfectcaremicroservices.account_service.interfaces.rest.resources.JwtResponse;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -14,8 +15,8 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<JwtResponse> login(@RequestBody LoginRequest request) {
         String token = authService.login(request.getEmail(), request.getPassword());
-        return ResponseEntity.ok().body(token);
+        return ResponseEntity.ok(new JwtResponse(token));
     }
 }
