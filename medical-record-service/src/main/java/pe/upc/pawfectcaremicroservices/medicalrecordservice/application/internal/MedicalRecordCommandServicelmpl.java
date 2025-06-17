@@ -44,7 +44,7 @@ public class MedicalRecordCommandServicelmpl implements MedicalRecordCommandServ
         if (result.isEmpty()) throw new IllegalArgumentException("MedicalRecord does not exist");
         var medicalRecordToUpdate = result.get();
         try {
-            var updatedMedicalRecord = medicalRecordRepository.save(medicalRecordToUpdate.updateInformation(command.medicalRecordName(), command.birthDate(), command.registrationDate(), command.animalBreed(), command.medicalRecordGender()));
+            var updatedMedicalRecord = medicalRecordRepository.save(medicalRecordToUpdate.updateInformation(command.title(), command.notes()));
             return Optional.of(updatedMedicalRecord);
         } catch (Exception e) {
             throw new IllegalArgumentException("Error while updating medicalRecord: " + e.getMessage());
