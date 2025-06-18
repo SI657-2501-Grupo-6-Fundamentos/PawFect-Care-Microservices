@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  pawfectcare-appointment-db:
+    image: postgres:15
+    container_name: pawfectcare-appointment-db
+    environment:
+      POSTGRES_DB: appointment
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5436:5432"
+    volumes:
+      - pawfectcare_appointment_data:/var/lib/postgresql/data
+
+  pawfectcare-feedback-db:
+    image: postgres:15
+    container_name: pawfectcare-feedback-db
+    environment:
+      POSTGRES_DB: feedback
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5437:5432"
+    volumes:
+      - pawfectcare_feedback_data:/var/lib/postgresql/data
+
+  pawfectcare-petmanagement-db:
+    image: postgres:15
+    container_name: pawfectcare-petmanagement-db
+    environment:
+      POSTGRES_DB: petmanagement
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5438:5432"
+    volumes:
+      - pawfectcare_petmanagement_data:/var/lib/postgresql/data
+
+  pawfectcare-iam-db:
+    image: postgres:15
+    container_name: pawfectcare-iam-db
+    environment:
+      POSTGRES_DB: iam
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5439:5432"
+    volumes:
+      - pawfectcare_iam_data:/var/lib/postgresql/data
+
+volumes:
+  pawfectcare_appointment_data:
+  pawfectcare_feedback_data:
+  pawfectcare_petmanagement_data:
+  pawfectcare_iam_data:
