@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="diagnostic-service" />
         <module name="appointment-service" />
         <module name="pet-service" />
         <module name="medical-record-service" />
@@ -27,12 +28,16 @@
         <module name="profile-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="treatment-service" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="account-service" options="-parameters" />
       <module name="appointment-service" options="-parameters" />
       <module name="client-service" options="-parameters" />
+      <module name="diagnostic-service" options="-parameters" />
       <module name="feedback-service" options="-parameters" />
       <module name="medical-record-service" options="-parameters" />
       <module name="pet-service" options="-parameters" />
