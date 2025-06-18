@@ -2,23 +2,48 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+
+      <profile default="true" name="Default" enabled="true" />
+
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="petmanagement" />
-        <module name="medicalappointment" />
-        <module name="iam_service" />
+        <module name="appointment-service" />
+        <module name="medical-record-service" />
+        <module name="pet-service" />
+        <module name="schedule-service" />
         <module name="registry-service" />
+        <module name="gateway-service" />
+        <module name="veterinary-service" />
+        <module name="feedback-service" />
+        <module name="account-service" />
+        <module name="client-service" />
+      </profile>
+      <profile name="Annotation profile for profile-service" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
+        </processorPath>
+        <module name="profile-service" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="iam_service" options="-parameters" />
-      <module name="medicalappointment" options="-parameters" />
-      <module name="petmanagement" options="-parameters" />
+      <module name="account-service" options="-parameters" />
+      <module name="appointment-service" options="-parameters" />
+      <module name="client-service" options="-parameters" />
+      <module name="feedback-service" options="-parameters" />
+      <module name="gateway-service" options="-parameters" />
+      <module name="medical-record-service" options="-parameters" />
+      <module name="pet-service" options="-parameters" />
+      <module name="profile-service" options="-parameters" />
       <module name="registry-service" options="-parameters" />
+      <module name="schedule-service" options="-parameters" />
+      <module name="veterinary-service" options="-parameters" />
     </option>
   </component>
 </project>
