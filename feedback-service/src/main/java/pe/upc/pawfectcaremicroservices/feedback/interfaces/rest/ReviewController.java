@@ -22,7 +22,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping(value = "api/v1/reviews", produces = APPLICATION_JSON_VALUE)
-@CrossOrigin(origins = {"https://pawfect-care-app-web.web.app","http://localhost:4200"})
 public class ReviewController {
     private final ReviewQueryService reviewQueryService;
     private final ReviewCommandService reviewCommandService;

@@ -20,7 +20,7 @@ spring:
             - StripPrefix=1
         #Veterinary Service
         - id: veterinary-service
-          uri: lb://veterinarian-service
+          uri: lb://veterinary-service
           predicates:
             - Path=/veterinarian-service/**
           filters:
@@ -41,7 +41,7 @@ spring:
             - StripPrefix=1
         #Appointment Service
         - id: appointment-management
-          uri: lb://appointment-service
+          uri: lb://appointment-management
           predicates:
             - Path=/appointment-service/**
           filters:
@@ -68,8 +68,8 @@ spring:
           filters:
             - StripPrefix=1
         #Diagnosis Service
-        - id: diagnosis-service
-          uri: lb://diagnosis-service
+        - id: diagnostic-service
+          uri: lb://diagnostic-service
           predicates:
             - Path=/diagnosis-service/**
           filters:
