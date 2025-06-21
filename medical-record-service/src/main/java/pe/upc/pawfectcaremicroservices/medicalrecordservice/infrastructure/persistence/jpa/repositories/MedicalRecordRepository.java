@@ -10,4 +10,5 @@ import java.util.List;
 public interface MedicalRecordRepository extends JpaRepository<MedicalRecord, Long> {
       boolean existsById(Long id);
       List<MedicalRecord> findAllByDiagnosticId(Long diagnosticId);
+      List<MedicalRecord> findAllByMedicalAppointmentId(Long medicalAppointmentId);
 }

@@ -12,7 +12,6 @@ public class PetResourceFromEntityAssembler {
                 entity.getRegistrationDate(),
                 entity.getAnimalBreed(),
                 entity.getPetGender(),
-                entity.getMedicalHistoryId(),
                 entity.getOwnerId());
     }
 }

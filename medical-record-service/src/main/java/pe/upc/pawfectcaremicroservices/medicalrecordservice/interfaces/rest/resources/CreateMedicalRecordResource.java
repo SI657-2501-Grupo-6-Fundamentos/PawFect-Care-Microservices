@@ -3,5 +3,6 @@ package pe.upc.pawfectcaremicroservices.medicalrecordservice.interfaces.rest.res
 public record CreateMedicalRecordResource(
         String title,
         String notes,
-        Long diagnosticId
+        Long diagnosticId,
+        Long medicalAppointmentId
 ) { }
