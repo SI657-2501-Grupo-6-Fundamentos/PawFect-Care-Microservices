@@ -1,4 +1,4 @@
-package pe.upc.pawfectcaremicroservices.veterinaryscheduleservice.application.external.veterinarians;
+package pe.upc.pawfectcaremicroservices.medicalappointment.application.external.veterinarians;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
@@ -16,11 +16,7 @@ public class ExternalVeterinarian {
         try {
             restTemplate.getForObject("http://localhost:8010/veterinarian-service/api/v1/veterinarians/{veterinarianId}", Object.class, veterinarianId);
             return true;
-        } catch (HttpClientErrorException e) {
-            System.err.println("HTTP Error: " + e.getStatusCode());
-            return false;
-        } catch (Exception e) {
-            System.err.println("Error: " + e.getMessage());
+        } catch (HttpClientErrorException.NotFound e) {
             return false;
         }
     }

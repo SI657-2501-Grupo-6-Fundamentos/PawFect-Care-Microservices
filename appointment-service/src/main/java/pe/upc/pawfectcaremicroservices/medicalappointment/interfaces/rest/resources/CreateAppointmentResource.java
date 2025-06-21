@@ -7,7 +7,8 @@ import java.time.LocalDateTime;
 public record CreateAppointmentResource(String appointmentName,
                                         LocalDateTime registrationDate,
                                         LocalDateTime endDate,
-                                        boolean isMedical,
                                         AppointmentStatus status,
-                                        Long petId) {
+                                        float estimatedCost,
+                                        Long petId,
+                                        Long veterinarianId) {
 }

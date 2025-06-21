@@ -9,7 +9,7 @@ public record UpdateAppointmentCommand(
         String appointmentName,
         LocalDateTime registrationDate,
         LocalDateTime endDate,
-        boolean isMedical,
-        AppointmentStatus status
+        AppointmentStatus status,
+        Float estimatedCost
 ) {
 }

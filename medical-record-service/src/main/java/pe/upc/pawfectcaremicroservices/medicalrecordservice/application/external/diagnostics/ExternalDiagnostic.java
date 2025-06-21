@@ -14,7 +14,7 @@ public class ExternalDiagnostic {
 
     public boolean existsDiagnosticById(Long diagnosticId) {
         try {
-            restTemplate.getForObject("http://localhost:8098/api/v1/diagnostics/{diagnosticId}", Object.class, diagnosticId);
+            restTemplate.getForObject("http://localhost:8010/diagnostic-service/api/v1/diagnostics/{diagnosticId}", Object.class, diagnosticId);
             return true;
         } catch (HttpClientErrorException e) {
             System.err.println("HTTP Error: " + e.getStatusCode());

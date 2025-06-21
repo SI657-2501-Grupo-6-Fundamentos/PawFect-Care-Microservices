@@ -10,7 +10,8 @@ public record AppointmentResource(
         String appointmentName,
         LocalDateTime registrationDate,
         LocalDateTime endDate,
-        boolean isMedical,
         AppointmentStatus status,
-        Long petId) {
+        Float estimatedCost,
+        Long petId,
+        Long veterinarianId) {
 }
