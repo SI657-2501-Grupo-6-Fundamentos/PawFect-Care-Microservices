@@ -88,6 +88,13 @@ spring:
             - Path=/api/v1/users_admin/registro
           filters:
             - StripPrefix=0
+        # Profile Service
+        - id: profile-service
+          uri: lb://profile-service
+          predicates:
+            - Path=/profile-service/**, /api/v1/profiles/**
+          filters:
+            - StripPrefix=1
 
 server:
   port: 8010

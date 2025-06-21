@@ -1,42 +1,6 @@
 version: '3.8'
 
 services:
-  pawfectcare-appointment-db:
-    image: postgres:15
-    container_name: pawfectcare-appointment-db
-    environment:
-      POSTGRES_DB: appointment
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin123
-    ports:
-      - "5436:5432"
-    volumes:
-      - pawfectcare_appointment_data:/var/lib/postgresql/data
-
-  pawfectcare-feedback-db:
-    image: postgres:15
-    container_name: pawfectcare-feedback-db
-    environment:
-      POSTGRES_DB: feedback
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin123
-    ports:
-      - "5437:5432"
-    volumes:
-      - pawfectcare_feedback_data:/var/lib/postgresql/data
-
-  pawfectcare-petmanagement-db:
-    image: postgres:15
-    container_name: pawfectcare-petmanagement-db
-    environment:
-      POSTGRES_DB: petmanagement
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin123
-    ports:
-      - "5438:5432"
-    volumes:
-      - pawfectcare_petmanagement_data:/var/lib/postgresql/data
-
   pawfectcare-iam-db:
     image: postgres:15
     container_name: pawfectcare-iam-db
@@ -49,8 +13,122 @@ services:
     volumes:
       - pawfectcare_iam_data:/var/lib/postgresql/data
 
+  veterinary-service-db:
+    image: postgres:15
+    container_name: veterinary-service-db
+    environment:
+      POSTGRES_DB: veterinary
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5440:5432"
+    volumes:
+      - veterinary_service_data:/var/lib/postgresql/data
+
+  pet-service-db:
+    image: postgres:15
+    container_name: pet-service-db
+    environment:
+      POSTGRES_DB: pet
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5441:5432"
+    volumes:
+      - pet_service_data:/var/lib/postgresql/data
+
+  client-service-db:
+    image: postgres:15
+    container_name: client-service-db
+    environment:
+      POSTGRES_DB: client
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5442:5432"
+    volumes:
+      - client_service_data:/var/lib/postgresql/data
+
+  feedback-service-db:
+    image: postgres:15
+    container_name: feedback-service-db
+    environment:
+      POSTGRES_DB: feedback
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5443:5432"
+    volumes:
+      - feedback_service_data:/var/lib/postgresql/data
+
+  appointment-service-db:
+    image: postgres:15
+    container_name: appointment-service-db
+    environment:
+      POSTGRES_DB: appointment
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5444:5432"
+    volumes:
+      - appointment_service_data:/var/lib/postgresql/data
+
+  schedule-service-db:
+    image: postgres:15
+    container_name: schedule-service-db
+    environment:
+      POSTGRES_DB: schedule
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5445:5432"
+    volumes:
+      - schedule_service_data:/var/lib/postgresql/data
+
+  diagnostic-service-db:
+    image: postgres:15
+    container_name: diagnostic-service-db
+    environment:
+      POSTGRES_DB: diagnostic
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5446:5432"
+    volumes:
+      - diagnostic_service_data:/var/lib/postgresql/data
+
+  medical-record-service-db:
+    image: postgres:15
+    container_name: medical-record-service-db
+    environment:
+      POSTGRES_DB: medicalrecord
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5447:5432"
+    volumes:
+      - medical_record_service_data:/var/lib/postgresql/data
+
+  profile-service-db:
+    image: postgres:15
+    container_name: profile-service-db
+    environment:
+      POSTGRES_DB: profile
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5448:5432"
+    volumes:
+      - profile_service_data:/var/lib/postgresql/data
+
 volumes:
-  pawfectcare_appointment_data:
-  pawfectcare_feedback_data:
-  pawfectcare_petmanagement_data:
   pawfectcare_iam_data:
+  veterinary_service_data:
+  pet_service_data:
+  client_service_data:
+  feedback_service_data:
+  appointment_service_data:
+  schedule_service_data:
+  diagnostic_service_data:
+  medical_record_service_data:
+  profile_service_data:
