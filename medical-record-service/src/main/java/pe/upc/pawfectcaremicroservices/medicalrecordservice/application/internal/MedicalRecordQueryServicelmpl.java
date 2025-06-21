@@ -3,6 +3,7 @@ package pe.upc.pawfectcaremicroservices.medicalrecordservice.application.interna
 import org.springframework.stereotype.Service;
 import pe.upc.pawfectcaremicroservices.medicalrecordservice.domain.model.aggregates.MedicalRecord;
 import pe.upc.pawfectcaremicroservices.medicalrecordservice.domain.model.queries.GetAllMedicalRecordsByDiagnosticIdQuery;
+import pe.upc.pawfectcaremicroservices.medicalrecordservice.domain.model.queries.GetAllMedicalRecordsByMedicalAppointmentIdQuery;
 import pe.upc.pawfectcaremicroservices.medicalrecordservice.domain.model.queries.GetAllMedicalRecordsQuery;
 import pe.upc.pawfectcaremicroservices.medicalrecordservice.domain.model.queries.GetMedicalRecordByIdQuery;
 import pe.upc.pawfectcaremicroservices.medicalrecordservice.domain.services.MedicalRecordQueryService;
@@ -35,6 +36,11 @@ public class MedicalRecordQueryServicelmpl implements MedicalRecordQueryService 
     @Override
     public List<MedicalRecord> handle(GetAllMedicalRecordsByDiagnosticIdQuery query) {
         return medicalRecordRepository.findAllByDiagnosticId(query.diagnosticId());
+    }
+
+    @Override
+    public List<MedicalRecord> handle(GetAllMedicalRecordsByMedicalAppointmentIdQuery query) {
+        return medicalRecordRepository.findAllByMedicalAppointmentId(query.medicalAppointmentId());
     }
 
 

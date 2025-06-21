@@ -2,5 +2,6 @@ package pe.upc.pawfectcaremicroservices.medicalrecordservice.domain.model.comman
 
 public record CreateMedicalRecordCommand(String title,
                                          String notes,
-                                         Long diagnosticId) {
+                                         Long diagnosticId,
+                                         Long medicalAppointmentId) {
 }

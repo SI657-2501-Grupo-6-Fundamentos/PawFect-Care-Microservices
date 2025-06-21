@@ -4,5 +4,6 @@ public record MedicalRecordResource(
         Long id,
         String title,
         String notes,
-        Long diagnosticId) {
+        Long diagnosticId,
+        Long medicalAppointmentId) {
 }

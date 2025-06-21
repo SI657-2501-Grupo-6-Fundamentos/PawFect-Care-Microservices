@@ -20,7 +20,7 @@ public class MedicalRecord {
     private String notes;
     private Long diagnosticId;
 
-    private Long medicalHistoryId;
+    private Long medicalAppointmentId;
 
     public MedicalRecord() {
         this.title = Strings.EMPTY;

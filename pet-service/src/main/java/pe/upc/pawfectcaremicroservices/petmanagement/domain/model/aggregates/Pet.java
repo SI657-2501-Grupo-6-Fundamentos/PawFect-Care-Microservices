@@ -32,7 +32,6 @@ public class Pet {
     private PetGender petGender;
     private Long ownerId;
 
-    private Long medicalHistoryId;
 
     public Pet() {
         this.petName = Strings.EMPTY;

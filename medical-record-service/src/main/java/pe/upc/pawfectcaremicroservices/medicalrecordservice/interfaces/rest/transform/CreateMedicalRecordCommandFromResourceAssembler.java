@@ -5,6 +5,11 @@ import pe.upc.pawfectcaremicroservices.medicalrecordservice.interfaces.rest.reso
 
 public class CreateMedicalRecordCommandFromResourceAssembler {
     public static CreateMedicalRecordCommand toCommandFromResource(CreateMedicalRecordResource resource) {
-        return new CreateMedicalRecordCommand(resource.title(), resource.notes(), resource.diagnosticId());
+        return new CreateMedicalRecordCommand(
+                resource.title(),
+                resource.notes(),
+                resource.diagnosticId(),
+                resource.medicalAppointmentId()
+        );
     }
 }

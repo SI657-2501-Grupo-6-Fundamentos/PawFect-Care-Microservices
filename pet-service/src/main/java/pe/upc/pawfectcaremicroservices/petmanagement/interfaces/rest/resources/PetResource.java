@@ -11,6 +11,5 @@ public record PetResource(
         LocalDate registrationDate,
         String animalBreed,
         PetGender petGender,
-        Long medicalHistoryId,
         Long ownerId) {
 }
