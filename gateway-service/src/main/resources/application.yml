@@ -4,63 +4,63 @@ spring:
   cloud:
     gateway:
       routes:
-        #Client Service
+        # Client Service
         - id: client-service
           uri: lb://client-service
           predicates:
             - Path=/client-service/**
           filters:
             - StripPrefix=1
-        #Pet Service
+        # Pet Service
         - id: pet-management
           uri: lb://pet-management
           predicates:
             - Path=/pet-service/**
           filters:
             - StripPrefix=1
-        #Veterinary Service
+        # Veterinary Service
         - id: veterinary-service
           uri: lb://veterinary-service
           predicates:
             - Path=/veterinarian-service/**
           filters:
             - StripPrefix=1
-        #Schedule Service
+        # Schedule Service
         - id: schedule-service
           uri: lb://schedule-service
           predicates:
             - Path=/schedule-service/**
           filters:
             - StripPrefix=1
-        #Medical Record Service
+        # Medical Record Service
         - id: medical-record-service
           uri: lb://medical-record-service
           predicates:
             - Path=/medical-record-service/**
           filters:
             - StripPrefix=1
-        #Appointment Service
+        # Appointment Service
         - id: appointment-management
           uri: lb://appointment-management
           predicates:
             - Path=/appointment-service/**
           filters:
             - StripPrefix=1
-        #Feedback Service
+        # Feedback Service
         - id: feedback
           uri: lb://feedback
           predicates:
             - Path=/feedback-service/**
           filters:
             - StripPrefix=1
-        #Account Service
+        # Account Service
         - id: account-service
           uri: lb://account-service
           predicates:
             - Path=/account-service/**
           filters:
             - StripPrefix=1
-        #Profile Service
+        # Profile Service
         - id: profile-service
           uri: lb://profile-service
           predicates:
@@ -74,6 +74,20 @@ spring:
             - Path=/diagnosis-service/**
           filters:
             - StripPrefix=1
+        # IAM Service - SOLO esta ruta para autenticación
+        - id: iam-service-auth
+          uri: lb://iam-service
+          predicates:
+            - Path=/api/v1/authentication/**
+          filters:
+            - StripPrefix=0
+        # IAM Service - registro admin
+        - id: iam-service-admin-registro
+          uri: lb://iam-service
+          predicates:
+            - Path=/api/v1/users_admin/registro
+          filters:
+            - StripPrefix=0
 
 server:
   port: 8010

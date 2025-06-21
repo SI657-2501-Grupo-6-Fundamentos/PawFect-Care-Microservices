@@ -2,9 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
-
       <profile default="true" name="Default" enabled="true" />
-
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -18,6 +16,7 @@
         <module name="veterinary-service" />
         <module name="feedback-service" />
         <module name="account-service" />
+        <module name="iam_service" />
         <module name="client-service" />
       </profile>
       <profile name="Annotation profile for profile-service" enabled="true">
@@ -30,6 +29,11 @@
         <module name="profile-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="feedback" target="17" />
+      <module name="medicalappointment" target="17" />
+      <module name="petmanagement" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -38,6 +42,7 @@
       <module name="client-service" options="-parameters" />
       <module name="feedback-service" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
+      <module name="iam_service" options="-parameters" />
       <module name="medical-record-service" options="-parameters" />
       <module name="pet-service" options="-parameters" />
       <module name="profile-service" options="-parameters" />
