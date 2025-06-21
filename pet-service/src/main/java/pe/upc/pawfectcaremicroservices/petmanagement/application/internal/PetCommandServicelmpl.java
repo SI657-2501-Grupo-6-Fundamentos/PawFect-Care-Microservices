@@ -27,7 +27,7 @@ public class PetCommandServicelmpl implements PetCommandService {
         try {
             if (!externalOwner.existsOwnerById(command.ownerId()))
                 throw new IllegalArgumentException("ownerId does not exist");
-            // Aquí podrías setear solo el ownerId, no el objeto Owner
+            //
             pet.setOwnerId(command.ownerId());
             petRepository.save(pet);
         } catch (Exception e) {

@@ -22,24 +22,19 @@ public class Appointment {
     private String appointmentName;
     private LocalDateTime registrationDate;
     private LocalDateTime endDate;
-    private boolean isMedical;
     @Enumerated(EnumType.STRING)
     private AppointmentStatus status;
-
+    private Float estimatedCost;
     private Long petId;
-
-    @Setter
-    @OneToOne(mappedBy = "appointment")
-    private MedicalAppointment medicalAppointment;
-
+    private Long veterinarianId;
 
 
     public Appointment() {
         this.appointmentName = Strings.EMPTY;
         this.registrationDate = LocalDateTime.now();
         this.endDate = LocalDateTime.now();
-        this.isMedical = false;
         this.status = AppointmentStatus.SCHEDULED;
+        this.estimatedCost = 0.0f;
     }
 
     public Appointment(CreateAppointmentCommand command) {
@@ -47,16 +42,22 @@ public class Appointment {
         this.appointmentName = command.appointmentName();
         this.registrationDate = command.registrationDate();
         this.endDate = command.endDate();
-        this.isMedical = command.isMedical();
         this.status = AppointmentStatus.SCHEDULED;
+        this.estimatedCost = command.estimatedCost();
     }
 
-    public Appointment updateInformation(String appointmentName,LocalDateTime registrationDate,LocalDateTime endDate, boolean isMedical,AppointmentStatus status ) {
+    public Appointment updateInformation(
+            String appointmentName,
+            LocalDateTime registrationDate,
+            LocalDateTime endDate,
+            AppointmentStatus status,
+            Float estimatedCost
+    ) {
         this.appointmentName = appointmentName;
         this.registrationDate = registrationDate;
         this.endDate = endDate;
-        this.isMedical = isMedical;
         this.status = status;
+        this.estimatedCost = estimatedCost;
         return this;
     }
 

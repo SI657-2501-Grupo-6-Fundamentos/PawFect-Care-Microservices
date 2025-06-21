@@ -16,7 +16,7 @@ public class Review {
 
     private String content;
     private Integer rating;
-    private Long veterinarianId;
+    private Long medicalAppointmentId;
 
     public Review() {
         this.content = "";

@@ -3,12 +3,10 @@ package pe.upc.pawfectcaremicroservices.medicalappointment.interfaces.rest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pe.upc.pawfectcaremicroservices.medicalappointment.domain.model.commands.CreateMedicalAppointmentCommand;
 import pe.upc.pawfectcaremicroservices.medicalappointment.domain.model.queries.GetAllAppointmentsQuery;
 import pe.upc.pawfectcaremicroservices.medicalappointment.domain.model.queries.GetAppointmentByIdQuery;
 import pe.upc.pawfectcaremicroservices.medicalappointment.domain.services.AppointmentCommandService;
 import pe.upc.pawfectcaremicroservices.medicalappointment.domain.services.AppointmentQueryService;
-import pe.upc.pawfectcaremicroservices.medicalappointment.domain.services.MedicalAppointmentCommandService;
 import pe.upc.pawfectcaremicroservices.medicalappointment.interfaces.rest.resources.AppointmentResource;
 import pe.upc.pawfectcaremicroservices.medicalappointment.interfaces.rest.resources.CreateAppointmentResource;
 import pe.upc.pawfectcaremicroservices.medicalappointment.interfaces.rest.resources.UpdateAppointmentResource;
@@ -23,20 +21,17 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping(value = "/api/v1/appointments", produces = APPLICATION_JSON_VALUE)
-@CrossOrigin(origins = {"https://pawfect-care-app-web.web.app","http://localhost:4200"})
 public class AppointmentController {
 
     private final AppointmentCommandService appointmentCommandService;
     private final AppointmentQueryService appointmentQueryService;
-    private final MedicalAppointmentCommandService medicalAppointmentCommandService;
+    //private final MedicalAppointmentCommandService medicalAppointmentCommandService;
     public AppointmentController(
             AppointmentQueryService appointmentQueryService,
-            AppointmentCommandService appointmentCommandService,
-            MedicalAppointmentCommandService medicalAppointmentCommandService
+            AppointmentCommandService appointmentCommandService
     ) {
         this.appointmentCommandService = appointmentCommandService;
         this.appointmentQueryService = appointmentQueryService;
-        this.medicalAppointmentCommandService=medicalAppointmentCommandService;
     }
     @PostMapping
     public ResponseEntity<AppointmentResource> createAppointment(@RequestBody CreateAppointmentResource createAppointmentResource) {
@@ -50,18 +45,6 @@ public class AppointmentController {
        var appointment = appointmentQueryService.handle(getAppointmentById);
         if (appointment.isEmpty()) return ResponseEntity.badRequest().build();
 
-        if(appointment.get().isMedical()) {
-            var createMedicalAppointmentCommand = new CreateMedicalAppointmentCommand(
-                    "Initial diagnosis",
-                    "Initial treatment",
-                    "Initial notes",
-                    appointmentId,
-                    appointment.get().getPetId()/*.getMedicalHistory().getId()*/
-            );
-            var medicalAppointmentId = medicalAppointmentCommandService.handle(createMedicalAppointmentCommand);
-            if (medicalAppointmentId == 0L) return ResponseEntity.badRequest().build();
-
-        }
 
         var appointmentResource = AppointmentResourceFromEntityAssembler.toResourceFromEntity(appointment.get());
         return new ResponseEntity<>(appointmentResource, HttpStatus.CREATED);

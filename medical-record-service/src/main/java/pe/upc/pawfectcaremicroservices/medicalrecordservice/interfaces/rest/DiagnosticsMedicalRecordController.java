@@ -13,7 +13,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping(value = "/api/v1/diagnostics/{diagnosticId}/medicalRecords", produces = APPLICATION_JSON_VALUE)
-@CrossOrigin(origins = {"https://pawfect-care-app-web.web.app","http://localhost:4200"})
 public class DiagnosticsMedicalRecordController {
     private final MedicalRecordQueryService medicalRecordQueryService;
 

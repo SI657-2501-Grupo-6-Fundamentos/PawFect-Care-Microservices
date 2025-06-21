@@ -7,6 +7,15 @@ import pe.upc.pawfectcaremicroservices.medicalappointment.interfaces.rest.resour
 public class AppointmentResourceFromEntityAssembler {
 
     public static AppointmentResource toResourceFromEntity(Appointment entity) {
-        return new AppointmentResource(entity.getId(), entity.getAppointmentName(),entity.getRegistrationDate(),entity.getEndDate(),entity.isMedical(),entity.getStatus(),entity.getPetId());
+        return new AppointmentResource(
+                entity.getId(),
+                entity.getAppointmentName(),
+                entity.getRegistrationDate(),
+                entity.getEndDate(),
+                entity.getStatus(),
+                entity.getEstimatedCost(),
+                entity.getPetId(),
+                entity.getVeterinarianId()
+        );
     }
 }

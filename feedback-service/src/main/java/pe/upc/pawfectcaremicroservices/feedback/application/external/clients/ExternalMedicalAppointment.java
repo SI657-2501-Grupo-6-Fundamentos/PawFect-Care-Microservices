@@ -1,20 +1,20 @@
-package pe.upc.pawfectcaremicroservices.medicalrecordservice.application.external.diagnostics;
+package pe.upc.pawfectcaremicroservices.feedback.application.external.clients;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 @Component
-public class ExternalDiagnostic {
+public class ExternalMedicalAppointment {
     private final RestTemplate restTemplate;
 
-    public ExternalDiagnostic(RestTemplate restTemplate) {
+    public ExternalMedicalAppointment(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    public boolean existsDiagnosticById(Long diagnosticId) {
+    public boolean existsMedicalAppointmentById(Long medicalAppointmentId) {
         try {
-            restTemplate.getForObject("http://localhost:8010/diagnostic-service/api/v1/diagnostics/{diagnosticId}", Object.class, diagnosticId);
+            restTemplate.getForObject("http://localhost:8010/appointment-service/api/v1/appointments/{medicalAppointmentId}", Object.class, medicalAppointmentId);
             return true;
         } catch (HttpClientErrorException e) {
             System.err.println("HTTP Error: " + e.getStatusCode());

@@ -12,7 +12,8 @@ public class UpdateAppointmentCommandFromResourceAssembler {
                 resource.appointmentName(),
                 resource.registrationDate(),
                 resource.endDate(),
-                resource.isMedical(),
-                resource.status());
+                resource.status(),
+                resource.estimatedCost()
+        );
     }
 }

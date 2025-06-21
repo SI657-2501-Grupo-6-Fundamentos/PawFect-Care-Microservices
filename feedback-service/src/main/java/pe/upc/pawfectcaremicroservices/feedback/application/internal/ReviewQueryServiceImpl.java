@@ -2,7 +2,7 @@ package pe.upc.pawfectcaremicroservices.feedback.application.internal;
 
 import org.springframework.stereotype.Service;
 import pe.upc.pawfectcaremicroservices.feedback.domain.model.aggregates.Review;
-import pe.upc.pawfectcaremicroservices.feedback.domain.model.queries.GetAllReviewsByVeterinarianIdQuery;
+import pe.upc.pawfectcaremicroservices.feedback.domain.model.queries.GetAllReviewsByMedicalAppointmentIdQuery;
 import pe.upc.pawfectcaremicroservices.feedback.domain.model.queries.GetAllReviewsQuery;
 import pe.upc.pawfectcaremicroservices.feedback.domain.model.queries.GetReviewByIdQuery;
 import pe.upc.pawfectcaremicroservices.feedback.domain.services.ReviewQueryService;
@@ -29,7 +29,7 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
     }
 
     @Override
-    public List<Review> handle(GetAllReviewsByVeterinarianIdQuery query) {
-        return reviewRepository.findAllByVeterinarianId(query.veterinarianId());
+    public List<Review> handle(GetAllReviewsByMedicalAppointmentIdQuery query) {
+        return reviewRepository.findAllByMedicalAppointmentId(query.medicalAppointmentId());
     }
 }

@@ -2,6 +2,8 @@ package pe.upc.pawfectcaremicroservices.medicalappointment.application.internal;
 
 import org.springframework.stereotype.Service;
 import pe.upc.pawfectcaremicroservices.medicalappointment.domain.model.aggregates.Appointment;
+import pe.upc.pawfectcaremicroservices.medicalappointment.domain.model.queries.GetAllAppointmentsByPetIdQuery;
+import pe.upc.pawfectcaremicroservices.medicalappointment.domain.model.queries.GetAllAppointmentsByVeterinarianIdQuery;
 import pe.upc.pawfectcaremicroservices.medicalappointment.domain.model.queries.GetAllAppointmentsQuery;
 import pe.upc.pawfectcaremicroservices.medicalappointment.domain.model.queries.GetAppointmentByIdQuery;
 import pe.upc.pawfectcaremicroservices.medicalappointment.domain.services.AppointmentQueryService;
@@ -27,4 +29,11 @@ public class AppointmentQueryServicelmpl implements AppointmentQueryService{
         return appointmentRepository.findAll();
     }
 
+    public List<Appointment> handle(GetAllAppointmentsByVeterinarianIdQuery query) {
+        return appointmentRepository.findAllByVeterinarianId(query.veterinarianId());
+    }
+
+    public List<Appointment> handle(GetAllAppointmentsByPetIdQuery query) {
+        return appointmentRepository.findAllByPetId(query.petId());
+    }
 }

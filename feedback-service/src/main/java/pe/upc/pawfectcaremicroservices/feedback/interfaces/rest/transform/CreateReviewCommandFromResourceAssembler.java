@@ -5,6 +5,6 @@ import pe.upc.pawfectcaremicroservices.feedback.interfaces.rest.resources.Create
 
 public class CreateReviewCommandFromResourceAssembler {
     public static CreateReviewCommand toCommandFromResource(CreateReviewResource resource) {
-        return new CreateReviewCommand(resource.content(), resource.rating(), resource.veterinarianId());
+        return new CreateReviewCommand(resource.content(), resource.rating(), resource.medicalAppointmentId());
     }
 }

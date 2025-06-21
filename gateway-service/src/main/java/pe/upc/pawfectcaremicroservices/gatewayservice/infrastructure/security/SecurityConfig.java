@@ -26,6 +26,25 @@ public class SecurityConfig {
                                 "/api/v1/authentication/**",
                                 "/iam_service/api/v1/authentication/**",
                                 "account-service/api/auth/**",
+                                "/account-service/api/auth/**",
+                                "pet-service/**",
+                                "/pet-service/**",
+                                "client-service/**",
+                                "/client-service/**",
+                                "profile-service/**",
+                                "/profile-service/**",
+                                "appointment-service/**",
+                                "/appointment-service/**",
+                                "feedback-service/**",
+                                "/feedback-service/**",
+                                "medical-record-service/**",
+                                "/medical-record-service/**",
+                                "schedule-service/**",
+                                "/schedule-service/**",
+                                "veterinarian-service/**",
+                                "/veterinarian-service/**",
+                                "diagnostic-service/**",
+                                "/diagnosis-service/**",
                                 "/swagger-ui.html",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**"
@@ -38,7 +57,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration cors = new CorsConfiguration();
-        cors.setAllowedOrigins(List.of("*"));
+        cors.setAllowedOrigins(List.of("http://localhost:4200"));
         cors.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
         cors.setAllowedHeaders(List.of("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

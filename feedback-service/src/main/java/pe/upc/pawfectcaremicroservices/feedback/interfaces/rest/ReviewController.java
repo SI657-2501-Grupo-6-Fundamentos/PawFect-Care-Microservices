@@ -4,7 +4,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import pe.upc.pawfectcaremicroservices.feedback.application.external.Veterinarian;
 import pe.upc.pawfectcaremicroservices.feedback.domain.model.queries.GetAllReviewsQuery;
 import pe.upc.pawfectcaremicroservices.feedback.domain.model.queries.GetReviewByIdQuery;
 import pe.upc.pawfectcaremicroservices.feedback.domain.services.ReviewCommandService;
@@ -22,7 +21,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping(value = "api/v1/reviews", produces = APPLICATION_JSON_VALUE)
-@CrossOrigin(origins = {"https://pawfect-care-app-web.web.app","http://localhost:4200"})
 public class ReviewController {
     private final ReviewQueryService reviewQueryService;
     private final ReviewCommandService reviewCommandService;
@@ -50,9 +48,6 @@ public class ReviewController {
         var getAllReviewsQuery = new GetAllReviewsQuery();
         var reviews = reviewQueryService.handle(getAllReviewsQuery);
         var reviewResources = reviews.stream().map(ReviewResourceFromEntityAssembler::toResourceFromEntity).toList();
-
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getForObject("http://localhost:8092/api/v1/veterinarians/1", Veterinarian.class);
         return ResponseEntity.ok(reviewResources);
     }
 
