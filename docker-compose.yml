@@ -121,6 +121,18 @@ services:
     volumes:
       - profile_service_data:/var/lib/postgresql/data
 
+  account-service-db:
+    image: postgres:15
+    container_name: account-service-db
+    environment:
+      POSTGRES_DB: account_db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5449:5432"
+    volumes:
+      - account_service_data:/var/lib/postgresql/data
+
 volumes:
   pawfectcare_iam_data:
   veterinary_service_data:
@@ -132,3 +144,4 @@ volumes:
   diagnostic_service_data:
   medical_record_service_data:
   profile_service_data:
+  account_service_data:

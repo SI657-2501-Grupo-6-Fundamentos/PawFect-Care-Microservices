@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import pe.upc.pawfectcaremicroservices.feedback.domain.model.queries.GetAllReviewsByMedicalAppointmentIdQuery;
 import pe.upc.pawfectcaremicroservices.feedback.domain.model.queries.GetAllReviewsQuery;
 import pe.upc.pawfectcaremicroservices.feedback.domain.model.queries.GetReviewByIdQuery;
 import pe.upc.pawfectcaremicroservices.feedback.domain.services.ReviewCommandService;
@@ -28,7 +29,7 @@ public class ReviewController {
         this.reviewQueryService = reviewQueryService;
         this.reviewCommandService = reviewCommandService;
     }
-    
+
     @PostMapping
     public ResponseEntity<ReviewResource> createResource(@RequestBody CreateReviewResource createReviewResource) {
         var createReviewCommand = CreateReviewCommandFromResourceAssembler.toCommandFromResource(createReviewResource);
@@ -43,11 +44,14 @@ public class ReviewController {
         return new ResponseEntity<>(reviewResource, HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public ResponseEntity<List<ReviewResource>> getAllReviews() {
-        var getAllReviewsQuery = new GetAllReviewsQuery();
-        var reviews = reviewQueryService.handle(getAllReviewsQuery);
-        var reviewResources = reviews.stream().map(ReviewResourceFromEntityAssembler::toResourceFromEntity).toList();
+    @GetMapping("/by-appointment/{medicalAppointmentId}")
+    public ResponseEntity<List<ReviewResource>> getAllReviewsByAppointmentId(@PathVariable Long medicalAppointmentId) {
+        var query = new GetAllReviewsByMedicalAppointmentIdQuery(medicalAppointmentId);
+        var reviews = reviewQueryService.handle(query);
+        var reviewResources = reviews.stream()
+                .map(ReviewResourceFromEntityAssembler::toResourceFromEntity)
+                .toList();
+
         return ResponseEntity.ok(reviewResources);
     }
 

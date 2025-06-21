@@ -30,6 +30,7 @@ public class ReviewQueryServiceImpl implements ReviewQueryService {
 
     @Override
     public List<Review> handle(GetAllReviewsByMedicalAppointmentIdQuery query) {
-        return reviewRepository.findAllByMedicalAppointmentId(query.medicalAppointmentId());
+        var reviews = reviewRepository.findAllByMedicalAppointmentId(query.medicalAppointmentId());
+        return reviews != null ? reviews : List.of();
     }
 }
