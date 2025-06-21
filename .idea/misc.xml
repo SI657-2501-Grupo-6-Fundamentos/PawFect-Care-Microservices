@@ -14,6 +14,10 @@
         <option value="$PROJECT_DIR$/veterinary-service/pom.xml" />
         <option value="$PROJECT_DIR$/veterinary-service/client-service/pom.xml" />
         <option value="$PROJECT_DIR$/client-service/pom.xml" />
+        <option value="$PROJECT_DIR$/veterinary-schedule-service/pom.xml" />
+        <option value="$PROJECT_DIR$/medical-record-service/pom.xml" />
+        <option value="$PROJECT_DIR$/schedule-service/pom.xml" />
+        <option value="$PROJECT_DIR$/diagnostic-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

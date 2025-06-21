@@ -30,13 +30,7 @@ public class Pet {
     private String animalBreed;
     @Enumerated(EnumType.STRING)
     private PetGender petGender;
-
-    @Setter
-    @Getter
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
-    @JsonIgnore
-    private Owner owner;
+    private Long ownerId;
 
     private Long medicalHistoryId;
 
