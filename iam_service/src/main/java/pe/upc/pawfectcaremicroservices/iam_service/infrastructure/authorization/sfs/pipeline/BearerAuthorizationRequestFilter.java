@@ -60,12 +60,14 @@ public class BearerAuthorizationRequestFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
         String path = request.getRequestURI();
-        // Usa AntPathMatcher para comparar patrones
+        LOGGER.info("Request path: {}", path); // <-- Agrega este log
         boolean isPublic = PUBLIC_PATHS.stream().anyMatch(pattern -> pathMatcher.match(pattern, path));
+        LOGGER.info("Is public: {}", isPublic); // <-- Y este
         if (isPublic) {
             filterChain.doFilter(request, response);
             return;
         }
+        // ... resto igual
         try {
             String token = tokenService.getBearerTokenFrom(request);
             LOGGER.info("Token: {}", token);

@@ -12,7 +12,6 @@
         <module name="pet-service" />
         <module name="schedule-service" />
         <module name="registry-service" />
-        <module name="gateway-service" />
         <module name="veterinary-service" />
         <module name="feedback-service" />
         <module name="account-service" />
@@ -31,6 +30,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="feedback" target="17" />
+      <module name="gateway-service" target="17" />
       <module name="medicalappointment" target="17" />
       <module name="petmanagement" target="17" />
     </bytecodeTargetLevel>
