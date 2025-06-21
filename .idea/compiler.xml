@@ -16,6 +16,7 @@
         <module name="veterinary-service" />
         <module name="feedback-service" />
         <module name="account-service" />
+        <module name="iam_service" />
         <module name="client-service" />
       </profile>
       <profile name="Annotation profile for profile-service" enabled="true">
@@ -30,7 +31,6 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="feedback" target="17" />
-      <module name="iam_service" target="17" />
       <module name="medicalappointment" target="17" />
       <module name="petmanagement" target="17" />
     </bytecodeTargetLevel>
@@ -42,6 +42,7 @@
       <module name="client-service" options="-parameters" />
       <module name="feedback-service" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
+      <module name="iam_service" options="-parameters" />
       <module name="medical-record-service" options="-parameters" />
       <module name="pet-service" options="-parameters" />
       <module name="profile-service" options="-parameters" />
