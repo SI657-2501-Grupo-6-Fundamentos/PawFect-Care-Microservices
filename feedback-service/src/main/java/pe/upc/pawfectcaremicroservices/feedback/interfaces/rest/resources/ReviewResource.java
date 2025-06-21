@@ -4,5 +4,5 @@ public record ReviewResource(
         Long id,
         String content,
         Integer rating,
-        Long veterinarianId) {
+        Long medicalAppointmentId) {
 }

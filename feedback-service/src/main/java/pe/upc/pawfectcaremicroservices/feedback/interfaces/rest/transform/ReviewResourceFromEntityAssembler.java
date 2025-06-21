@@ -9,6 +9,6 @@ public class ReviewResourceFromEntityAssembler {
                 entity.getId(),
                 entity.getContent(),
                 entity.getRating(),
-                entity.getVeterinarianId());
+                entity.getMedicalAppointmentId());
     }
 }

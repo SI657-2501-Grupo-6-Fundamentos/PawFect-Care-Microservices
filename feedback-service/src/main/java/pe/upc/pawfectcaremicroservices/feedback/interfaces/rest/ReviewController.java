@@ -4,7 +4,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import pe.upc.pawfectcaremicroservices.feedback.application.external.Veterinarian;
 import pe.upc.pawfectcaremicroservices.feedback.domain.model.queries.GetAllReviewsQuery;
 import pe.upc.pawfectcaremicroservices.feedback.domain.model.queries.GetReviewByIdQuery;
 import pe.upc.pawfectcaremicroservices.feedback.domain.services.ReviewCommandService;
@@ -49,9 +48,6 @@ public class ReviewController {
         var getAllReviewsQuery = new GetAllReviewsQuery();
         var reviews = reviewQueryService.handle(getAllReviewsQuery);
         var reviewResources = reviews.stream().map(ReviewResourceFromEntityAssembler::toResourceFromEntity).toList();
-
-        RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getForObject("http://localhost:8092/api/v1/veterinarians/1", Veterinarian.class);
         return ResponseEntity.ok(reviewResources);
     }
 

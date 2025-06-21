@@ -2,6 +2,7 @@ package pe.upc.pawfectcaremicroservices.feedback.application.internal;
 
 import org.springframework.stereotype.Service;
 //import pe.upc.pawfectcaremicroservices.feedback.application.acl.ExternalVeterinarianService;
+import pe.upc.pawfectcaremicroservices.feedback.application.external.clients.ExternalMedicalAppointment;
 import pe.upc.pawfectcaremicroservices.feedback.domain.model.aggregates.Review;
 import pe.upc.pawfectcaremicroservices.feedback.domain.model.commands.CreateReviewCommand;
 import pe.upc.pawfectcaremicroservices.feedback.domain.model.commands.UpdateReviewCommand;
@@ -13,20 +14,20 @@ import java.util.Optional;
 @Service
 public class ReviewCommandServiceImpl implements ReviewCommandService {
     private final ReviewRepository reviewRepository;
-    //private final ExternalVeterinarianService externalVeterinarianService;
+    private final ExternalMedicalAppointment externalMedicalAppointment;
 
-    public ReviewCommandServiceImpl(ReviewRepository reviewRepository/*, ExternalVeterinarianService externalVeterinarianService*/) {
+    public ReviewCommandServiceImpl(ReviewRepository reviewRepository, ExternalMedicalAppointment externalMedicalAppointment) {
         this.reviewRepository = reviewRepository;
-        //this.externalVeterinarianService = externalVeterinarianService;
+        this.externalMedicalAppointment = externalMedicalAppointment;
     }
 
     @Override
     public Long handle(CreateReviewCommand command) {
-
-        /*Veterinarian veterinarian = externalVeterinarianService.fetchVeterinarianById(command.veterinarianId()).orElseThrow(() -> new VeterinarianNotFoundException(command.veterinarianId()));*/
-        Review review = new Review(command);
-        /*review.setVeterinarian(veterinarian);*/
+        var review = new Review(command);
         try {
+            if (!externalMedicalAppointment.existsMedicalAppointmentById(command.medicalAppointmentId()))
+                throw new IllegalArgumentException("medicalAppointmentId does not exist");
+            review.setMedicalAppointmentId(command.medicalAppointmentId());
             reviewRepository.save(review);
         } catch (Exception e) {
             throw new IllegalArgumentException("Error while saving review: " + e.getMessage());
