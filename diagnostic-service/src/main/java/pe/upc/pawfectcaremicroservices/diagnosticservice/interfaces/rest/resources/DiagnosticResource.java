@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 
 public record DiagnosticResource(
         Long id,
-        String description,
         LocalDateTime diagnosticDate,
+        String description,
         DiagnosticType diagnosticType
 ) {
 }

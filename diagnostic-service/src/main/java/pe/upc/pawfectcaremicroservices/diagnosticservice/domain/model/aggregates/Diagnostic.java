@@ -1,11 +1,17 @@
 package pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.aggregates;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.commands.CreateDiagnosticCommand;
 import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.valueobjects.DiagnosticType;
 
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@Entity
+@Table(name = "diagnostics")
 public class Diagnostic {
 
     @Id
