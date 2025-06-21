@@ -71,7 +71,7 @@ spring:
         - id: diagnostic-service
           uri: lb://diagnostic-service
           predicates:
-            - Path=/diagnosis-service/**
+            - Path=/diagnostic-service/**
           filters:
             - StripPrefix=1
         # IAM Service - SOLO esta ruta para autenticación
