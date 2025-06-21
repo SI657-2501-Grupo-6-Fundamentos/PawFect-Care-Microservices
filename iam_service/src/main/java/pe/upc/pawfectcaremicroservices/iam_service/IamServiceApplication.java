@@ -2,8 +2,10 @@ package pe.upc.pawfectcaremicroservices.iam_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
+@EnableJpaAuditing // <-- Agrega esto
 public class IamServiceApplication {
 
 	public static void main(String[] args) {
