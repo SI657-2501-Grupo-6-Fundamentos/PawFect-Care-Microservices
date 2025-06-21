@@ -23,6 +23,8 @@ public class SecurityConfig {
                 .authorizeExchange(exchanges -> exchanges
                         .pathMatchers(
                                 "/api/auth/**",
+                                "/api/v1/authentication/**",
+                                "/iam_service/api/v1/authentication/**",
                                 "account-service/api/auth/**",
                                 "/swagger-ui.html",
                                 "/swagger-ui/**",

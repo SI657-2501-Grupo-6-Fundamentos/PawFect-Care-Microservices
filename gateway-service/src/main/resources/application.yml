@@ -74,6 +74,13 @@ spring:
             - Path=/diagnosis-service/**
           filters:
             - StripPrefix=1
+        # iam:
+        - id: iam-service
+          uri: lb://iam-service
+          predicates:
+            - Path=/iam_service/api/v1/authentication/**
+          filters:
+            - StripPrefix=1
 
 server:
   port: 8010
