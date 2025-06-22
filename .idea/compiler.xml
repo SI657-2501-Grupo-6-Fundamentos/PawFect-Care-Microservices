@@ -15,18 +15,10 @@
         <module name="gateway-service" />
         <module name="review-service" />
         <module name="veterinary-service" />
+        <module name="petowner-service" />
         <module name="account-service" />
         <module name="iam_service" />
         <module name="treatment-service" />
-        <module name="client-service" />
-      </profile>
-      <profile name="Annotation profile for profile-service" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.38/lombok-1.18.38.jar" />
-        </processorPath>
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -41,11 +33,11 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="account-service" options="-parameters" />
       <module name="appointment-service" options="-parameters" />
-      <module name="client-service" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
       <module name="iam_service" options="-parameters" />
       <module name="medical-record-service" options="-parameters" />
       <module name="pet-service" options="-parameters" />
+      <module name="petowner-service" options="-parameters" />
       <module name="profile-service" options="-parameters" />
       <module name="registry-service" options="-parameters" />
       <module name="review-service" options="-parameters" />
