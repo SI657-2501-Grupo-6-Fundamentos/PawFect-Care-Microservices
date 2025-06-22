@@ -14,8 +14,8 @@
         <module name="schedule-service" />
         <module name="registry-service" />
         <module name="gateway-service" />
+        <module name="review-service" />
         <module name="veterinary-service" />
-        <module name="feedback-service" />
         <module name="account-service" />
         <module name="iam_service" />
         <module name="client-service" />
@@ -42,13 +42,13 @@
       <module name="appointment-service" options="-parameters" />
       <module name="client-service" options="-parameters" />
       <module name="diagnostic-service" options="-parameters" />
-      <module name="feedback-service" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
       <module name="iam_service" options="-parameters" />
       <module name="medical-record-service" options="-parameters" />
       <module name="pet-service" options="-parameters" />
       <module name="profile-service" options="-parameters" />
       <module name="registry-service" options="-parameters" />
+      <module name="review-service" options="-parameters" />
       <module name="schedule-service" options="-parameters" />
       <module name="veterinary-service" options="-parameters" />
     </option>

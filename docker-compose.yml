@@ -49,17 +49,17 @@ services:
     volumes:
       - client_service_data:/var/lib/postgresql/data
 
-  feedback-service-db:
+  review-service-db:
     image: postgres:15
-    container_name: feedback-service-db
+    container_name: review-service-db
     environment:
-      POSTGRES_DB: feedback
+      POSTGRES_DB: review
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin123
     ports:
       - "5443:5432"
     volumes:
-      - feedback_service_data:/var/lib/postgresql/data
+      - review_service_data:/var/lib/postgresql/data
 
   appointment-service-db:
     image: postgres:15
@@ -138,7 +138,7 @@ volumes:
   veterinary_service_data:
   pet_service_data:
   client_service_data:
-  feedback_service_data:
+  review_service_data:
   appointment_service_data:
   schedule_service_data:
   diagnostic_service_data:

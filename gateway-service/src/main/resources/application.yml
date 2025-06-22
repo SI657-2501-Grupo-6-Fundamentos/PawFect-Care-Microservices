@@ -46,11 +46,11 @@ spring:
             - Path=/appointment-service/**
           filters:
             - StripPrefix=1
-        # Feedback Service
-        - id: feedback
-          uri: lb://feedback
+        # Review Service
+        - id: review-service
+          uri: lb://review-service
           predicates:
-            - Path=/feedback-service/**
+            - Path=/review-service/**
           filters:
             - StripPrefix=1
         # Account Service
