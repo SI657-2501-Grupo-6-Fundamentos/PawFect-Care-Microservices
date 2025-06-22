@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/PawFect-Care-Microservices.iml" filepath="$PROJECT_DIR$/.idea/PawFect-Care-Microservices.iml" />
+      <module fileurl="file://$PROJECT_DIR$/feedback-service/feedback-service.iml" filepath="$PROJECT_DIR$/feedback-service/feedback-service.iml" />
     </modules>
   </component>
 </project>

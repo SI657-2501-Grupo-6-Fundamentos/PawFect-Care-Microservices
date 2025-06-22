@@ -43,8 +43,8 @@ public class SecurityConfig {
                                 "/schedule-service/**",
                                 "veterinarian-service/**",
                                 "/veterinarian-service/**",
-                                "diagnostic-service/**",
-                                "/diagnosis-service/**",
+                                "treatment-service/**",
+                                "/treatment-service/**",
                                 "/swagger-ui.html",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**"

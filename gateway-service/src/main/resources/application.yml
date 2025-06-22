@@ -67,11 +67,11 @@ spring:
             - Path=/profile-service/**
           filters:
             - StripPrefix=1
-        #Diagnosis Service
-        - id: diagnostic-service
-          uri: lb://diagnostic-service
+        #Treatment Service
+        - id: treatment-service
+          uri: lb://treatment-service
           predicates:
-            - Path=/diagnostic-service/**
+            - Path=/treatment-service/**
           filters:
             - StripPrefix=1
         # IAM Service - SOLO esta ruta para autenticación
