@@ -3,8 +3,8 @@ gateway
 iam
 veterinary
 veteriny schedule service
-client(pet owner)
-pet service(pet managment
+pet owner
+pet service
 medical record
 medical appoiment
 diagnostic service
