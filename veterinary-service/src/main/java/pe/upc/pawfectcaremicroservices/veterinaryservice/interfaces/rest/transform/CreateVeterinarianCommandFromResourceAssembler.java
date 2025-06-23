@@ -6,6 +6,7 @@ import pe.upc.pawfectcaremicroservices.veterinaryservice.interfaces.rest.resourc
 public class CreateVeterinarianCommandFromResourceAssembler {
     public static CreateVeterinarianCommand toCommandFromResource(CreateVeterinarianResource resource) {
         return new CreateVeterinarianCommand(
+                resource.userId(),
                 resource.fullName(),
                 resource.phoneNumber(),
                 resource.email(),

@@ -14,6 +14,7 @@ public class Veterinarian {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long userId;
     private String fullName;
     private String phoneNumber;
     private String email;
@@ -30,6 +31,7 @@ public class Veterinarian {
     }
 
     public Veterinarian(CreateVeterinarianCommand createVeterinarianCommand) {
+        this.userId = createVeterinarianCommand.userId();
         this.fullName = createVeterinarianCommand.fullName();
         this.phoneNumber = createVeterinarianCommand.phoneNumber();
         this.email = createVeterinarianCommand.email();

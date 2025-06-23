@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import pe.upc.pawfectcaremicroservices.petownerservice.domain.model.queries.GetAllPetOwnersQuery;
 import pe.upc.pawfectcaremicroservices.petownerservice.domain.model.queries.GetPetOwnerByIdQuery;
 import pe.upc.pawfectcaremicroservices.petownerservice.domain.services.PetOwnerCommandService;
-import pe.upc.pawfectcaremicroservices.petownerservice.domain.services.OwnerQueryService;
+import pe.upc.pawfectcaremicroservices.petownerservice.domain.services.PetOwnerQueryService;
 import pe.upc.pawfectcaremicroservices.petownerservice.interfaces.rest.resources.CreatePetOwnerResource;
 import pe.upc.pawfectcaremicroservices.petownerservice.interfaces.rest.resources.PetOwnerResource;
 import pe.upc.pawfectcaremicroservices.petownerservice.interfaces.rest.resources.UpdatePetOwnerResource;
@@ -23,17 +23,17 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping(value = "/api/v1/petowners", produces = APPLICATION_JSON_VALUE)
 public class PetOwnersController {
 
-    private final OwnerQueryService ownerQueryService;
+    private final PetOwnerQueryService petOwnerQueryService;
     private final PetOwnerCommandService petOwnerCommandService;
-    public PetOwnersController(OwnerQueryService ownerQueryService, PetOwnerCommandService petOwnerCommandService) {
+    public PetOwnersController(PetOwnerQueryService petOwnerQueryService, PetOwnerCommandService petOwnerCommandService) {
         this.petOwnerCommandService = petOwnerCommandService;
-        this.ownerQueryService = ownerQueryService;
+        this.petOwnerQueryService = petOwnerQueryService;
     }
 
     @GetMapping("/{petownerId}")
     public ResponseEntity<PetOwnerResource> getOwnerById(@PathVariable Long ownerId) {
         var getOwnerByIdQuery = new GetPetOwnerByIdQuery(ownerId);
-        var owner = ownerQueryService.handle(getOwnerByIdQuery);
+        var owner = petOwnerQueryService.handle(getOwnerByIdQuery);
         if (owner.isEmpty()) return ResponseEntity.badRequest().build();
         var ownerResource = PetOwnerResourceFromEntityAssembler.toResourceFromEntity(owner.get());
         return ResponseEntity.ok(ownerResource);
@@ -42,7 +42,7 @@ public class PetOwnersController {
     @GetMapping
     public ResponseEntity<List<PetOwnerResource>> getAllOwners() {
         var getAllOwnersQuery = new GetAllPetOwnersQuery();
-        var owners = ownerQueryService.handle(getAllOwnersQuery);
+        var owners = petOwnerQueryService.handle(getAllOwnersQuery);
         var petResources = owners.stream().map(PetOwnerResourceFromEntityAssembler::toResourceFromEntity).toList();
         return ResponseEntity.ok(petResources);
     }
@@ -55,7 +55,7 @@ public class PetOwnersController {
             return ResponseEntity.badRequest().build();
         }
         var getOwnerByIdQuery = new GetPetOwnerByIdQuery(ownerId);
-        var owner = ownerQueryService.handle(getOwnerByIdQuery);
+        var owner = petOwnerQueryService.handle(getOwnerByIdQuery);
      if (owner.isEmpty()) return ResponseEntity.badRequest().build();
      var ownerResource = PetOwnerResourceFromEntityAssembler.toResourceFromEntity(owner.get());
         return new ResponseEntity<>(ownerResource, HttpStatus.CREATED);
