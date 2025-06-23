@@ -7,6 +7,7 @@ public class VeterinarianResourceFromEntityAssembler {
     public static VeterinarianResource toResourceFromEntity(Veterinarian entity) {
         return new VeterinarianResource(
                 entity.getId(),
+                entity.getUserId(),
                 entity.getFullName(),
                 entity.getPhoneNumber(),
                 entity.getEmail(),

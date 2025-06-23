@@ -4,6 +4,7 @@ import pe.upc.pawfectcaremicroservices.veterinaryservice.domain.model.valueobjec
 
 public record VeterinarianResource(
         Long id,
+        Long userId,
         String fullName,
         String phoneNumber,
         String email,
