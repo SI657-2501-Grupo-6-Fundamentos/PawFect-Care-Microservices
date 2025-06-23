@@ -19,13 +19,20 @@ public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String appointmentName;
+
     private LocalDateTime registrationDate;
+
     private LocalDateTime endDate;
+
     @Enumerated(EnumType.STRING)
     private AppointmentStatus status;
+
     private Float estimatedCost;
+
     private Long petId;
+
     private Long veterinarianId;
 
 

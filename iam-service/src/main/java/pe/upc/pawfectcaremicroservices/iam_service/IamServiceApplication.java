@@ -5,11 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @SpringBootApplication
-@EnableJpaAuditing // <-- Agrega esto
+@EnableJpaAuditing
 public class IamServiceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(IamServiceApplication.class, args);
 	}
-
 }
