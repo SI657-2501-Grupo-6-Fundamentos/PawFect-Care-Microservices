@@ -10,6 +10,7 @@ public class PetResourceFromEntityAssembler {
                 entity.getPetName(),
                 entity.getBirthDate(),
                 entity.getRegistrationDate(),
+                entity.getAnimalType(),
                 entity.getAnimalBreed(),
                 entity.getPetGender(),
                 entity.getOwnerId());

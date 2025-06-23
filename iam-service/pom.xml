@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>pe.upc.pawfectcaremicroservices</groupId>
-	<artifactId>iam_service</artifactId>
+	<artifactId>iam-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>iam_service</name>
+	<name>iam-service</name>
 	<description>iam service</description>
 	<url/>
 	<licenses>

@@ -1,13 +1,13 @@
-package pe.upc.pawfectcaremicroservices.medicalappointment;
+package pe.upc.pawfectcaremicroservices.review;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MedicalappointmentApplication {
+public class ReviewServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MedicalappointmentApplication.class, args);
+		SpringApplication.run(ReviewServiceApplication.class, args);
 	}
 
 }

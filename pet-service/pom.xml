@@ -11,8 +11,8 @@
 	<groupId>pe.upc.pawfectcaremicroservices</groupId>
 	<artifactId>pet-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>pet-management</name>
-	<description>Pet Management Micro Service for Pawfect Care Backend Application</description>
+	<name>pet-service</name>
+	<description>Pet Service Micro Service for Pawfect Care Backend Application</description>
 	<url/>
 	<licenses>
 		<license/>

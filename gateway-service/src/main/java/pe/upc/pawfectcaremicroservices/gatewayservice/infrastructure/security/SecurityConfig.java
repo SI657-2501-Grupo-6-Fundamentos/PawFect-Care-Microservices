@@ -24,7 +24,8 @@ public class SecurityConfig {
                         .pathMatchers(
                                 "/api/auth/**",
                                 "/api/v1/authentication/**",
-                                "/iam_service/api/v1/authentication/**",
+                                "/iam-service/api/v1/**",
+                                "iam-service/api/v1/**",
                                 "account-service/api/auth/**",
                                 "/account-service/api/auth/**",
                                 "pet-service/**",
