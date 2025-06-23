@@ -1,7 +1,6 @@
 registry
 gateway
 iam
-profile
 veterinary
 veteriny schedule service
 client(pet owner)
