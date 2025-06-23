@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>pe.upc.pawfectcaremicroservices</groupId>
-	<artifactId>petowner-service</artifactId>
+	<artifactId>pet-owner-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>petowner-service</name>
-	<description>petowner-service</description>
+	<name>pet-owner-service</name>
+	<description>pet-owner-service</description>
 	<url/>
 	<licenses>
 		<license/>

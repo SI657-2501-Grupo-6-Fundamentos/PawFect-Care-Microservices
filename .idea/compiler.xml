@@ -14,14 +14,15 @@
         <module name="registry-service" />
         <module name="gateway-service" />
         <module name="review-service" />
+        <module name="pet-owner-service" />
         <module name="veterinary-service" />
-        <module name="petowner-service" />
         <module name="account-service" />
         <module name="iam_service" />
         <module name="treatment-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="client-service" target="17" />
       <module name="feedback" target="17" />
       <module name="feedback-service" target="17" />
       <module name="medicalappointment" target="17" />
@@ -36,8 +37,8 @@
       <module name="gateway-service" options="-parameters" />
       <module name="iam_service" options="-parameters" />
       <module name="medical-record-service" options="-parameters" />
+      <module name="pet-owner-service" options="-parameters" />
       <module name="pet-service" options="-parameters" />
-      <module name="petowner-service" options="-parameters" />
       <module name="profile-service" options="-parameters" />
       <module name="registry-service" options="-parameters" />
       <module name="review-service" options="-parameters" />

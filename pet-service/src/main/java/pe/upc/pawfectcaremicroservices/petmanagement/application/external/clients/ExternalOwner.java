@@ -14,7 +14,7 @@ public class ExternalOwner {
 
     public boolean existsOwnerById(Long ownerId) {
         try {
-            restTemplate.getForObject("http://localhost:8010/client-service/api/v1/owners/{ownerId}", Object.class, ownerId);
+            restTemplate.getForObject("http://localhost:8010/pet-owner-service/api/v1/owners/{ownerId}", Object.class, ownerId);
             return true;
         } catch (HttpClientErrorException e) {
             System.err.println("HTTP Error: " + e.getStatusCode());

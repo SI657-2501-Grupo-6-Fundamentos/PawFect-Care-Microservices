@@ -44,7 +44,13 @@ public class PetCommandServicelmpl implements PetCommandService {
         if (result.isEmpty()) throw new IllegalArgumentException("Pet does not exist");
         var petToUpdate = result.get();
         try {
-            var updatedPet = petRepository.save(petToUpdate.updateInformation(command.petName(), command.birthDate(), command.registrationDate(), command.animalBreed(), command.petGender()));
+            var updatedPet = petRepository.save(petToUpdate.updateInformation(
+                    command.petName(),
+                    command.birthDate(),
+                    command.registrationDate(),
+                    command.animalType(),
+                    command.animalBreed(),
+                    command.petGender()));
             return Optional.of(updatedPet);
         } catch (Exception e) {
             throw new IllegalArgumentException("Error while updating pet: " + e.getMessage());

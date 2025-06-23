@@ -4,11 +4,11 @@ spring:
   cloud:
     gateway:
       routes:
-        # Client Service
-        - id: client-service
-          uri: lb://client-service
+        # Pet Owner Service
+        - id: pet-owner-service
+          uri: lb://pet-owner-service
           predicates:
-            - Path=/client-service/**
+            - Path=/pet-owner-service/**
           filters:
             - StripPrefix=1
         # Pet Service
@@ -60,13 +60,6 @@ spring:
             - Path=/account-service/**
           filters:
             - StripPrefix=1
-        # Profile Service
-        - id: profile-service
-          uri: lb://profile-service
-          predicates:
-            - Path=/profile-service/**
-          filters:
-            - StripPrefix=1
         #Treatment Service
         - id: treatment-service
           uri: lb://treatment-service
@@ -88,13 +81,7 @@ spring:
             - Path=/api/v1/users_admin/registro
           filters:
             - StripPrefix=0
-        # Profile Service
-        - id: profile-service
-          uri: lb://profile-service
-          predicates:
-            - Path=/profile-service/**, /api/v1/profiles/**
-          filters:
-            - StripPrefix=1
+
 
 server:
   port: 8010
