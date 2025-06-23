@@ -68,10 +68,10 @@ spring:
           filters:
             - StripPrefix=1
         # IAM Service - SOLO esta ruta para autenticación
-        - id: iam-service-auth
+        - id: iam-service
           uri: lb://iam-service
           predicates:
-            - Path=/api/v1/authentication/**
+            - Path=/iam-service/**
           filters:
             - StripPrefix=0
         # IAM Service - registro admin
