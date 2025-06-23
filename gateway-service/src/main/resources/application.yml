@@ -12,8 +12,8 @@ spring:
           filters:
             - StripPrefix=1
         # Pet Service
-        - id: pet-management
-          uri: lb://pet-management
+        - id: pet-service
+          uri: lb://pet-service
           predicates:
             - Path=/pet-service/**
           filters:

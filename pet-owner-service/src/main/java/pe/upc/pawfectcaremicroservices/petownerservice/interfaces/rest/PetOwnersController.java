@@ -20,7 +20,7 @@ import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(value = "/api/v1/petowners", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/v1/pet-owners", produces = APPLICATION_JSON_VALUE)
 public class PetOwnersController {
 
     private final PetOwnerQueryService petOwnerQueryService;
@@ -30,9 +30,9 @@ public class PetOwnersController {
         this.petOwnerQueryService = petOwnerQueryService;
     }
 
-    @GetMapping("/{petownerId}")
-    public ResponseEntity<PetOwnerResource> getOwnerById(@PathVariable Long ownerId) {
-        var getOwnerByIdQuery = new GetPetOwnerByIdQuery(ownerId);
+    @GetMapping("/{petOwnerId}")
+    public ResponseEntity<PetOwnerResource> getOwnerById(@PathVariable Long petOwnerId) {
+        var getOwnerByIdQuery = new GetPetOwnerByIdQuery(petOwnerId);
         var owner = petOwnerQueryService.handle(getOwnerByIdQuery);
         if (owner.isEmpty()) return ResponseEntity.badRequest().build();
         var ownerResource = PetOwnerResourceFromEntityAssembler.toResourceFromEntity(owner.get());
@@ -61,9 +61,9 @@ public class PetOwnersController {
         return new ResponseEntity<>(ownerResource, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{petownerId}")
-    public ResponseEntity<PetOwnerResource> updateOwner(@PathVariable Long ownerId, @RequestBody UpdatePetOwnerResource updatePetOwnerResource) {
-        var updateOwnerCommand = UpdatePetOwnerCommandFromResourceAssembler.toCommandFromResource(ownerId, updatePetOwnerResource);
+    @PutMapping("/{petOwnerId}")
+    public ResponseEntity<PetOwnerResource> updateOwner(@PathVariable Long petOwnerId, @RequestBody UpdatePetOwnerResource updatePetOwnerResource) {
+        var updateOwnerCommand = UpdatePetOwnerCommandFromResourceAssembler.toCommandFromResource(petOwnerId, updatePetOwnerResource);
         var updatedOwner = petOwnerCommandService.handle(updateOwnerCommand);
         if (updatedOwner.isEmpty()) {
             return ResponseEntity.badRequest().build();
