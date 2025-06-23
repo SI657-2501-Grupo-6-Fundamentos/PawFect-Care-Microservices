@@ -5,6 +5,6 @@ import pe.upc.pawfectcaremicroservices.account_service.domain.model.aggregates.U
 import java.util.Optional;
 
 public interface JpaUserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByEmail(String email);
-    boolean existsByEmail(String email);
+    Optional<User> findByUserName(String userName);
+    boolean existsByUserName(String userName);
 }

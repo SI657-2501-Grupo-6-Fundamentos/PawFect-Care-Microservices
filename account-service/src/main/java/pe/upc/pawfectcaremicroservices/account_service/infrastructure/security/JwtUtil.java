@@ -9,9 +9,9 @@ public class JwtUtil {
     private final String jwtSecret = "secret";
     private final long jwtExpirationMs = 86400000;
 
-    public String generateToken(String email) {
+    public String generateToken(String userName) {
         return Jwts.builder()
-                .setSubject(email)
+                .setSubject(userName)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date((new Date()).getTime() + jwtExpirationMs))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)

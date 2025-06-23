@@ -7,7 +7,7 @@ public class UserResourceAssembler {
     public static UserResource toResource(User user) {
         UserResource resource = new UserResource();
         resource.setId(user.getId());
-        resource.setEmail(user.getEmail());
+        resource.setUserName(user.getUserName());
         resource.setRoles(
                 user.getRoles().stream()
                         .map(r -> r.getName().name())

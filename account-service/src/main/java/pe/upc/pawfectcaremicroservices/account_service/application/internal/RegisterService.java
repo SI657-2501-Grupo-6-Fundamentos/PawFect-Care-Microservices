@@ -21,9 +21,9 @@ public class RegisterService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User register(String email, String password, String roleName) {
-        if (userRepository.existsByEmail(email)) {
-            throw new IllegalArgumentException("Email ya registrado");
+    public User register(String userName, String password, String roleName) {
+        if (userRepository.existsByUserName(userName)) {
+            throw new IllegalArgumentException("Usuario ya registrado");
         }
         if (password.length() < 6) {
             throw new IllegalArgumentException("La contraseña debe tener al menos 6 caracteres");
@@ -37,7 +37,7 @@ public class RegisterService {
         Role role = roleRepository.findByName(enumRole)
                 .orElseThrow(() -> new IllegalArgumentException("Rol no válido"));
         User user = User.builder()
-                .email(email)
+                .userName(userName)
                 .password(passwordEncoder.encode(password))
                 .roles(Set.of(role))
                 .build();

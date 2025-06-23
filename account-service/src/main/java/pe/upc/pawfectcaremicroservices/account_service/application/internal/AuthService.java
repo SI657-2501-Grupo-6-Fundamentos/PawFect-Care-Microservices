@@ -18,12 +18,12 @@ public class AuthService {
         this.jwtUtil = jwtUtil;
     }
 
-    public String login(String email, String password) {
-        User user = userRepository.findByEmail(email)
+    public String login(String userName, String password) {
+        User user = userRepository.findByUserName(userName)
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado"));
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new IllegalArgumentException("Contraseña incorrecta");
         }
-        return jwtUtil.generateToken(email);
+        return jwtUtil.generateToken(userName);
     }
 }

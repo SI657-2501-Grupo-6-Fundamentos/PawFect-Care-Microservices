@@ -5,14 +5,14 @@ import lombok.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "userName"))
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String email;
+    private String userName;
 
     @Column(nullable = false)
     private String password;

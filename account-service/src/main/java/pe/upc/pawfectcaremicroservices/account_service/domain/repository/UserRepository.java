@@ -4,7 +4,7 @@ import pe.upc.pawfectcaremicroservices.account_service.domain.model.aggregates.U
 import java.util.Optional;
 
 public interface UserRepository {
-    Optional<User> findByEmail(String email);
+    Optional<User> findByUserName(String userName);
     User save(User user);
-    boolean existsByEmail(String email);
+    boolean existsByUserName(String userName);
 }

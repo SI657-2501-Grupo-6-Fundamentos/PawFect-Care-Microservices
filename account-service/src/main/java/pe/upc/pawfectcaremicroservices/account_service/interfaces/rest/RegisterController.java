@@ -17,7 +17,7 @@ public class RegisterController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
-        var user = registerService.register(request.getEmail(), request.getPassword(), request.getRole());
+        var user = registerService.register(request.getUserName(), request.getPassword(), request.getRole());
         return ResponseEntity.ok(UserResourceAssembler.toResource(user));
     }
 }

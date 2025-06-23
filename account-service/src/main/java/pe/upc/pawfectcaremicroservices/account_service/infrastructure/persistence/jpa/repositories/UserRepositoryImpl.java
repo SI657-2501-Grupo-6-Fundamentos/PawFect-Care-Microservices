@@ -3,7 +3,7 @@ package pe.upc.pawfectcaremicroservices.account_service.infrastructure.persisten
 import org.springframework.stereotype.Repository;
 import pe.upc.pawfectcaremicroservices.account_service.domain.model.aggregates.User;
 import pe.upc.pawfectcaremicroservices.account_service.domain.repository.UserRepository;
-import pe.upc.pawfectcaremicroservices.account_service.infrastructure.persistence.jpa.repositories.JpaUserRepository;
+
 import java.util.Optional;
 
 @Repository
@@ -15,8 +15,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Optional<User> findByEmail(String email) {
-        return jpaRepo.findByEmail(email);
+    public Optional<User> findByUserName(String userName) {
+        return jpaRepo.findByUserName(userName);
     }
 
     @Override
@@ -25,7 +25,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public boolean existsByEmail(String email) {
-        return jpaRepo.existsByEmail(email);
+    public boolean existsByUserName(String userName) {
+        return jpaRepo.existsByUserName(userName);
     }
 }

@@ -13,7 +13,7 @@ public class UserDomainServiceImpl implements UserDomainService {
 
     @Override
     public boolean isEmailUnique(String email) {
-        return !userRepository.existsByEmail(email);
+        return !userRepository.existsByUserName(email);
     }
 
     @Override
