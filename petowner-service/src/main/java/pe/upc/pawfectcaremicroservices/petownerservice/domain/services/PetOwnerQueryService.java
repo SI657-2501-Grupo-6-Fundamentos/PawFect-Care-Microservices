@@ -7,7 +7,7 @@ import pe.upc.pawfectcaremicroservices.petownerservice.domain.model.queries.GetP
 import java.util.List;
 import java.util.Optional;
 
-public interface OwnerQueryService {
+public interface PetOwnerQueryService {
   List<PetOwner> handle(GetAllPetOwnersQuery query);
   Optional<PetOwner> handle(GetPetOwnerByIdQuery query);
 }
