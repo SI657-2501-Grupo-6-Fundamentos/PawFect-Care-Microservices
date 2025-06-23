@@ -85,17 +85,18 @@ services:
     volumes:
       - schedule_service_data:/var/lib/postgresql/data
 
-  diagnostic-service-db:
+  treatment-service-db:
     image: postgres:15
-    container_name: diagnostic-service-db
+    container_name: treatment-service-db
     environment:
-      POSTGRES_DB: diagnostic
+      POSTGRES_DB: treatment
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin123
     ports:
       - "5446:5432"
     volumes:
       - diagnostic_service_data:/var/lib/postgresql/data
+
 
   medical-record-service-db:
     image: postgres:15
@@ -133,6 +134,19 @@ services:
     volumes:
       - account_service_data:/var/lib/postgresql/data
 
+  treatment2-service-db:
+    image: postgres:15
+    container_name: treatment2-service-db
+    environment:
+      POSTGRES_DB: treatment2
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5450:5432"
+    volumes:
+      - treatment2_service_data:/var/lib/postgresql/data
+
+
 volumes:
   pawfectcare_iam_data:
   veterinary_service_data:
@@ -145,3 +159,5 @@ volumes:
   medical_record_service_data:
   profile_service_data:
   account_service_data:
+  treatment2_service_data:
+

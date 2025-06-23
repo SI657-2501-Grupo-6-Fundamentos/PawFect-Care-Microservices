@@ -7,5 +7,5 @@ pet owner
 pet service
 medical record
 medical appoiment
-diagnostic service
+treatment-diagnostic service
 feedback service (reviews)
