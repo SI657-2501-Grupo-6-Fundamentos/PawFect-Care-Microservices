@@ -3,6 +3,8 @@ package pe.upc.pawfectcaremicroservices.medicalappointment.interfaces.rest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pe.upc.pawfectcaremicroservices.medicalappointment.domain.model.queries.GetAllAppointmentsByPetIdQuery;
+import pe.upc.pawfectcaremicroservices.medicalappointment.domain.model.queries.GetAllAppointmentsByVeterinarianIdQuery;
 import pe.upc.pawfectcaremicroservices.medicalappointment.domain.model.queries.GetAllAppointmentsQuery;
 import pe.upc.pawfectcaremicroservices.medicalappointment.domain.model.queries.GetAppointmentByIdQuery;
 import pe.upc.pawfectcaremicroservices.medicalappointment.domain.services.AppointmentCommandService;
@@ -33,6 +35,13 @@ public class AppointmentController {
         this.appointmentCommandService = appointmentCommandService;
         this.appointmentQueryService = appointmentQueryService;
     }
+
+    /**
+     * Creates a new appointment.
+     *
+     * @param createAppointmentResource the resource containing the appointment details
+     * @return the created appointment resource, or a bad request response if creation fails
+     */
     @PostMapping
     public ResponseEntity<AppointmentResource> createAppointment(@RequestBody CreateAppointmentResource createAppointmentResource) {
         var createAppointmentCommand = CreateAppointmentCommandFromResourceAssembler.toCommandFromResource(createAppointmentResource);
@@ -50,15 +59,26 @@ public class AppointmentController {
         return new ResponseEntity<>(appointmentResource, HttpStatus.CREATED);
     }
 
+    /**
+     * Retrieves an appointment by its ID.
+     *
+     * @param appointmentId the ID of the appointment to retrieve
+     * @return the appointment resource if found, or a bad request response if not found
+     */
     @GetMapping("/{appointmentId}")
     public ResponseEntity<AppointmentResource> getAppointmentById(@PathVariable Long appointmentId) {
         var getAppointmentByIdQuery = new GetAppointmentByIdQuery(appointmentId);
         var appointment = appointmentQueryService.handle(getAppointmentByIdQuery);
         if (appointment.isEmpty()) return ResponseEntity.badRequest().build();
-        var appointmentResource = AppointmentResourceFromEntityAssembler.toResourceFromEntity(appointment.get());
+        var appointmentResource = AppointmentResourceFromEntityAssembler
+                .toResourceFromEntity(appointment.get());
         return ResponseEntity.ok(appointmentResource);
     }
 
+    /**
+     * Retrieves all appointments.
+     * @return a list of all appointment resources
+     */
     @GetMapping
     public ResponseEntity<List<AppointmentResource>> getAllAppointments() {
         var getAllAppointmentsQuery = new GetAllAppointmentsQuery();
@@ -67,6 +87,42 @@ public class AppointmentController {
         return ResponseEntity.ok(appointmentResources);
     }
 
+    /**
+     * Retrieves all appointments for a specific pet.
+     * @param petId the ID of the pet
+     * @return a list of appointment resources for the specified pet
+     */
+    @GetMapping("/pet/{petId}")
+    public ResponseEntity<List<AppointmentResource>> getAppointmentsByPetId(@PathVariable Long petId) {
+        var getAllAppointmentsByPetQuery = new GetAllAppointmentsByPetIdQuery(petId);
+        var appointments = appointmentQueryService.handle(getAllAppointmentsByPetQuery);
+        var appointmentResources = appointments.stream()
+                .map(AppointmentResourceFromEntityAssembler::toResourceFromEntity)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(appointmentResources);
+    }
+
+    /**
+     * Retrieves all appointments for a specific veterinarian.
+     * @param veterinarianId the ID of the veterinarian
+     * @return a list of appointment resources for the specified veterinarian
+     */
+    @GetMapping("/veterinarian/{veterinarianId}")
+    public ResponseEntity<List<AppointmentResource>> getAppointmentsByVeterinarianId(@PathVariable Long veterinarianId) {
+        var getAllAppointmentsByVeterinarianQuery = new GetAllAppointmentsByVeterinarianIdQuery(veterinarianId);
+        var appointments = appointmentQueryService.handle(getAllAppointmentsByVeterinarianQuery);
+        var appointmentResources = appointments.stream().map(AppointmentResourceFromEntityAssembler::toResourceFromEntity).collect(Collectors.toList());
+        return ResponseEntity.ok(appointmentResources);
+    }
+
+
+    /**
+     * Updates an existing appointment.
+     *
+     * @param appointmentId the ID of the appointment to update
+     * @param updateAppointmentResource the resource containing the updated appointment details
+     * @return the updated appointment resource, or a bad request response if the update fails
+     */
     @PutMapping("/{appointmentId}")
     public ResponseEntity<AppointmentResource> updateAppointment(@PathVariable Long appointmentId, @RequestBody UpdateAppointmentResource updateAppointmentResource) {
         var updateAppointmentCommand = UpdateAppointmentCommandFromResourceAssembler.toCommandFromResource(appointmentId, updateAppointmentResource);
@@ -77,9 +133,4 @@ public class AppointmentController {
         var appointmentResource = AppointmentResourceFromEntityAssembler.toResourceFromEntity(updatedAppointment.get());
         return ResponseEntity.ok(appointmentResource);
     }
-
-
-
-
-
 }

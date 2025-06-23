@@ -6,10 +6,10 @@ import java.time.LocalDateTime;
 
 
 public record UpdateAppointmentResource(
-                                        String appointmentName,
-                                        LocalDateTime registrationDate,
-                                        LocalDateTime endDate,
-                                        AppointmentStatus status,
-                                        Float estimatedCost
+        String appointmentName,
+        LocalDateTime registrationDate,
+        LocalDateTime endDate,
+        AppointmentStatus status,
+        Float estimatedCost
 ) {
 }

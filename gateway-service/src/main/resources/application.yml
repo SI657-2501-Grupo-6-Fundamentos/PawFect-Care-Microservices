@@ -40,8 +40,8 @@ spring:
           filters:
             - StripPrefix=1
         # Appointment Service
-        - id: appointment-management
-          uri: lb://appointment-management
+        - id: appointment-service
+          uri: lb://appointment-service
           predicates:
             - Path=/appointment-service/**
           filters:
