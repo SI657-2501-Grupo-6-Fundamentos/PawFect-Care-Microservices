@@ -1,0 +1,91 @@
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      routes:
+        # Pet Owner Service
+        - id: pet-owner-service
+          uri: lb://pet-owner-service
+          predicates:
+            - Path=/pet-owner-service/**
+          filters:
+            - StripPrefix=1
+        # Pet Service
+        - id: pet-service
+          uri: lb://pet-service
+          predicates:
+            - Path=/pet-service/**
+          filters:
+            - StripPrefix=1
+        # Veterinary Service
+        - id: veterinary-service
+          uri: lb://veterinary-service
+          predicates:
+            - Path=/veterinarian-service/**
+          filters:
+            - StripPrefix=1
+        # Schedule Service
+        - id: schedule-service
+          uri: lb://schedule-service
+          predicates:
+            - Path=/schedule-service/**
+          filters:
+            - StripPrefix=1
+        # Medical Record Service
+        - id: medical-record-service
+          uri: lb://medical-record-service
+          predicates:
+            - Path=/medical-record-service/**
+          filters:
+            - StripPrefix=1
+        # Appointment Service
+        - id: appointment-service
+          uri: lb://appointment-service
+          predicates:
+            - Path=/appointment-service/**
+          filters:
+            - StripPrefix=1
+        # Review Service
+        - id: review-service
+          uri: lb://review-service
+          predicates:
+            - Path=/review-service/**
+          filters:
+            - StripPrefix=1
+        # Account Service
+        - id: account-service
+          uri: lb://account-service
+          predicates:
+            - Path=/account-service/**
+          filters:
+            - StripPrefix=1
+        #Treatment Service
+        - id: treatment-service
+          uri: lb://treatment-service
+          predicates:
+            - Path=/treatment-service/**
+          filters:
+            - StripPrefix=1
+        # IAM Service - SOLO esta ruta para autenticación
+        - id: iam-service
+          uri: lb://iam-service
+          predicates:
+            - Path=/iam-service/**
+          filters:
+            - StripPrefix=0
+        # IAM Service - registro admin
+        - id: iam-service-admin-registro
+          uri: lb://iam-service
+          predicates:
+            - Path=/api/v1/users_admin/registro
+          filters:
+            - StripPrefix=0
+
+
+server:
+  port: 8010
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8090/eureka/

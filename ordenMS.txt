@@ -1,0 +1,11 @@
+registry
+gateway
+iam
+veterinary
+veteriny schedule service
+pet owner
+pet service
+medical record
+medical appoiment
+treatment-diagnostic service
+feedback service (reviews)
