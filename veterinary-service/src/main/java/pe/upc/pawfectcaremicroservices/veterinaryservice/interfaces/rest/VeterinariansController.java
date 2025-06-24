@@ -9,10 +9,7 @@ import pe.upc.pawfectcaremicroservices.veterinaryservice.domain.model.queries.Ge
 import pe.upc.pawfectcaremicroservices.veterinaryservice.domain.model.valueobjects.VeterinarianSpeciality;
 import pe.upc.pawfectcaremicroservices.veterinaryservice.domain.services.VeterinarianCommandService;
 import pe.upc.pawfectcaremicroservices.veterinaryservice.domain.services.VeterinarianQueryService;
-import pe.upc.pawfectcaremicroservices.veterinaryservice.interfaces.rest.resources.CreateVeterinarianResource;
-import pe.upc.pawfectcaremicroservices.veterinaryservice.interfaces.rest.resources.UpdateAvailabilityVeterinarianResource;
-import pe.upc.pawfectcaremicroservices.veterinaryservice.interfaces.rest.resources.UpdateVeterinarianResource;
-import pe.upc.pawfectcaremicroservices.veterinaryservice.interfaces.rest.resources.VeterinarianResource;
+import pe.upc.pawfectcaremicroservices.veterinaryservice.interfaces.rest.resources.*;
 import pe.upc.pawfectcaremicroservices.veterinaryservice.interfaces.rest.transform.CreateVeterinarianCommandFromResourceAssembler;
 import pe.upc.pawfectcaremicroservices.veterinaryservice.interfaces.rest.transform.UpdateVeterinarianAvailabilityCommandFromResourceAssembler;
 import pe.upc.pawfectcaremicroservices.veterinaryservice.interfaces.rest.transform.UpdateVeterinarianCommandFromResourceAssembler;
@@ -82,16 +79,19 @@ public class VeterinariansController {
         return ResponseEntity.ok(veterinarianResource);
     }
 
-    @PutMapping("/{id}/availability")
-    public ResponseEntity<VeterinarianResource> updateAvailability(
-            @PathVariable Long id,
-            @RequestBody UpdateAvailabilityVeterinarianResource resource) {
+    @GetMapping("/{veterinarianId}/availability")
+    public ResponseEntity<VeterinarianAvailabilityResource> getAvailability(@PathVariable Long veterinarianId) {
+        var getVeterinarianByIdQuery = new GetVeterinariansByIdQuery(veterinarianId);
+        var veterinarian = veterinarianQueryService.handle(getVeterinarianByIdQuery);
 
-        var command = UpdateVeterinarianAvailabilityCommandFromResourceAssembler.toCommandFromResource(id, resource);
-        var updatedVet = veterinarianCommandService.handle(command);
+        if (veterinarian.isEmpty()) return ResponseEntity.notFound().build();
 
-        return updatedVet
-                .map(v -> ResponseEntity.ok(VeterinarianResourceFromEntityAssembler.toResourceFromEntity(v)))
-                .orElseGet(() -> ResponseEntity.badRequest().build());
+        var vet = veterinarian.get();
+        var availability = new VeterinarianAvailabilityResource(
+                vet.getAvailableStartTime(),
+                vet.getAvailableEndTime()
+        );
+
+        return ResponseEntity.ok(availability);
     }
 }

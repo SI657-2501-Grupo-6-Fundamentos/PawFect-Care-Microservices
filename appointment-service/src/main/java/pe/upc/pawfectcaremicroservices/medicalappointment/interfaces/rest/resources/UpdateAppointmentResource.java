@@ -9,7 +9,6 @@ public record UpdateAppointmentResource(
         String appointmentName,
         LocalDateTime registrationDate,
         LocalDateTime endDate,
-        AppointmentStatus status,
-        Long tariffId
+        AppointmentStatus status
 ) {
 }

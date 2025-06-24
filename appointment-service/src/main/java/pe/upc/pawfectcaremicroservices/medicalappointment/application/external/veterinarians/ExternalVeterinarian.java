@@ -5,6 +5,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import pe.upc.pawfectcaremicroservices.medicalappointment.domain.model.valueobjects.ServiceName;
 
+import java.util.Optional;
+
 @Component
 public class ExternalVeterinarian {
     private final RestTemplate restTemplate;
@@ -28,6 +30,21 @@ public class ExternalVeterinarian {
             return true;
         } catch (HttpClientErrorException.NotFound e) {
             return false;
+        }
+    }
+
+    public Optional<VeterinarianAvailability> getVeterinarianAvailabilityById(Long veterinarianId) {
+        try {
+            VeterinarianAvailability availability = restTemplate.getForObject(
+                    "http://localhost:8010/veterinarian-service/api/v1/veterinarians/{veterinarianId}/availability",
+                    VeterinarianAvailability.class,
+                    veterinarianId
+            );
+            return Optional.ofNullable(availability);
+        } catch (HttpClientErrorException.NotFound e) {
+            return Optional.empty(); // Veterinarian not found
+        } catch (Exception e) {
+            throw new RuntimeException("Error while fetching veterinarian availability: " + e.getMessage(), e);
         }
     }
 }
