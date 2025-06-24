@@ -6,6 +6,7 @@ import pe.upc.pawfectcaremicroservices.account_service.application.internal.Regi
 import pe.upc.pawfectcaremicroservices.account_service.interfaces.rest.resources.RegisterRequest;
 import pe.upc.pawfectcaremicroservices.account_service.interfaces.rest.transform.UserResourceAssembler;
 
+
 @RestController
 @RequestMapping("/api/auth")
 public class RegisterController {
@@ -17,7 +18,7 @@ public class RegisterController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
-        var user = registerService.register(request.getUserName(), request.getPassword(), request.getRole());
+        var user = registerService.register(request);
         return ResponseEntity.ok(UserResourceAssembler.toResource(user));
     }
 }

@@ -8,7 +8,9 @@ import java.util.Set;
 @Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "userName"))
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
 public class User {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -16,6 +18,18 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    private String fullName;
+
+    @Column(nullable = false)
+    private String phoneNumber;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false)
+    private String address;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

@@ -8,6 +8,10 @@ public class UserResourceAssembler {
         UserResource resource = new UserResource();
         resource.setId(user.getId());
         resource.setUserName(user.getUserName());
+        resource.setFullName(user.getFullName());
+        resource.setPhoneNumber(user.getPhoneNumber());
+        resource.setEmail(user.getEmail());
+        resource.setAddress(user.getAddress());
         resource.setRoles(
                 user.getRoles().stream()
                         .map(r -> r.getName().name())

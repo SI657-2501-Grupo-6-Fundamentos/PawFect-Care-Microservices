@@ -8,5 +8,9 @@ import java.util.Set;
 public class UserResource {
     private Long id;
     private String userName;
+    private String fullName;
+    private String phoneNumber;
+    private String email;
+    private String address;
     private Set<String> roles;
 }
