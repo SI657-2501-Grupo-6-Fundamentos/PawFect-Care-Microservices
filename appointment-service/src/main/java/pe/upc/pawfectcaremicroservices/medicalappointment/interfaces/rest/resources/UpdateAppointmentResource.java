@@ -10,6 +10,6 @@ public record UpdateAppointmentResource(
         LocalDateTime registrationDate,
         LocalDateTime endDate,
         AppointmentStatus status,
-        Float estimatedCost
+        Long tariffId
 ) {
 }

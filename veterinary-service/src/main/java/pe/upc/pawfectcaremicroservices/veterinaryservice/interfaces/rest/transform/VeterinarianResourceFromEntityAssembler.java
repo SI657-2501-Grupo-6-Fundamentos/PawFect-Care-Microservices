@@ -12,6 +12,8 @@ public class VeterinarianResourceFromEntityAssembler {
                 entity.getPhoneNumber(),
                 entity.getEmail(),
                 entity.getDni(),
-                entity.getVeterinarianSpeciality());
+                entity.getVeterinarianSpeciality(),
+                entity.getAvailableStartTime(),
+                entity.getAvailableEndTime());
     }
 }

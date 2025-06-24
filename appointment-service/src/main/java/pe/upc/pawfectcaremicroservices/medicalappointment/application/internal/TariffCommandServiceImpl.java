@@ -13,19 +13,15 @@ import java.util.Optional;
 @Service
 public class TariffCommandServiceImpl implements TariffCommandService {
     private final TariffRepository tariffRepository;
-    private final ExternalVeterinarian externalVeterinarian;
 
     public TariffCommandServiceImpl(TariffRepository tariffRepository, ExternalVeterinarian externalVeterinarian) {
         this.tariffRepository = tariffRepository;
-        this.externalVeterinarian = externalVeterinarian;
     }
 
     @Override
     public Long handle(CreateTariffCommand command) {
         Tariff tariff = new Tariff(command);
         try {
-            if (!externalVeterinarian.existsVeterinarianBySpeciality(command.serviceName()))
-                throw new IllegalArgumentException("veterinary service does not exist");
             if (tariffRepository.existsByServiceName(command.serviceName()))
                 throw new IllegalArgumentException("Tariff with this service name already exists");
             if (command.cost() < 0 || command.minimumCost() < 0 || command.maximumCost() < 0)

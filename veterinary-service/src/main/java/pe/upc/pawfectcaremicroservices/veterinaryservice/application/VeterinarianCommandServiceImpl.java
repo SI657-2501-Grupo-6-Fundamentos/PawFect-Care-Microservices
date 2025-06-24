@@ -3,11 +3,14 @@ package pe.upc.pawfectcaremicroservices.veterinaryservice.application;
 import org.springframework.stereotype.Service;
 import pe.upc.pawfectcaremicroservices.veterinaryservice.domain.model.aggregates.Veterinarian;
 import pe.upc.pawfectcaremicroservices.veterinaryservice.domain.model.commands.CreateVeterinarianCommand;
+import pe.upc.pawfectcaremicroservices.veterinaryservice.domain.model.commands.UpdateVeterinarianAvailabilityCommand;
 import pe.upc.pawfectcaremicroservices.veterinaryservice.domain.model.commands.UpdateVeterinarianCommand;
 import pe.upc.pawfectcaremicroservices.veterinaryservice.domain.model.valueobjects.VeterinarianSpeciality;
 import pe.upc.pawfectcaremicroservices.veterinaryservice.domain.services.VeterinarianCommandService;
 import pe.upc.pawfectcaremicroservices.veterinaryservice.infrastructure.persistence.jpa.repositories.VeterinarianRepository;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Optional;
 
 @Service
@@ -54,4 +57,23 @@ public class VeterinarianCommandServiceImpl implements VeterinarianCommandServic
             throw new IllegalArgumentException("Error while updating veterinarian: " + e.getMessage());
         }
     }
+
+    @Override
+    public Optional<Veterinarian> handle(UpdateVeterinarianAvailabilityCommand command) {
+        var optionalVeterinarian = veterinarianRepository.findById(command.id());
+
+        if (optionalVeterinarian.isEmpty()) {
+            throw new IllegalArgumentException("Veterinarian not found with ID: " + command.id());
+        }
+
+        var vet = optionalVeterinarian.get();
+        vet.setAvailableStartTime(command.availableStartTime());
+        vet.setAvailableEndTime(command.availableEndTime());
+
+        var updated = veterinarianRepository.save(vet);
+        return Optional.of(updated);
+    }
+
+
+
 }

@@ -29,7 +29,9 @@ public class Appointment {
     @Enumerated(EnumType.STRING)
     private AppointmentStatus status;
 
-    private Float estimatedCost;
+    @ManyToOne
+    @JoinColumn(name = "tariff_id")
+    private Tariff tariff;
 
     private Long petId;
 
@@ -41,30 +43,28 @@ public class Appointment {
         this.registrationDate = LocalDateTime.now();
         this.endDate = LocalDateTime.now();
         this.status = AppointmentStatus.SCHEDULED;
-        this.estimatedCost = 0.0f;
+        this.tariff = new Tariff();
     }
 
-    public Appointment(CreateAppointmentCommand command) {
+    public Appointment(CreateAppointmentCommand command, Tariff tariff) {
         this();
         this.appointmentName = command.appointmentName();
         this.registrationDate = command.registrationDate();
         this.endDate = command.endDate();
         this.status = AppointmentStatus.SCHEDULED;
-        this.estimatedCost = command.estimatedCost();
+        this.tariff = tariff;
     }
 
     public Appointment updateInformation(
             String appointmentName,
             LocalDateTime registrationDate,
             LocalDateTime endDate,
-            AppointmentStatus status,
-            Float estimatedCost
+            AppointmentStatus status
     ) {
         this.appointmentName = appointmentName;
         this.registrationDate = registrationDate;
         this.endDate = endDate;
         this.status = status;
-        this.estimatedCost = estimatedCost;
         return this;
     }
 

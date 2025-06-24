@@ -10,7 +10,7 @@ public class CreateAppointmentCommandFromResourceAssembler {
                 resource.registrationDate(),
                 resource.endDate(),
                 resource.status(),
-                resource.estimatedCost(),
+                resource.tariffId(),
                 resource.petId(),
                 resource.veterinarianId()
         );

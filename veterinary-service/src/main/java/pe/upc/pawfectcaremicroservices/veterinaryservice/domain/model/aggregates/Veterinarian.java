@@ -6,6 +6,8 @@ import lombok.Setter;
 import pe.upc.pawfectcaremicroservices.veterinaryservice.domain.model.commands.CreateVeterinarianCommand;
 import pe.upc.pawfectcaremicroservices.veterinaryservice.domain.model.valueobjects.VeterinarianSpeciality;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Entity
@@ -22,12 +24,19 @@ public class Veterinarian {
     @Enumerated(EnumType.STRING)
     private VeterinarianSpeciality veterinarianSpeciality;
 
+    // Optional fields to be set automatically after schedule creation
+    //private String availableDays;
+    private LocalDateTime availableStartTime;
+    private LocalDateTime availableEndTime;
+
     public Veterinarian() {
         this.fullName = "";
         this.phoneNumber = "";
         this.dni = "";
         this.email = "";
         this.veterinarianSpeciality = VeterinarianSpeciality.GENERAL_MEDICINE;
+        this.availableStartTime = LocalDateTime.now();
+        this.availableEndTime = LocalDateTime.now().plusHours(8);
     }
 
     public Veterinarian(CreateVeterinarianCommand createVeterinarianCommand) {
@@ -45,6 +54,12 @@ public class Veterinarian {
         this.email = email;
         this.dni = dni;
         this.veterinarianSpeciality = veterinarianSpeciality;
+        return this;
+    }
+
+    public Veterinarian updateAvailability(LocalDateTime start, LocalDateTime end) {
+        this.availableStartTime = start;
+        this.availableEndTime = end;
         return this;
     }
 }

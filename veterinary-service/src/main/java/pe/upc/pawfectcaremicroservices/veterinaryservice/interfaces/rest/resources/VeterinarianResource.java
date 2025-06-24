@@ -2,6 +2,8 @@ package pe.upc.pawfectcaremicroservices.veterinaryservice.interfaces.rest.resour
 
 import pe.upc.pawfectcaremicroservices.veterinaryservice.domain.model.valueobjects.VeterinarianSpeciality;
 
+import java.time.LocalDateTime;
+
 public record VeterinarianResource(
         Long id,
         Long userId,
@@ -9,5 +11,7 @@ public record VeterinarianResource(
         String phoneNumber,
         String email,
         String dni,
-        VeterinarianSpeciality specialization) {
+        VeterinarianSpeciality specialization,
+        LocalDateTime availableStartTime,
+        LocalDateTime availableEndTime) {
 }

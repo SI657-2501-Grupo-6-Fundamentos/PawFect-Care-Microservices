@@ -8,7 +8,7 @@ public record CreateAppointmentResource(String appointmentName,
                                         LocalDateTime registrationDate,
                                         LocalDateTime endDate,
                                         AppointmentStatus status,
-                                        float estimatedCost,
+                                        Long tariffId,
                                         Long petId,
                                         Long veterinarianId) {
 }

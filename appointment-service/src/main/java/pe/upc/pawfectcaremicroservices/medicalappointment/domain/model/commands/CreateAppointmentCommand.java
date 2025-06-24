@@ -1,6 +1,7 @@
 package pe.upc.pawfectcaremicroservices.medicalappointment.domain.model.commands;
 
 import pe.upc.pawfectcaremicroservices.medicalappointment.domain.model.valueobjects.AppointmentStatus;
+import pe.upc.pawfectcaremicroservices.medicalappointment.domain.model.valueobjects.ServiceName;
 
 import java.time.LocalDateTime;
 
@@ -9,7 +10,7 @@ public record CreateAppointmentCommand(
       LocalDateTime registrationDate,
       LocalDateTime endDate,
       AppointmentStatus status,
-      Float estimatedCost,
+      Long tariffId,
       Long petId,
       Long veterinarianId) {
 }

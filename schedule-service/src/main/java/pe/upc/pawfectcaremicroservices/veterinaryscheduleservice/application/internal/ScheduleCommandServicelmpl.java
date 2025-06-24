@@ -21,12 +21,14 @@ public class ScheduleCommandServicelmpl implements ScheduleCommandService {
         this.externalVeterinarian = externalVeterinarian;
     }
 
+    /*
     @Override
     public Long handle(CreateScheduleCommand command) {
         var schedule = new Schedule(command);
         try {
             if (!externalVeterinarian.existsVeterinarianById(command.veterinarianId()))
                 throw new IllegalArgumentException("veterinarianId does not exist");
+
             // Aquí podrías setear solo el veterinarianId, no el objeto Veterinarian
             schedule.setVeterinarianId(command.veterinarianId());
             scheduleRepository.save(schedule);
@@ -34,8 +36,28 @@ public class ScheduleCommandServicelmpl implements ScheduleCommandService {
             throw new IllegalArgumentException("Error while saving schedule: " + e.getMessage());
         }
         return schedule.getId();
-    }
+    }*/
 
+    @Override
+    public Long handle(CreateScheduleCommand command) {
+        try {
+            if (!externalVeterinarian.existsVeterinarianById(command.veterinarianId()))
+                throw new IllegalArgumentException("veterinarianId does not exist");
+
+            var schedule = new Schedule(command);
+            schedule.setVeterinarianId(command.veterinarianId());
+
+            // Guardar el schedule primero
+            scheduleRepository.save(schedule);
+
+            // Luego actualizar la disponibilidad del veterinario
+            externalVeterinarian.updateVeterinarianAvailability(command.veterinarianId(), schedule);
+
+            return schedule.getId();
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Error while saving schedule: " + e.getMessage());
+        }
+    }
 
     @Override
     public Optional<Schedule> handle(UpdateScheduleCommand command) {

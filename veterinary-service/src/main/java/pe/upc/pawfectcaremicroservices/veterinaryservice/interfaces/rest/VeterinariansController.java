@@ -10,9 +10,11 @@ import pe.upc.pawfectcaremicroservices.veterinaryservice.domain.model.valueobjec
 import pe.upc.pawfectcaremicroservices.veterinaryservice.domain.services.VeterinarianCommandService;
 import pe.upc.pawfectcaremicroservices.veterinaryservice.domain.services.VeterinarianQueryService;
 import pe.upc.pawfectcaremicroservices.veterinaryservice.interfaces.rest.resources.CreateVeterinarianResource;
+import pe.upc.pawfectcaremicroservices.veterinaryservice.interfaces.rest.resources.UpdateAvailabilityVeterinarianResource;
 import pe.upc.pawfectcaremicroservices.veterinaryservice.interfaces.rest.resources.UpdateVeterinarianResource;
 import pe.upc.pawfectcaremicroservices.veterinaryservice.interfaces.rest.resources.VeterinarianResource;
 import pe.upc.pawfectcaremicroservices.veterinaryservice.interfaces.rest.transform.CreateVeterinarianCommandFromResourceAssembler;
+import pe.upc.pawfectcaremicroservices.veterinaryservice.interfaces.rest.transform.UpdateVeterinarianAvailabilityCommandFromResourceAssembler;
 import pe.upc.pawfectcaremicroservices.veterinaryservice.interfaces.rest.transform.UpdateVeterinarianCommandFromResourceAssembler;
 import pe.upc.pawfectcaremicroservices.veterinaryservice.interfaces.rest.transform.VeterinarianResourceFromEntityAssembler;
 
@@ -78,5 +80,18 @@ public class VeterinariansController {
         }
         var veterinarianResource = VeterinarianResourceFromEntityAssembler.toResourceFromEntity(updatedVeterinarian.get());
         return ResponseEntity.ok(veterinarianResource);
+    }
+
+    @PutMapping("/{id}/availability")
+    public ResponseEntity<VeterinarianResource> updateAvailability(
+            @PathVariable Long id,
+            @RequestBody UpdateAvailabilityVeterinarianResource resource) {
+
+        var command = UpdateVeterinarianAvailabilityCommandFromResourceAssembler.toCommandFromResource(id, resource);
+        var updatedVet = veterinarianCommandService.handle(command);
+
+        return updatedVet
+                .map(v -> ResponseEntity.ok(VeterinarianResourceFromEntityAssembler.toResourceFromEntity(v)))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 }

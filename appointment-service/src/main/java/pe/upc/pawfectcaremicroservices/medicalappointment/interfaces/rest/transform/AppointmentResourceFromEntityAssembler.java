@@ -13,7 +13,9 @@ public class AppointmentResourceFromEntityAssembler {
                 entity.getRegistrationDate(),
                 entity.getEndDate(),
                 entity.getStatus(),
-                entity.getEstimatedCost(),
+                entity.getTariff() != null ? entity.getTariff().getId() : null,
+                entity.getTariff() != null ? entity.getTariff().getServiceName().name() : null,
+                entity.getTariff() != null ? entity.getTariff().getCost() : null,
                 entity.getPetId(),
                 entity.getVeterinarianId()
         );

@@ -11,7 +11,9 @@ public record AppointmentResource(
         LocalDateTime registrationDate,
         LocalDateTime endDate,
         AppointmentStatus status,
-        Float estimatedCost,
+        Long tariffId,
+        String serviceName,
+        Float cost,
         Long petId,
         Long veterinarianId) {
 }
