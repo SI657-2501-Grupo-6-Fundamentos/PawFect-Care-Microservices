@@ -6,6 +6,8 @@ import lombok.Setter;
 import org.apache.logging.log4j.util.Strings;
 import pe.upc.pawfectcaremicroservices.medicalrecordservice.domain.model.commands.CreateMedicalRecordCommand;
 
+import java.time.LocalDateTime;
+
 
 @Getter
 @Setter
@@ -22,9 +24,12 @@ public class MedicalRecord {
 
     private Long medicalAppointmentId;
 
+    private LocalDateTime recordedAt;
+
     public MedicalRecord() {
         this.title = Strings.EMPTY;
         this.notes = Strings.EMPTY;
+        this.recordedAt = LocalDateTime.now();
     }
 
     public MedicalRecord updateInformation(String title, String notes) {
@@ -36,5 +41,6 @@ public class MedicalRecord {
     public MedicalRecord(CreateMedicalRecordCommand command) {
         this.title = command.title();
         this.notes = command.notes();
+        this.recordedAt = LocalDateTime.now();
     }
 }
