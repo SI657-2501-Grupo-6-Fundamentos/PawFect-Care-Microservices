@@ -102,7 +102,8 @@ public class WebSecurityConfiguration {
                 .sessionManagement( customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers(
-                                "/api/v1/authentication/**", // Esto ya cubre sign-up y sign-in
+                                "/api/v1/authentication/**",
+                                "/iam-service/api/v1/authentication/**", // Esto ya cubre sign-up y sign-in
                                 "/v3/api-docs/**",
                                 "/swagger-ui.html",
                                 "/swagger-ui/**",
