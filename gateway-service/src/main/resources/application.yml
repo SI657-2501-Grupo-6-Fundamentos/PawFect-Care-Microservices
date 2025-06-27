@@ -73,7 +73,7 @@ spring:
           predicates:
             - Path=/iam-service/**
           filters:
-            - StripPrefix=0
+            - StripPrefix=1
         # IAM Service - registro admin
         - id: iam-service-admin-registro
           uri: lb://iam-service
