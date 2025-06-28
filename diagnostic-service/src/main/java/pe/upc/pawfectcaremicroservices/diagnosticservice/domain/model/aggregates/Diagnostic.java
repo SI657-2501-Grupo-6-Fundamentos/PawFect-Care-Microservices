@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.commands.CreateDiagnosticCommand;
-import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.valueobjects.DiagnosticType;
+import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.valueobjects.DiagnosticSpecialty;
 
 import java.time.LocalDateTime;
 
@@ -20,25 +20,25 @@ public class Diagnostic {
     private LocalDateTime diagnosticDate;
     private String description;
     @Enumerated(EnumType.STRING)
-    private DiagnosticType diagnosticType;
+    private DiagnosticSpecialty diagnosticSpecialty;
 
     public Diagnostic() {
         this.diagnosticDate = LocalDateTime.now();
         this.description = "";
-        this.diagnosticType = DiagnosticType.GENERAL_MEDICINE;
+        this.diagnosticSpecialty = DiagnosticSpecialty.GENERAL_MEDICINE;
     }
 
     public Diagnostic(CreateDiagnosticCommand command) {
         this();
         this.diagnosticDate = command.diagnosticDate();
         this.description = command.description();
-        this.diagnosticType = DiagnosticType.GENERAL_MEDICINE;
+        this.diagnosticSpecialty = DiagnosticSpecialty.GENERAL_MEDICINE;
     }
 
-    public Diagnostic updateInformation(LocalDateTime diagnosticDate, String description, DiagnosticType diagnosticType) {
+    public Diagnostic updateInformation(LocalDateTime diagnosticDate, String description, DiagnosticSpecialty diagnosticSpecialty) {
         this.diagnosticDate = diagnosticDate;
         this.description = description;
-        this.diagnosticType = diagnosticType;
+        this.diagnosticSpecialty = diagnosticSpecialty;
         return this;
     }
 }

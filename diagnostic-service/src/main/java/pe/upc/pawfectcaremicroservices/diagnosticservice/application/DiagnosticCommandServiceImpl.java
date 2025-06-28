@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.aggregates.Diagnostic;
 import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.commands.CreateDiagnosticCommand;
 import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.commands.UpdateDiagnosticCommand;
-import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.valueobjects.DiagnosticType;
+import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.valueobjects.DiagnosticSpecialty;
 import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.services.DiagnosticCommandService;
 import pe.upc.pawfectcaremicroservices.diagnosticservice.infrastructure.persistence.jpa.repositories.DiagnosticRepository;
 
@@ -39,9 +39,9 @@ public class DiagnosticCommandServiceImpl implements DiagnosticCommandService {
                     .updateInformation(
                             command.diagnosticDate(),
                             command.description(),
-                            command.diagnosticType() != null ?
-                                    DiagnosticType.valueOf(String.valueOf(command.diagnosticType())) :
-                                    diagnosticToUpdate.getDiagnosticType()
+                            command.diagnosticSpecialty() != null ?
+                                    DiagnosticSpecialty.valueOf(String.valueOf(command.diagnosticSpecialty())) :
+                                    diagnosticToUpdate.getDiagnosticSpecialty()
                     )
             );
             return Optional.of(updatedDiagnostic);

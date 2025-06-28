@@ -2,7 +2,7 @@ package pe.upc.pawfectcaremicroservices.diagnosticservice.application;
 
 import org.springframework.stereotype.Service;
 import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.aggregates.Diagnostic;
-import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.queries.GetAllDiagnosticByDiagnosticTypeQuery;
+import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.queries.GetAllDiagnosticByDiagnosticSpecialtyQuery;
 import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.queries.GetAllDiagnosticQuery;
 import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.queries.GetDiagnosticByIdQuery;
 import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.services.DiagnosticQueryService;
@@ -29,7 +29,7 @@ public class DiagnosticQueryServiceImpl implements DiagnosticQueryService {
     }
 
     @Override
-    public List<Diagnostic> handle(GetAllDiagnosticByDiagnosticTypeQuery query) {
-        return diagnosticRepository.findAllByDiagnosticType(query.diagnosticType());
+    public List<Diagnostic> handle(GetAllDiagnosticByDiagnosticSpecialtyQuery query) {
+        return diagnosticRepository.findAllByDiagnosticSpecialty(query.diagnosticSpecialty());
     }
 }

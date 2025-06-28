@@ -8,6 +8,6 @@ public class CreateDiagnosticCommandFromResourceAssembler {
         return new CreateDiagnosticCommand(
                 resource.diagnosticDate(),
                 resource.description(),
-                resource.diagnosticType());
+                resource.diagnosticSpecialty());
     }
 }

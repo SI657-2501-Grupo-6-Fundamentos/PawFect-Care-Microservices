@@ -9,7 +9,7 @@ public class DiagnosticResourceFromEntityAssembler {
                 entity.getId(),
                 entity.getDiagnosticDate(),
                 entity.getDescription(),
-                entity.getDiagnosticType()
+                entity.getDiagnosticSpecialty()
         );
     }
 }

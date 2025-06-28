@@ -1,6 +1,6 @@
 package pe.upc.pawfectcaremicroservices.diagnosticservice.interfaces.rest.resources;
 
-import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.valueobjects.DiagnosticType;
+import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.valueobjects.DiagnosticSpecialty;
 
 import java.time.LocalDateTime;
 
@@ -8,6 +8,6 @@ public record DiagnosticResource(
         Long id,
         LocalDateTime diagnosticDate,
         String description,
-        DiagnosticType diagnosticType
+        DiagnosticSpecialty diagnosticSpecialty
 ) {
 }

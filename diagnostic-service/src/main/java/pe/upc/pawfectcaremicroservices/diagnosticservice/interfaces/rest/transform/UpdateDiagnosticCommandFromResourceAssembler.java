@@ -9,6 +9,6 @@ public class UpdateDiagnosticCommandFromResourceAssembler {
                 diagnosticId,
                 resource.diagnosticDate(),
                 resource.description(),
-                resource.diagnosticType());
+                resource.diagnosticSpecialty());
     }
 }

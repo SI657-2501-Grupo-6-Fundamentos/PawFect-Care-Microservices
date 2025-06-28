@@ -1,6 +1,6 @@
 package pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.valueobjects;
 
-public enum DiagnosticType {
+public enum DiagnosticSpecialty {
     GENERAL_MEDICINE,
     VETERINARY_SURGERY,
     VETERINARY_PATHOLOGY,

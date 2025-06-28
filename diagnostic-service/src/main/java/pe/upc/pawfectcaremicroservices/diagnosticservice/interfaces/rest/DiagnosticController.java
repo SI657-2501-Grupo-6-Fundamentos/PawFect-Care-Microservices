@@ -3,10 +3,10 @@ package pe.upc.pawfectcaremicroservices.diagnosticservice.interfaces.rest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.queries.GetAllDiagnosticByDiagnosticTypeQuery;
+import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.queries.GetAllDiagnosticByDiagnosticSpecialtyQuery;
 import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.queries.GetAllDiagnosticQuery;
 import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.queries.GetDiagnosticByIdQuery;
-import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.valueobjects.DiagnosticType;
+import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.model.valueobjects.DiagnosticSpecialty;
 import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.services.DiagnosticCommandService;
 import pe.upc.pawfectcaremicroservices.diagnosticservice.domain.services.DiagnosticQueryService;
 import pe.upc.pawfectcaremicroservices.diagnosticservice.interfaces.rest.resources.CreateDiagnosticResource;
@@ -47,10 +47,10 @@ public class DiagnosticController {
         return ResponseEntity.ok(petResources);
     }
 
-    @GetMapping("/diagnosticType")
-    public ResponseEntity<List<DiagnosticResource>> getDiagnosticsByType(@RequestParam DiagnosticType diagnosticType) {
-        var getDiagnosticByDiagnosticType = new GetAllDiagnosticByDiagnosticTypeQuery(diagnosticType);
-        var diagnostics = diagnosticQueryService.handle(getDiagnosticByDiagnosticType);
+    @GetMapping("/DiagnosticSpecialty")
+    public ResponseEntity<List<DiagnosticResource>> getDiagnosticsByType(@RequestParam DiagnosticSpecialty diagnosticSpecialty) {
+        var getDiagnosticByDiagnosticSpecialty = new GetAllDiagnosticByDiagnosticSpecialtyQuery(diagnosticSpecialty);
+        var diagnostics = diagnosticQueryService.handle(getDiagnosticByDiagnosticSpecialty);
         var diagnosticResources = diagnostics.stream().map(DiagnosticResourceFromEntityAssembler::toResourceFromEntity).toList();
         return ResponseEntity.ok(diagnosticResources);
     }
