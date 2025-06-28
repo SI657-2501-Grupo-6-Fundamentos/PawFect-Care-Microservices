@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="iam-service" />
+        <module name="diagnostic-service" />
         <module name="appointment-service" />
         <module name="medical-record-service" />
         <module name="pet-service" />
@@ -18,7 +19,6 @@
         <module name="pet-owner-service" />
         <module name="veterinary-service" />
         <module name="account-service" />
-        <module name="treatment-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -34,6 +34,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="account-service" options="-parameters" />
       <module name="appointment-service" options="-parameters" />
+      <module name="diagnostic-service" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
       <module name="iam-service" options="-parameters" />
       <module name="medical-record-service" options="-parameters" />
@@ -43,7 +44,6 @@
       <module name="registry-service" options="-parameters" />
       <module name="review-service" options="-parameters" />
       <module name="schedule-service" options="-parameters" />
-      <module name="treatment-service" options="-parameters" />
       <module name="veterinary-service" options="-parameters" />
     </option>
   </component>
