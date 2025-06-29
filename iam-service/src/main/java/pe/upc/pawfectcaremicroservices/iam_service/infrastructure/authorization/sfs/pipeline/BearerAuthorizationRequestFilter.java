@@ -62,7 +62,21 @@ public class BearerAuthorizationRequestFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
         String path = request.getRequestURI();
         LOGGER.info("Request path: {}", path); // <-- Agrega este log
-        boolean isPublic = PUBLIC_PATHS.stream().anyMatch(pattern -> pathMatcher.match(pattern, path));
+        LOGGER.info("Request URI: {}", path);
+        LOGGER.info("Servlet path: {}", request.getServletPath());
+        //boolean isPublic = PUBLIC_PATHS.stream().anyMatch(pattern -> pathMatcher.match(pattern, path));
+        boolean isPublic = false;
+        for (String pattern : PUBLIC_PATHS) {
+            boolean matchesUri = pathMatcher.match(pattern, path);
+            boolean matchesServlet = pathMatcher.match(pattern, request.getServletPath());
+            LOGGER.info("Comparing path '{}' with pattern '{}': URI match={}, ServletPath match={}", path, pattern, matchesUri, matchesServlet);
+            if (matchesUri || matchesServlet) {
+                isPublic = true;
+                LOGGER.info("Matched public path: {}", pattern);
+                break;
+            }
+        }
+
         LOGGER.info("Is public: {}", isPublic); // <-- Y este
         if (isPublic) {
             filterChain.doFilter(request, response);

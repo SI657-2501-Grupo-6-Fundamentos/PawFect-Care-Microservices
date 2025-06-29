@@ -89,3 +89,9 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8090/eureka/
+      logging:
+        level:
+          org.springframework.security: DEBUG
+          org.springframework.web.cors: DEBUG
+          org.springframework.web.reactive.function.server.RouterFunctions: DEBUG
+          org.springframework.cloud.gateway.handler.FilteringWebHandler: DEBUG

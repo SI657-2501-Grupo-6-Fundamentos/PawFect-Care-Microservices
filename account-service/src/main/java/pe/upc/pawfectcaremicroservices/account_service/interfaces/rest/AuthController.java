@@ -19,4 +19,10 @@ public class AuthController {
         String token = authService.login(request.getUserName(), request.getPassword());
         return ResponseEntity.ok(new JwtResponse(token));
     }
+
+    @PostMapping("/login-vet")
+    public ResponseEntity<JwtResponse> loginVet(@RequestBody LoginRequest request) {
+        String token = authService.loginVet(request.getUserName(), request.getPassword());
+        return ResponseEntity.ok(new JwtResponse(token));
+    }
 }

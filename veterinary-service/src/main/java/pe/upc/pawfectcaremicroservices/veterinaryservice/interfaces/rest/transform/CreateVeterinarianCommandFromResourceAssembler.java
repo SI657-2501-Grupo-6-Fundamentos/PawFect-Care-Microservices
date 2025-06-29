@@ -11,6 +11,8 @@ public class CreateVeterinarianCommandFromResourceAssembler {
                 resource.phoneNumber(),
                 resource.email(),
                 resource.dni(),
-                resource.speciality());
+                resource.speciality(),
+                resource.availableStartTime(),
+                resource.availableEndTime());
     }
 }

@@ -48,7 +48,7 @@ public class VeterinarianCommandServiceImpl implements VeterinarianCommandServic
                             command.email(),
                             command.dni(),
                             command.veterinarianSpeciality() != null ?
-                                    VeterinarianSpeciality.valueOf(String.valueOf(command.veterinarianSpeciality())) :
+                                    VeterinarianSpeciality.fromValue(command.veterinarianSpeciality()) :
                                     veterinarianToUpdate.getVeterinarianSpeciality()
                     )
             );
