@@ -9,11 +9,9 @@
     <file url="file://$PROJECT_DIR$/medical-record-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pet-owner-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pet-service/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/profile-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/registry-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/review-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/schedule-service/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/veterinary-service/client-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/veterinary-service/src/main/java" charset="UTF-8" />
   </component>
 </project>
