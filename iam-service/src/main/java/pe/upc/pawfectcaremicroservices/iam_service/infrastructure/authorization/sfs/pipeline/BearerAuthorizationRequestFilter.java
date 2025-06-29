@@ -37,6 +37,7 @@ public class BearerAuthorizationRequestFilter extends OncePerRequestFilter {
     // Rutas públicas que no requieren autenticación (con patrones)
     private static final List<String> PUBLIC_PATHS = List.of(
             "/api/v1/authentication/**",
+            "/api/v1/auth/google/sign-in",
             "/v3/api-docs/**",
             "/swagger-ui.html",
             "/swagger-ui/**",
