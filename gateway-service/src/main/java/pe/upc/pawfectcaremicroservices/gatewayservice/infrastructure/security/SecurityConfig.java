@@ -29,6 +29,8 @@ public class SecurityConfig {
                                 "/api/auth/register-vet",
                                 "/api/v1/authentication/**",
                                 "/iam-service/api/v1/authentication/**",
+                                "/iam-service/api/v1/auth/google/**",
+                                "/api/v1/auth/google/**",
                                 //"iam-service/api/v1/authentication/**",
                                 "account-service/api/auth/**",
                                 "/account-service/api/auth/**",
@@ -60,7 +62,9 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration cors = new CorsConfiguration();
-        cors.setAllowedOrigins(List.of("http://localhost:4200"));
+        //cors.setAllowedOrigins(List.of("http://localhost:4200"));
+        cors.setAllowedOrigins(List.of("http://localhost:4200", "http://localhost:58571"));
+        //cors.setAllowedOrigins(List.of("http://localhost:58571"));
         cors.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         cors.setAllowedHeaders(List.of("*"));
         cors.setAllowCredentials(true);

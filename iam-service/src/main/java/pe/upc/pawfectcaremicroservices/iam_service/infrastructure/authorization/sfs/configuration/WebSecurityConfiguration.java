@@ -104,7 +104,9 @@ public class WebSecurityConfiguration {
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers(
                                 "/iam-service/api/v1/authentication/**", // Esto ya cubre sign-up y sign-in
-                                "/api/v1/auth/google/sign-in", // Google authentication endpoints
+                                "/iam-service/api/v1/auth/google/**", // Google authentication endpoints
+                                "/api/v1/authentication/**", // Authentication endpoints
+                                "/api/v1/auth/google/**", // Google sign-in endpoint
                                 "/v3/api-docs/**",
                                 "/swagger-ui.html",
                                 "/swagger-ui/**",
