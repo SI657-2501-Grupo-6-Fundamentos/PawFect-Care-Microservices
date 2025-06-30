@@ -20,7 +20,7 @@ public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
         http
-                .cors(corsSpec -> corsSpec.configurationSource(corsConfigurationSource()))
+                //.cors(corsSpec -> corsSpec.configurationSource(corsConfigurationSource()))
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(exchanges -> exchanges
                         .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()
@@ -29,8 +29,11 @@ public class SecurityConfig {
                                 "/api/auth/register-vet",
                                 "/api/v1/authentication/**",
                                 "/iam-service/api/v1/authentication/**",
-                                "/iam-service/api/v1/auth/google/**",
-                                "/api/v1/auth/google/**",
+                                "/api/v1/auth/google/sign-in",
+                                "/iam-service/api/v1/auth/google/sign-in",
+                                "iam-service/api/v1/auth/google/sign-in",
+                                "api/v1/auth/google/sign-in",
+                                "/api/v1/auth/google/sign-in",
                                 //"iam-service/api/v1/authentication/**",
                                 "account-service/api/auth/**",
                                 "/account-service/api/auth/**",
@@ -59,35 +62,33 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /*
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration cors = new CorsConfiguration();
-        //cors.setAllowedOrigins(List.of("http://localhost:4200"));
-        cors.setAllowedOrigins(List.of("http://localhost:4200", "http://localhost:58571"));
-        //cors.setAllowedOrigins(List.of("http://localhost:58571"));
+        cors.setAllowedOrigins(List.of("http://localhost:4200"));
         cors.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         cors.setAllowedHeaders(List.of("*"));
         cors.setAllowCredentials(true);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", cors);
         return source;
-    }
+    }*/
 
-    /*@Bean
+    @Bean
     public CorsWebFilter corsWebFilter() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of("http://localhost:4200"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
-        config.setExposedHeaders(List.of("Authorization"));
+        //config.setExposedHeaders(List.of("Authorization"));
         config.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);
 
         return new CorsWebFilter(source);
-    }*/
-
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

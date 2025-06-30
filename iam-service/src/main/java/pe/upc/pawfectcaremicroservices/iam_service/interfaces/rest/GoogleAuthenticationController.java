@@ -91,6 +91,7 @@ public class GoogleAuthenticationController {
         }
     }
 
+    /*
     @GetMapping("/me")
     @Operation(summary = "Get authenticated user's info", description = "Returns info about the authenticated user using the JWT token")
     public ResponseEntity<?> getAuthenticatedUser(@RequestHeader("Authorization") String authHeader) {
@@ -118,7 +119,7 @@ public class GoogleAuthenticationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Failed to parse token: " + e.getMessage());
         }
-    }
+    }*/
 
     @GetMapping("/health")
     public ResponseEntity<String> healthCheck() {

@@ -90,13 +90,14 @@ public class WebSecurityConfiguration {
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors(configurer -> configurer.configurationSource(request -> {
+        /*http.cors(configurer -> configurer.configurationSource(request -> {
             var cors = new CorsConfiguration();
-            //cors.setAllowedOrigins(List.of("*"));
+            //cors.setAllowedOrigins(List.of("http://localhost:4200"));
             cors.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-            //cors.setAllowedHeaders(List.of("*"));
+            cors.setAllowedHeaders(List.of("*"));
+            cors.setAllowCredentials(true);
             return cors;
-        }));
+        }));*/
 
         http.csrf(csrfConfigurer -> csrfConfigurer.disable())
                 .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(unauthorizedRequestHandler))
@@ -104,9 +105,11 @@ public class WebSecurityConfiguration {
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers(
                                 "/iam-service/api/v1/authentication/**", // Esto ya cubre sign-up y sign-in
-                                "/iam-service/api/v1/auth/google/**", // Google authentication endpoints
-                                "/api/v1/authentication/**", // Authentication endpoints
-                                "/api/v1/auth/google/**", // Google sign-in endpoint
+                                "/iam-service/api/v1/auth/google/health",
+                                "/iam-service/api/v1/auth/google/sign-in",
+                                "iam-service/api/v1/auth/google/sign-in",
+                                "api/v1/auth/google/sign-in",
+                                "/api/v1/auth/google/sign-in",
                                 "/v3/api-docs/**",
                                 "/swagger-ui.html",
                                 "/swagger-ui/**",
