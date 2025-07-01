@@ -3,10 +3,10 @@ package pe.upc.pawfectcaremicroservices.iam_service.application.internal.queryse
 import pe.upc.pawfectcaremicroservices.iam_service.domain.model.aggregates.UserAdmin;
 import pe.upc.pawfectcaremicroservices.iam_service.domain.model.queries.GetAllUsersAdminQuery;
 import pe.upc.pawfectcaremicroservices.iam_service.domain.model.queries.GetUserAdminByIdQuery;
-import pe.upc.pawfectcaremicroservices.iam_service.domain.model.queries.GetUserAdminByUsernameQuery;
+import pe.upc.pawfectcaremicroservices.iam_service.domain.model.queries.GetUserAdminByUserNameQuery;
 import pe.upc.pawfectcaremicroservices.iam_service.domain.services.UserAdminQueryService;
-import pe.upc.pawfectcaremicroservices.iam_service.infrastructure.persistence.jpa.repositories.UserAdminRepository;
 import org.springframework.stereotype.Service;
+import pe.upc.pawfectcaremicroservices.iam_service.infrastructure.persistence.jpa.repositories.JpaUserAdminRepositoryImpl;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,15 +16,15 @@ import java.util.Optional;
  */
 @Service
 public class UserAdminQueryServiceImpl implements UserAdminQueryService {
-    private final UserAdminRepository userAdminRepository;
+    private final JpaUserAdminRepositoryImpl jpaUserAdminRepository;
 
     /**
      * Constructor.
      *
-     * @param userAdminRepository {@link UserAdminRepository} instance.
+     * @param jpaUserAdminRepository {@link JpaUserAdminRepositoryImpl} instance.
      */
-    public UserAdminQueryServiceImpl(UserAdminRepository userAdminRepository) {
-        this.userAdminRepository = userAdminRepository;
+    public UserAdminQueryServiceImpl(JpaUserAdminRepositoryImpl jpaUserAdminRepository) {
+        this.jpaUserAdminRepository = jpaUserAdminRepository;
     }
 
     /**
@@ -35,7 +35,7 @@ public class UserAdminQueryServiceImpl implements UserAdminQueryService {
      */
     @Override
     public List<UserAdmin> handle(GetAllUsersAdminQuery query) {
-        return userAdminRepository.findAll();
+        return jpaUserAdminRepository.findAll();
     }
 
     /**
@@ -46,17 +46,17 @@ public class UserAdminQueryServiceImpl implements UserAdminQueryService {
      */
     @Override
     public Optional<UserAdmin> handle(GetUserAdminByIdQuery query) {
-        return userAdminRepository.findById(query.userId());
+        return jpaUserAdminRepository.findById(query.userId());
     }
 
     /**
-     * This method is used to handle {@link GetUserAdminByUsernameQuery} query.
-     * @param query {@link GetUserAdminByUsernameQuery} instance.
+     * This method is used to handle {@link GetUserAdminByUserNameQuery} query.
+     * @param query {@link GetUserAdminByUserNameQuery} instance.
      * @return {@link Optional} of {@link UserAdmin} instance.
-     * @see GetUserAdminByUsernameQuery
+     * @see GetUserAdminByUserNameQuery
      */
     @Override
-    public Optional<UserAdmin> handle(GetUserAdminByUsernameQuery query) {
-        return userAdminRepository.findByUsername(query.username());
+    public Optional<UserAdmin> handle(GetUserAdminByUserNameQuery query) {
+        return jpaUserAdminRepository.findByUserName(query.username());
     }
 }

@@ -27,9 +27,9 @@ public class RoleQueryServiceImpl implements RoleQueryService {
     }
 
     /**
-     * Handle the get all roles query
-     * @param query the get all roles query
-     * @return List<Role> the list of roles
+     * Handle the get all role query
+     * @param query the get all role query
+     * @return List<Role> the list of role
      */
     @Override
     public List<Role> handle(GetAllRolesQuery query) {

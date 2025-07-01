@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pe.upc.pawfectcaremicroservices.iam_service.domain.model.queries.GetUserAdminByUsernameQuery;
+import pe.upc.pawfectcaremicroservices.iam_service.domain.model.queries.GetUserAdminByUserNameQuery;
 import pe.upc.pawfectcaremicroservices.iam_service.domain.services.UserAdminCommandService;
 import pe.upc.pawfectcaremicroservices.iam_service.domain.services.UserAdminQueryService;
 import pe.upc.pawfectcaremicroservices.iam_service.infrastructure.tokens.jwt.BearerTokenService;
@@ -72,11 +72,11 @@ public class GoogleAuthenticationController {
             // Create response resource
             var authenticatedUser = new GoogleAuthenticatedUserResource(
                     user.getId(),
-                    user.getUsername(),
+                    user.getUserName(),
                     token
             );
 
-            LOGGER.info("Google authentication successful for user: {}", user.getUsername());
+            LOGGER.info("Google authentication successful for user: {}", user.getUserName());
             return ResponseEntity.ok(authenticatedUser);
 
         } catch (IllegalArgumentException e) {
@@ -101,9 +101,9 @@ public class GoogleAuthenticationController {
             }
 
             String token = authHeader.substring(7);
-            String username = tokenService.getUsernameFromToken(token);
+            String userName = tokenService.getUsernameFromToken(token);
 
-            var userOpt = userAdminQueryService.handle(new GetUserAdminByUsernameQuery(username));
+            var userOpt = userAdminQueryService.handle(new GetUserAdminByUserNameQuery(userName));
             if (userOpt.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
             }
@@ -111,7 +111,7 @@ public class GoogleAuthenticationController {
             var user = userOpt.get();
             return ResponseEntity.ok(new GoogleAuthenticatedUserResource(
                     user.getId(),
-                    user.getUsername(),
+                    user.getUserName(),
                     token
             ));
 

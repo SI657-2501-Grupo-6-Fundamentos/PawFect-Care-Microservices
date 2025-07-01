@@ -36,14 +36,24 @@ public class BearerAuthorizationRequestFilter extends OncePerRequestFilter {
 
     // Rutas públicas que no requieren autenticación (con patrones)
     private static final List<String> PUBLIC_PATHS = List.of(
+            "api/v1/authentication/sign-in",
+            "api/v1/authentication/sign-up",
             "/api/v1/authentication/**",
             "/api/v1/auth/google/sign-in",
-
+            "/api/v1/auth/google/sign-up",
             "/v3/api-docs/**",
             "/swagger-ui.html",
             "/swagger-ui/**",
             "/swagger-resources/**",
-            "/webjars/**"
+            "/webjars/**",
+
+            // Actuator endpoints (IMPORTANTES para health checks)
+            "/actuator/**",
+            "/actuator/health",
+            "/actuator/info",
+
+            // Eureka endpoints (si es necesario)
+            "/eureka/**"
     );
 
     private static final AntPathMatcher pathMatcher = new AntPathMatcher();
@@ -62,6 +72,7 @@ public class BearerAuthorizationRequestFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
         String path = request.getRequestURI();
+
         LOGGER.info("Request path: {}", path); // <-- Agrega este log
         LOGGER.info("Request URI: {}", path);
         LOGGER.info("Servlet path: {}", request.getServletPath());
@@ -80,6 +91,7 @@ public class BearerAuthorizationRequestFilter extends OncePerRequestFilter {
 
         LOGGER.info("Is public: {}", isPublic); // <-- Y este
         if (isPublic) {
+            LOGGER.info("✅ Allowing public access to: {}", path);
             filterChain.doFilter(request, response);
             return;
         }

@@ -5,6 +5,6 @@ import pe.upc.pawfectcaremicroservices.iam_service.interfaces.rest.resources.Sig
 
 public class SignInCommandFromResourceAssembler {
     public static SignInCommand toCommandFromResource(SignInResource signInResource) {
-        return new SignInCommand(signInResource.username(), signInResource.password());
+        return new SignInCommand(signInResource.userName(), signInResource.password());
     }
 }

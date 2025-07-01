@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  *  Roles Controller
- *  This controller is responsible for handling all the requests related to roles
+ *  This controller is responsible for handling all the requests related to role
  */
 @RestController
 @RequestMapping(value = "/api/v1/roles", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -29,7 +29,7 @@ public class RolesController {
     }
 
     /**
-     * Get all roles
+     * Get all role
      * @return List of role resources
      * @see RoleResource
      */

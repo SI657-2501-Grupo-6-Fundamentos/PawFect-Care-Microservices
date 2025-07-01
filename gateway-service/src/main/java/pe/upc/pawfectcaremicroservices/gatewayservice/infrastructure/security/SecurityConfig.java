@@ -20,7 +20,7 @@ public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
         http
-                //.cors(corsSpec -> corsSpec.configurationSource(corsConfigurationSource()))
+                .cors(corsSpec -> corsSpec.configurationSource(corsConfigurationSource()))
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(exchanges -> exchanges
                         .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()
@@ -28,13 +28,12 @@ public class SecurityConfig {
                                 "/api/auth/**",
                                 "/api/auth/register-vet",
                                 "/api/v1/authentication/**",
-                                "/iam-service/api/v1/authentication/**",
                                 "/api/v1/auth/google/sign-in",
                                 "/iam-service/api/v1/auth/google/sign-in",
                                 "iam-service/api/v1/auth/google/sign-in",
                                 "api/v1/auth/google/sign-in",
                                 "/api/v1/auth/google/sign-in",
-                                //"iam-service/api/v1/authentication/**",
+                                "/iam-service/api/v1/authentication/**",
                                 "account-service/api/auth/**",
                                 "/account-service/api/auth/**",
                                 "pet-service/**",
@@ -62,7 +61,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-    /*
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration cors = new CorsConfiguration();
@@ -73,9 +72,9 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", cors);
         return source;
-    }*/
+    }
 
-    @Bean
+    /*@Bean
     public CorsWebFilter corsWebFilter() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of("http://localhost:4200"));
@@ -88,7 +87,7 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", config);
 
         return new CorsWebFilter(source);
-    }
+    }*/
 
     @Bean
     public PasswordEncoder passwordEncoder() {

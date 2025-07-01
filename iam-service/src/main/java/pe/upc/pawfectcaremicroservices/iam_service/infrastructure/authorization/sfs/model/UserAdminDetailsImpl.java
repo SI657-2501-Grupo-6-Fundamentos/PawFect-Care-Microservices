@@ -39,7 +39,7 @@ public class UserAdminDetailsImpl implements UserDetails {
     }
 
     /**
-     * This method is responsible for building the UserAdminDetailsImpl object from the UserAdmin object.
+     * This method is responsible for building the UserAdminDetailsImpl object from the User object.
      * @param userAdmin The userAdmin object.
      * @return The UserAdminDetailsImpl object.
      */
@@ -49,7 +49,7 @@ public class UserAdminDetailsImpl implements UserDetails {
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
         return new UserAdminDetailsImpl(
-                userAdmin.getUsername(),
+                userAdmin.getUserName(),
                 userAdmin.getPassword(),
                 authorities);
     }

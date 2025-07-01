@@ -60,11 +60,11 @@ spring:
             - Path=/account-service/**
           filters:
             - StripPrefix=1
-        #Diagnostic Service
-        - id: diagnostic-service
-          uri: lb://diagnostic-service
+        #Treatment Service
+        - id: treatment-service
+          uri: lb://treatment-service
           predicates:
-            - Path=/diagnostic-service/**
+            - Path=/treatment-service/**
           filters:
             - StripPrefix=1
         # IAM Service - SOLO esta ruta para autenticación
@@ -92,6 +92,4 @@ eureka:
       logging:
         level:
           org.springframework.security: DEBUG
-          org.springframework.web.cors: DEBUG
-          org.springframework.web.reactive.function.server.RouterFunctions: DEBUG
-          org.springframework.cloud.gateway.handler.FilteringWebHandler: DEBUG
+          org.springframework.security.web.FilterChainProxy: DEBUG

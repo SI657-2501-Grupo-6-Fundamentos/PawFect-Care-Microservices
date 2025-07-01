@@ -22,9 +22,9 @@ import java.util.List;
  * - GET /api/v1/users: returns all the users
  * - GET /api/v1/users/{userId}: returns the user with the given id
  **/
-@RestController
+/*@RestController
 @RequestMapping(value = "/api/v1/users_admin", produces = MediaType.APPLICATION_JSON_VALUE)
-@Tag(name = "Users Admin", description = "UserAdmin Management Endpoints")
+@Tag(name = "Users Admin", description = "User Management Endpoints")
 public class UsersAdminController {
     private final UserAdminQueryService userAdminQueryService;
 
@@ -32,11 +32,11 @@ public class UsersAdminController {
         this.userAdminQueryService = userAdminQueryService;
     }
 
-    /**
+
      * This method returns all the users.
      * @return a list of user resources
      * @see UserAdminResource
-     */
+
     @GetMapping
     public ResponseEntity<List<UserAdminResource>> getAllUsersAdmin() {
         var getAllUsersAdminQuery = new GetAllUsersAdminQuery();
@@ -45,13 +45,13 @@ public class UsersAdminController {
         return ResponseEntity.ok(userAdminResources);
     }
 
-    /**
+
      * This method returns the user with the given id.
      * @param userAdminId the user id
      * @return the user resource with the given id
      * @throws RuntimeException if the user is not found
      * @see UserAdminResource
-     */
+
     @GetMapping(value = "/{userAdminId}")
     public ResponseEntity<UserAdminResource> getUserAdminById(@PathVariable Long userAdminId) {
         var getUserByIdQuery = new GetUserAdminByIdQuery(userAdminId);
@@ -62,4 +62,4 @@ public class UsersAdminController {
         var userAdminResource = UserAdminResourceFromEntityAssembler.toResourceFromEntity(userAdmin.get());
         return ResponseEntity.ok(userAdminResource);
     }
-}
+}*/

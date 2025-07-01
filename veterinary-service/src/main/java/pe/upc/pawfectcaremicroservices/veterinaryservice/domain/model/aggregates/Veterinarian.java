@@ -51,6 +51,8 @@ public class Veterinarian {
         this.email = createVeterinarianCommand.email();
         this.dni = createVeterinarianCommand.dni();
         this.veterinarianSpeciality = VeterinarianSpeciality.fromValue(createVeterinarianCommand.veterinarianSpeciality());
+        this.availableStartTime = createVeterinarianCommand.availableStartTime();
+        this.availableEndTime = createVeterinarianCommand.availableEndTime();
     }
 
     public Veterinarian updateInformation(String fullName, String phoneNumber, String email, String dni, VeterinarianSpeciality veterinarianSpeciality) {

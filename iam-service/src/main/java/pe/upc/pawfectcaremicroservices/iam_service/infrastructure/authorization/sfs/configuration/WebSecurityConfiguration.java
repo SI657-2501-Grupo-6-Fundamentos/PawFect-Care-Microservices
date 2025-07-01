@@ -45,10 +45,10 @@ public class WebSecurityConfiguration {
      * This method creates the Bearer Authorization Request Filter.
      * @return The Bearer Authorization Request Filter
      */
-    @Bean
+    /*@Bean
     public BearerAuthorizationRequestFilter authorizationRequestFilter() {
         return new BearerAuthorizationRequestFilter(tokenService, userDetailsService);
-    }
+    }*/
 
     /**
      * This method creates the authentication manager.
@@ -104,7 +104,9 @@ public class WebSecurityConfiguration {
                 .sessionManagement( customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers(
-                                "/iam-service/api/v1/authentication/**", // Esto ya cubre sign-up y sign-in
+                                "/api/v1/authentication/sign-in",
+                                "/api/v1/authentication/sign-up",
+                                "/api/v1/authentication/sign-up-admin",
                                 "/iam-service/api/v1/auth/google/health",
                                 "/iam-service/api/v1/auth/google/sign-in",
                                 "iam-service/api/v1/auth/google/sign-in",
@@ -120,7 +122,7 @@ public class WebSecurityConfiguration {
                         .anyRequest().authenticated()
                 );
         http.authenticationProvider(authenticationProvider());
-        http.addFilterBefore(authorizationRequestFilter(), UsernamePasswordAuthenticationFilter.class);
+        //http.addFilterBefore(authorizationRequestFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
 
     }

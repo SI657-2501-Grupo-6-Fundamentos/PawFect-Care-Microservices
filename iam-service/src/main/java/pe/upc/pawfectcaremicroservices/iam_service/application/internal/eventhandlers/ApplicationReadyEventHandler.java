@@ -25,13 +25,13 @@ public class ApplicationReadyEventHandler {
 
     /**
      * Handle the ApplicationReadyEvent
-     * This method is used to seed the roles
+     * This method is used to seed the role
      * @param event the ApplicationReadyEvent the event to handle
      */
     @EventListener
     public void on(ApplicationReadyEvent event) {
         var applicationName = event.getApplicationContext().getId();
-        LOGGER.info("Starting to verify if roles seeding is needed for {} at {}", applicationName, currentTimestamp());
+        LOGGER.info("Starting to verify if role seeding is needed for {} at {}", applicationName, currentTimestamp());
         var seedRolesCommand = new SeedRolesCommand();
         roleCommandService.handle(seedRolesCommand);
         LOGGER.info("Roles seeding verification finished for {} at {}", applicationName, currentTimestamp());
