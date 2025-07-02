@@ -20,7 +20,7 @@ public class SecurityConfig {
     @Bean
     public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
         http
-                .cors(corsSpec -> corsSpec.configurationSource(corsConfigurationSource()))
+                //.cors(corsSpec -> corsSpec.configurationSource(corsConfigurationSource()))
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange(exchanges -> exchanges
                         .pathMatchers(HttpMethod.OPTIONS, "/**").permitAll()
@@ -30,28 +30,16 @@ public class SecurityConfig {
                                 "/api/v1/authentication/**",
                                 "/api/v1/auth/google/sign-in",
                                 "/iam-service/api/v1/auth/google/sign-in",
-                                "iam-service/api/v1/auth/google/sign-in",
-                                "api/v1/auth/google/sign-in",
-                                "/api/v1/auth/google/sign-in",
                                 "/iam-service/api/v1/authentication/**",
-                                "account-service/api/auth/**",
                                 "/account-service/api/auth/**",
-                                "pet-service/**",
                                 "/pet-service/**",
-                                "pet-owner-service/**",
                                 "/pet-owner-service/**",
-                                "appointment-service/**",
                                 "/appointment-service/**",
-                                "review-service/**",
                                 "/review-service/**",
-                                "medical-record-service/**",
                                 "/medical-record-service/**",
-                                "schedule-service/**",
                                 "/schedule-service/**",
-                                "veterinarian-service/**",
                                 "/veterinarian-service/**",
-                                "treatment-service/**",
-                                "/treatment-service/**",
+                                "/diagnostic-service/**",
                                 "/swagger-ui.html",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**"
@@ -65,7 +53,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration cors = new CorsConfiguration();
-        cors.setAllowedOrigins(List.of("http://localhost:4200"));
+        cors.setAllowedOrigins(List.of("https://pawfect-care-app-web-ef319.web.app"));
         cors.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         cors.setAllowedHeaders(List.of("*"));
         cors.setAllowCredentials(true);

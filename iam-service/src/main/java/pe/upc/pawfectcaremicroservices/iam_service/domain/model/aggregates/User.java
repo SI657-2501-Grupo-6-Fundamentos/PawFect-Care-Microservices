@@ -26,16 +26,16 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column()
     private String fullName;
 
-    @Column(nullable = false)
+    @Column()
     private String phoneNumber;
 
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
+    @Column()
     private String address;
 
     @ManyToMany(fetch = FetchType.EAGER)

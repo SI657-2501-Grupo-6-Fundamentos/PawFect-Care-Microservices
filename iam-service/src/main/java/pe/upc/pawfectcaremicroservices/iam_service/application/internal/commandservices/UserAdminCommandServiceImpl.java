@@ -1,6 +1,5 @@
 package pe.upc.pawfectcaremicroservices.iam_service.application.internal.commandservices;
 
-
 import pe.upc.pawfectcaremicroservices.iam_service.application.internal.outboundservices.hashing.HashingService;
 import pe.upc.pawfectcaremicroservices.iam_service.application.internal.outboundservices.tokens.TokenService;
 import pe.upc.pawfectcaremicroservices.iam_service.domain.model.aggregates.UserAdmin;
@@ -14,6 +13,7 @@ import pe.upc.pawfectcaremicroservices.iam_service.domain.repository.UserAdminRe
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Optional;
 
@@ -76,21 +76,6 @@ public class UserAdminCommandServiceImpl implements UserAdminCommandService {
      */
     @Override
     public Optional<UserAdmin> handle(SignUpAdminCommand command) {
-        /*if (userAdminRepository.existsByUserName(command.userName()))
-            throw new RuntimeException("Username already exists");
-        //var roles = command.roles().stream().map(role -> roleRepository.findByName(role.getName()).orElseThrow(() -> new RuntimeException("Role name not found"))).toList();
-        var roles = roleRepository.findAll().stream()
-                .filter(role -> command.role().contains(role.getName().name()))
-                .toList();
-        var userAdmin = new UserAdmin(command.userName(), hashingService.encode(command.password()), roles);
-        userAdmin.setDni(command.dni());
-        userAdmin.setVeterinarianSpeciality(VeterinarianSpeciality.fromValue(command.veterinarianSpeciality()));
-        userAdmin.setAvailableStartTime(command.availableStartTime());
-        userAdmin.setAvailableEndTime(command.availableEndTime());
-
-
-        userAdminRepository.saveAdmin(userAdmin);
-        return userAdminRepository.findByUserName(command.userName());*/
         if (userAdminRepository.existsByUserName(command.userName()))
             throw new RuntimeException("Username already exists");
 
@@ -131,8 +116,7 @@ public class UserAdminCommandServiceImpl implements UserAdminCommandService {
             UserAdmin user;
 
             if (existingUser.isEmpty()) {
-                // Crear nuevo usuario con rol por defecto (asume que tienes un rol ROLE_USER)
-                // Ajusta este código según tus role disponibles
+                // Crear nuevo usuario con rol por defecto
                 var defaultRoles = roleRepository.findAll().stream()
                         .filter(role -> role.getName().name().equals("ROLE_USER"))
                         .toList();
@@ -143,7 +127,21 @@ public class UserAdminCommandServiceImpl implements UserAdminCommandService {
 
                 // Generar una contraseña aleatoria (no se usará para login con Google)
                 String randomPassword = java.util.UUID.randomUUID().toString();
-                user = new UserAdmin(email, hashingService.encode(randomPassword), defaultRoles);
+
+                // Use builder pattern to ensure all required fields are set
+                user = UserAdmin.builder()
+                        .userName(email)
+                        .password(hashingService.encode(randomPassword))
+                        .fullName(name != null ? name : "Google User") // Use name from Google or default
+                        .phoneNumber("N/A") // Default value since Google might not provide this
+                        .email(email)
+                        .dni("N/A") // Default value since Google doesn't provide DNI
+                        .veterinarianSpeciality(VeterinarianSpeciality.GENERAL_MEDICINE) // Default speciality
+                        .availableStartTime(LocalDateTime.now()) // Default availability
+                        .availableEndTime(LocalDateTime.now().plusHours(8)) // Default 8-hour availability
+                        .roles(new HashSet<>(defaultRoles))
+                        .build();
+
                 userAdminRepository.saveAdmin(user);
             } else {
                 user = existingUser.get();
