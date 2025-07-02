@@ -22,7 +22,7 @@ spring:
         - id: veterinary-service
           uri: lb://veterinary-service
           predicates:
-            - Path=/veterinarian-service/**
+            - Path=/veterinary-service/**
           filters:
             - StripPrefix=1
         # Schedule Service
@@ -53,18 +53,11 @@ spring:
             - Path=/review-service/**
           filters:
             - StripPrefix=1
-        # Account Service
-        - id: account-service
-          uri: lb://account-service
+        # Diagnostic Service (antes era Treatment Service)
+        - id: diagnostic-service
+          uri: lb://diagnostic-service
           predicates:
-            - Path=/account-service/**
-          filters:
-            - StripPrefix=1
-        #Treatment Service
-        - id: treatment-service
-          uri: lb://treatment-service
-          predicates:
-            - Path=/treatment-service/**
+            - Path=/diagnostic-service/**
           filters:
             - StripPrefix=1
         # IAM Service - SOLO esta ruta para autenticación
