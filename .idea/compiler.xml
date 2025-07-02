@@ -2,7 +2,6 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
-      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -10,12 +9,12 @@
         <module name="iam-service" />
         <module name="diagnostic-service" />
         <module name="appointment-service" />
-        <module name="medical-record-service" />
         <module name="pet-service" />
         <module name="schedule-service" />
+        <module name="medical-record-service" />
+        <module name="review-service" />
         <module name="gateway-service" />
         <module name="registry-service" />
-        <module name="review-service" />
         <module name="pet-owner-service" />
         <module name="veterinary-service" />
         <module name="account-service" />
