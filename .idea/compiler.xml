@@ -17,9 +17,11 @@
         <module name="registry-service" />
         <module name="pet-owner-service" />
         <module name="veterinary-service" />
-        <module name="account-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="account-service" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
