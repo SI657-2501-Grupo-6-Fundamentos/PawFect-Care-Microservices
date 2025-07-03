@@ -4,35 +4,27 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/petmanagement/pom.xml" />
-        <option value="$PROJECT_DIR$/registry-service/pom.xml" />
-        <option value="$PROJECT_DIR$/medicalappointment/pom.xml" />
-        <option value="$PROJECT_DIR$/account-service/pom.xml" />
-        <option value="$PROJECT_DIR$/appointment-service/pom.xml" />
-        <option value="$PROJECT_DIR$/client-service/pom.xml" />
-        <option value="$PROJECT_DIR$/diagnostic-service/pom.xml" />
-        <option value="$PROJECT_DIR$/feedback-service/pom.xml" />
-        <option value="$PROJECT_DIR$/gateway-service/pom.xml" />
-        <option value="$PROJECT_DIR$/iam_service/pom.xml" />
-        <option value="$PROJECT_DIR$/medical-record-service/pom.xml" />
-        <option value="$PROJECT_DIR$/pet-service/pom.xml" />
-        <option value="$PROJECT_DIR$/profile-service/pom.xml" />
-        <option value="$PROJECT_DIR$/schedule-service/pom.xml" />
-        <option value="$PROJECT_DIR$/veterinary-service/pom.xml" />
-        <option value="$PROJECT_DIR$/review-service/pom.xml" />
-        <option value="$PROJECT_DIR$/treatment-service/pom.xml" />
-        <option value="$PROJECT_DIR$/petowner-service/pom.xml" />
-        <option value="$PROJECT_DIR$/pet-owner-service/pom.xml" />
         <option value="$PROJECT_DIR$/iam-service/pom.xml" />
+        <option value="$PROJECT_DIR$/pet-service/pom.xml" />
+        <option value="$PROJECT_DIR$/review-service/pom.xml" />
+        <option value="$PROJECT_DIR$/account-service/pom.xml" />
+        <option value="$PROJECT_DIR$/gateway-service/pom.xml" />
+        <option value="$PROJECT_DIR$/registry-service/pom.xml" />
+        <option value="$PROJECT_DIR$/schedule-service/pom.xml" />
+        <option value="$PROJECT_DIR$/pet-owner-service/pom.xml" />
+        <option value="$PROJECT_DIR$/diagnostic-service/pom.xml" />
+        <option value="$PROJECT_DIR$/veterinary-service/pom.xml" />
+        <option value="$PROJECT_DIR$/appointment-service/pom.xml" />
+        <option value="$PROJECT_DIR$/medical-record-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
       <set>
-        <option value="$PROJECT_DIR$/profile-service/pom.xml" />
+        <option value="$PROJECT_DIR$/account-service/pom.xml" />
       </set>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" default="true" project-jdk-name="23" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="22" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

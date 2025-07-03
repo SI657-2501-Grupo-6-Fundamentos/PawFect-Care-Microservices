@@ -1,56 +1,93 @@
 package pe.upc.pawfectcaremicroservices.iam_service.domain.model.aggregates;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import pe.upc.pawfectcaremicroservices.iam_service.domain.model.entities.Role;
+import pe.upc.pawfectcaremicroservices.iam_service.domain.model.valueobjects.VeterinarianSpeciality;
 import pe.upc.pawfectcaremicroservices.iam_service.shared.domain.model.aggregates.AuditableAbstractAggregateRoot;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 /**
- * UserAdmin aggregate root
- * This class represents the aggregate root for the UserAdmin entity.
+ * User aggregate root
+ * This class represents the aggregate root for the User entity.
  *
  * @see AuditableAbstractAggregateRoot
  */
+@Entity
+@Table(name = "users_admin", uniqueConstraints = @UniqueConstraint(columnNames = "userName"))
 @Getter
 @Setter
-@Entity
+@AllArgsConstructor
+@Builder
 public class UserAdmin extends AuditableAbstractAggregateRoot<UserAdmin> {
 
-    @NotBlank
-    @Size(max = 50)
-    @Column(unique = true)
-    private String username;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String userName;
 
     @NotBlank
-    @Size(max = 120)
+    @JsonProperty("password")
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(	name = "user_admin_roles",
-                joinColumns = @JoinColumn(name = "user_admin_id"),
-                inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @NotBlank
+    @JsonProperty("fullName")
+    private String fullName;
+
+    @NotBlank
+    @JsonProperty("phoneNumber")
+    private String phoneNumber;
+
+    @NotBlank
+    @JsonProperty("email")
+    private String email;
+
+    @NotBlank
+    @JsonProperty("dni")
+    private String dni;
+
+    @Column(nullable = false)
+    private VeterinarianSpeciality veterinarianSpeciality;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonProperty("availableStartTime")
+    private LocalDateTime availableStartTime;
+
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonProperty("availableEndTime")
+    private LocalDateTime availableEndTime;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_admin_roles",
+            joinColumns = @JoinColumn(name = "user_admin_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
     private Set<Role> roles;
 
     public UserAdmin() {
         this.roles = new HashSet<>();
     }
-    public UserAdmin(String username, String password) {
-        this.username = username;
+
+    public UserAdmin(String userName, String password) {
+        this.userName = userName;
         this.password = password;
         this.roles = new HashSet<>();
     }
 
-    public UserAdmin(String username, String password, List<Role> roles) {
-        this(username, password);
-        addRoles(roles);
+    public UserAdmin(String userName, String password, List<Role> roles) {
+        this(userName, password);
+        //addRoles(roles);
     }
 
     /**
@@ -64,9 +101,9 @@ public class UserAdmin extends AuditableAbstractAggregateRoot<UserAdmin> {
     }
 
     /**
-     * Add a list of roles to the user
-     * @param roles the list of roles to add
-     * @return the user with the added roles
+     * Add a list of role to the user
+     * @param roles the list of role to add
+     * @return the user with the added role
      */
     public UserAdmin addRoles(List<Role> roles) {
         var validatedRoleSet = Role.validateRoleSet(roles);

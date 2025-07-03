@@ -1,66 +1,6 @@
 version: '3.8'
 
 services:
-  pawfectcare-iam-db:
-    image: postgres:15
-    container_name: pawfectcare-iam-db
-    environment:
-      POSTGRES_DB: iam
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin123
-    ports:
-      - "5439:5432"
-    volumes:
-      - pawfectcare_iam_data:/var/lib/postgresql/data
-
-  veterinary-service-db:
-    image: postgres:15
-    container_name: veterinary-service-db
-    environment:
-      POSTGRES_DB: veterinary
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin123
-    ports:
-      - "5440:5432"
-    volumes:
-      - veterinary_service_data:/var/lib/postgresql/data
-
-  pet-service-db:
-    image: postgres:15
-    container_name: pet-service-db
-    environment:
-      POSTGRES_DB: pet
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin123
-    ports:
-      - "5441:5432"
-    volumes:
-      - pet_service_data:/var/lib/postgresql/data
-
-  client-service-db:
-    image: postgres:15
-    container_name: client-service-db
-    environment:
-      POSTGRES_DB: client
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin123
-    ports:
-      - "5442:5432"
-    volumes:
-      - client_service_data:/var/lib/postgresql/data
-
-  review-service-db:
-    image: postgres:15
-    container_name: review-service-db
-    environment:
-      POSTGRES_DB: review
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin123
-    ports:
-      - "5443:5432"
-    volumes:
-      - review_service_data:/var/lib/postgresql/data
-
   appointment-service-db:
     image: postgres:15
     container_name: appointment-service-db
@@ -73,23 +13,11 @@ services:
     volumes:
       - appointment_service_data:/var/lib/postgresql/data
 
-  schedule-service-db:
+  diagnostic-service-db:
     image: postgres:15
-    container_name: schedule-service-db
+    container_name: diagnostic-service-db
     environment:
-      POSTGRES_DB: schedule
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin123
-    ports:
-      - "5445:5432"
-    volumes:
-      - schedule_service_data:/var/lib/postgresql/data
-
-  treatment-service-db:
-    image: postgres:15
-    container_name: treatment-service-db
-    environment:
-      POSTGRES_DB: treatment
+      POSTGRES_DB: diagnostic
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin123
     ports:
@@ -97,6 +25,17 @@ services:
     volumes:
       - diagnostic_service_data:/var/lib/postgresql/data
 
+  pawfectcare-iam-db:
+    image: postgres:15
+    container_name: pawfectcare-iam-db
+    environment:
+      POSTGRES_DB: iam
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5439:5432"
+    volumes:
+      - pawfectcare_iam_data:/var/lib/postgresql/data
 
   medical-record-service-db:
     image: postgres:15
@@ -110,54 +49,74 @@ services:
     volumes:
       - medical_record_service_data:/var/lib/postgresql/data
 
-  profile-service-db:
+  pet-owner-service-db:
     image: postgres:15
-    container_name: profile-service-db
+    container_name: pet-owner-service-db
     environment:
-      POSTGRES_DB: profile
+      POSTGRES_DB: petowner
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin123
     ports:
-      - "5448:5432"
+      - "5442:5432"
     volumes:
-      - profile_service_data:/var/lib/postgresql/data
+      - pet_owner_service_data:/var/lib/postgresql/data
 
-  account-service-db:
+  pet-service-db:
     image: postgres:15
-    container_name: account-service-db
+    container_name: pet-service-db
     environment:
-      POSTGRES_DB: account_db
+      POSTGRES_DB: pet
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin123
     ports:
-      - "5449:5432"
+      - "5441:5432"
     volumes:
-      - account_service_data:/var/lib/postgresql/data
+      - pet_service_data:/var/lib/postgresql/data
 
-  treatment2-service-db:
+  review-service-db:
     image: postgres:15
-    container_name: treatment2-service-db
+    container_name: review-service-db
     environment:
-      POSTGRES_DB: treatment2
+      POSTGRES_DB: review
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin123
     ports:
-      - "5450:5432"
+      - "5443:5432"
     volumes:
-      - treatment2_service_data:/var/lib/postgresql/data
+      - review_service_data:/var/lib/postgresql/data
 
+  schedule-service-db:
+    image: postgres:15
+    container_name: schedule-service-db
+    environment:
+      POSTGRES_DB: schedule
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5445:5432"
+    volumes:
+      - schedule_service_data:/var/lib/postgresql/data
+
+  veterinary-service-db:
+    image: postgres:15
+    container_name: veterinary-service-db
+    environment:
+      POSTGRES_DB: veterinary
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5440:5432"
+    volumes:
+      - veterinary_service_data:/var/lib/postgresql/data
 
 volumes:
-  pawfectcare_iam_data:
-  veterinary_service_data:
-  pet_service_data:
-  client_service_data:
-  review_service_data:
   appointment_service_data:
-  schedule_service_data:
   diagnostic_service_data:
+  pawfectcare_iam_data:
   medical_record_service_data:
-  profile_service_data:
-  account_service_data:
-  treatment2_service_data:
+  pet_owner_service_data:
+  pet_service_data:
+  review_service_data:
+  schedule_service_data:
+  veterinary_service_data:
 

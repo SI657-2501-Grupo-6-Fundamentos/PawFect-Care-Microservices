@@ -33,8 +33,15 @@ public class UnauthorizedRequestHandlerEntryPoint implements AuthenticationEntry
      * @param authenticationException The exception that caused the invocation
      */
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authenticationException) throws IOException, ServletException {
+    public void commence(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            AuthenticationException authenticationException
+    ) throws IOException, ServletException {
         LOGGER.error("Unauthorized request: {}", authenticationException.getMessage());
+        LOGGER.error("🔗 URI: {}", request.getRequestURI());
+        LOGGER.error("📩 Method: {}", request.getMethod());
+        LOGGER.error("📣 Reason: {}", authenticationException.getMessage());
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized request detected");
     }
 }

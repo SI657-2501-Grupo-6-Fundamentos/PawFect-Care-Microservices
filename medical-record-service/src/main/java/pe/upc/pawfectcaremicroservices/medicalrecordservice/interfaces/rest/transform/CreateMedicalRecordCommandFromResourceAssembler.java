@@ -9,7 +9,8 @@ public class CreateMedicalRecordCommandFromResourceAssembler {
                 resource.title(),
                 resource.notes(),
                 resource.diagnosticId(),
-                resource.medicalAppointmentId()
+                resource.medicalAppointmentId(),
+                resource.recordedAt()
         );
     }
 }

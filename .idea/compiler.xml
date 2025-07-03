@@ -8,42 +8,35 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="iam-service" />
+        <module name="diagnostic-service" />
         <module name="appointment-service" />
-        <module name="medical-record-service" />
         <module name="pet-service" />
         <module name="schedule-service" />
-        <module name="registry-service" />
-        <module name="gateway-service" />
+        <module name="medical-record-service" />
         <module name="review-service" />
+        <module name="gateway-service" />
+        <module name="registry-service" />
         <module name="pet-owner-service" />
         <module name="veterinary-service" />
-        <module name="account-service" />
-        <module name="treatment-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="client-service" target="17" />
-      <module name="feedback" target="17" />
-      <module name="feedback-service" target="17" />
-      <module name="medicalappointment" target="17" />
-      <module name="petmanagement" target="17" />
-      <module name="profile-service" target="17" />
+      <module name="account-service" target="17" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="account-service" options="-parameters" />
       <module name="appointment-service" options="-parameters" />
+      <module name="diagnostic-service" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
       <module name="iam-service" options="-parameters" />
       <module name="medical-record-service" options="-parameters" />
       <module name="pet-owner-service" options="-parameters" />
       <module name="pet-service" options="-parameters" />
-      <module name="profile-service" options="-parameters" />
       <module name="registry-service" options="-parameters" />
       <module name="review-service" options="-parameters" />
       <module name="schedule-service" options="-parameters" />
-      <module name="treatment-service" options="-parameters" />
       <module name="veterinary-service" options="-parameters" />
     </option>
   </component>

@@ -9,7 +9,7 @@ import pe.upc.pawfectcaremicroservices.petownerservice.domain.model.commands.Cre
 @Getter
 @Setter
 @Entity
-@Table(name = "petowners")
+@Table(name = "pet_owners")
 public class PetOwner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

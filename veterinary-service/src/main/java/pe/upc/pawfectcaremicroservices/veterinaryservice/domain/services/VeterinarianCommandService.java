@@ -5,8 +5,6 @@ import pe.upc.pawfectcaremicroservices.veterinaryservice.domain.model.commands.C
 import pe.upc.pawfectcaremicroservices.veterinaryservice.domain.model.commands.UpdateVeterinarianAvailabilityCommand;
 import pe.upc.pawfectcaremicroservices.veterinaryservice.domain.model.commands.UpdateVeterinarianCommand;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Optional;
 
 public interface VeterinarianCommandService {

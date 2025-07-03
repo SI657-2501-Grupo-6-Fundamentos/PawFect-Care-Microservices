@@ -1,6 +1,8 @@
 package pe.upc.pawfectcaremicroservices.veterinaryservice.application;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import pe.upc.pawfectcaremicroservices.veterinaryservice.domain.model.aggregates.Veterinarian;
 import pe.upc.pawfectcaremicroservices.veterinaryservice.domain.model.commands.CreateVeterinarianCommand;
 import pe.upc.pawfectcaremicroservices.veterinaryservice.domain.model.commands.UpdateVeterinarianAvailabilityCommand;
@@ -24,7 +26,7 @@ public class VeterinarianCommandServiceImpl implements VeterinarianCommandServic
     @Override
     public Long handle(CreateVeterinarianCommand command) {
         if (veterinarianRepository.existsByDni(command.dni())) {
-            throw new IllegalArgumentException("Veterinarian with same dni already exists");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Veterinarian with same dni already exists");
         }
         var veterinarian = new Veterinarian(command);
         try {
@@ -48,7 +50,7 @@ public class VeterinarianCommandServiceImpl implements VeterinarianCommandServic
                             command.email(),
                             command.dni(),
                             command.veterinarianSpeciality() != null ?
-                                    VeterinarianSpeciality.valueOf(String.valueOf(command.veterinarianSpeciality())) :
+                                    VeterinarianSpeciality.fromValue(command.veterinarianSpeciality()) :
                                     veterinarianToUpdate.getVeterinarianSpeciality()
                     )
             );

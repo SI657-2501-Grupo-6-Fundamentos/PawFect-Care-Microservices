@@ -1,3 +1,4 @@
+** ORDEN PARA PRENDER LOS MICRO SERVICIOS **
 registry
 gateway
 iam
@@ -7,5 +8,16 @@ pet owner
 pet service
 medical record
 medical appoiment
-treatment-diagnostic service
-feedback service (reviews)
+diagnostic service
+review service
+
+** ORDEN ALFABETICO DE LOS MICRO SERVICIOS **
+appointment service
+diagnostic service
+iam service
+medical record service
+pet owner service
+pet service
+review service
+schedule service
+veterinary service

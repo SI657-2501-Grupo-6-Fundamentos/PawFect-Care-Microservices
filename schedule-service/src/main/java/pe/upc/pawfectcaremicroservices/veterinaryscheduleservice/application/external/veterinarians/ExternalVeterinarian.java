@@ -17,7 +17,7 @@ public class ExternalVeterinarian {
 
     public boolean existsVeterinarianById(Long veterinarianId) {
         try {
-            restTemplate.getForObject("http://localhost:8010/veterinarian-service/api/v1/veterinarians/{veterinarianId}", Object.class, veterinarianId);
+            restTemplate.getForObject("http://localhost:8010/veterinary-service/api/v1/veterinarians/{veterinarianId}", Object.class, veterinarianId);
             return true;
         } catch (HttpClientErrorException e) {
             System.err.println("HTTP Error: " + e.getStatusCode());
@@ -29,7 +29,7 @@ public class ExternalVeterinarian {
     }
 
     public void updateVeterinarianAvailability(Long vetId, Schedule schedule) {
-        var url = "http://localhost:8010/veterinarian-service/api/v1/veterinarians/{id}/availability";
+        var url = "http://localhost:8010/veterinary-service/api/v1/veterinarians/{id}/availability";
 
         var request = new HashMap<String, Object>();
         request.put("availableDays", schedule.getAvailableDays());

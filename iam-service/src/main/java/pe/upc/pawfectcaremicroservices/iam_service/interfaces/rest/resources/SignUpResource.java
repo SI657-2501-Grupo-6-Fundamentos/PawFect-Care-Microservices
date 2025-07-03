@@ -1,6 +1,5 @@
 package pe.upc.pawfectcaremicroservices.iam_service.interfaces.rest.resources;
 
-import java.util.List;
+public record SignUpResource(String username, String password, String role, String fullName, String phoneNumber, String email, String address) {
 
-public record SignUpResource(String username, String password, List<String> roles) {
 }

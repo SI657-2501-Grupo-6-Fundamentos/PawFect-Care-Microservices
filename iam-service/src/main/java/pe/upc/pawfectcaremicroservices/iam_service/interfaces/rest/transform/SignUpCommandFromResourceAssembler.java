@@ -1,14 +1,13 @@
 package pe.upc.pawfectcaremicroservices.iam_service.interfaces.rest.transform;
 
 import pe.upc.pawfectcaremicroservices.iam_service.domain.model.commands.SignUpCommand;
-import pe.upc.pawfectcaremicroservices.iam_service.domain.model.entities.Role;
-import pe.upc.pawfectcaremicroservices.iam_service.interfaces.rest.resources.SignUpResource;
-
-import java.util.ArrayList;
+import pe.upc.pawfectcaremicroservices.iam_service.interfaces.rest.resources.SignUpRequest;
 
 public class SignUpCommandFromResourceAssembler {
-    public static SignUpCommand toCommandFromResource(SignUpResource resource) {
-        var roles = resource.roles() != null ? resource.roles().stream().map(name -> Role.toRoleFromName(name)).toList() : new ArrayList<Role>();
-        return new SignUpCommand(resource.username(), resource.password(), roles);
+    public static SignUpCommand toCommandFromResource(SignUpRequest request) {
+        //var role = request.role() != null ? request.role().stream().map(name -> Role.toRoleFromName(name)).toList() : new ArrayList<Role>();
+        //var role = request.getRole();
+        return new SignUpCommand(request.getUserName(), request.getPassword(), request.getRole(),
+                request.getFullName(), request.getPhoneNumber(), request.getEmail(), request.getAddress());
     }
 }

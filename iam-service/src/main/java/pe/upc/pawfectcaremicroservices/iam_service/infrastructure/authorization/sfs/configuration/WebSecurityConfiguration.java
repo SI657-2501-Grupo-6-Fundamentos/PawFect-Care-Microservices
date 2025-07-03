@@ -45,10 +45,10 @@ public class WebSecurityConfiguration {
      * This method creates the Bearer Authorization Request Filter.
      * @return The Bearer Authorization Request Filter
      */
-    @Bean
+    /*@Bean
     public BearerAuthorizationRequestFilter authorizationRequestFilter() {
         return new BearerAuthorizationRequestFilter(tokenService, userDetailsService);
-    }
+    }*/
 
     /**
      * This method creates the authentication manager.
@@ -90,30 +90,33 @@ public class WebSecurityConfiguration {
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.cors(configurer -> configurer.configurationSource(request -> {
-            var cors = new CorsConfiguration();
-            cors.setAllowedOrigins(List.of("*"));
-            cors.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
-            cors.setAllowedHeaders(List.of("*"));
-            return cors;
-        }));
+
         http.csrf(csrfConfigurer -> csrfConfigurer.disable())
                 .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(unauthorizedRequestHandler))
                 .sessionManagement( customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers(
-                                "/api/v1/authentication/**", // Esto ya cubre sign-up y sign-in
+                                "/api/v1/authentication/sign-in",
+                                "/api/v1/authentication/sign-up",
+                                "/api/v1/authentication/sign-up-admin",
+                                "/api/v1/auth/google/sign-in-user",
+                                "/api/v1/auth/google/sign-in-user-admin",
+                                "/iam-service/api/v1/auth/google/**",
+                                "/iam-service/api/v1/authentication/**",
+                                "/api/v1/auth/google/sign-in",
                                 "/v3/api-docs/**",
                                 "/swagger-ui.html",
                                 "/swagger-ui/**",
                                 "/swagger-resources/**",
                                 "/webjars/**",
-                                "/api/v1/users_admin/registro" //
+                                "/api/v1/users_admin/registro",
+                                "8010/webjars/**",
+                                "/8010/webjars/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 );
         http.authenticationProvider(authenticationProvider());
-        http.addFilterBefore(authorizationRequestFilter(), UsernamePasswordAuthenticationFilter.class);
+        //http.addFilterBefore(authorizationRequestFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
 
     }
