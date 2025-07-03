@@ -17,7 +17,7 @@ public class ExternalVeterinarian {
 
     public boolean existsVeterinarianById(Long veterinarianId) {
         try {
-            restTemplate.getForObject("http://localhost:8010/veterinarian-service/api/v1/veterinarians/{veterinarianId}", Object.class, veterinarianId);
+            restTemplate.getForObject("http://localhost:8010/veterinary-service/api/v1/veterinarians/{veterinarianId}", Object.class, veterinarianId);
             return true;
         } catch (HttpClientErrorException.NotFound e) {
             return false;
@@ -26,7 +26,7 @@ public class ExternalVeterinarian {
 
     public boolean existsVeterinarianBySpeciality(ServiceName speciality) {
         try {
-            restTemplate.getForObject("http://localhost:8010/veterinarian-service/api/v1/veterinarians/speciality?speciality={speciality}", Object.class, speciality.name());
+            restTemplate.getForObject("http://localhost:8010/veterinary-service/api/v1/veterinarians/speciality?speciality={speciality}", Object.class, speciality.name());
             return true;
         } catch (HttpClientErrorException.NotFound e) {
             return false;
@@ -36,7 +36,7 @@ public class ExternalVeterinarian {
     public Optional<VeterinarianAvailability> getVeterinarianAvailabilityById(Long veterinarianId) {
         try {
             VeterinarianAvailability availability = restTemplate.getForObject(
-                    "http://localhost:8010/veterinarian-service/api/v1/veterinarians/{veterinarianId}/availability",
+                    "http://localhost:8010/veterinary-service/api/v1/veterinarians/{veterinarianId}/availability",
                     VeterinarianAvailability.class,
                     veterinarianId
             );
