@@ -1,6 +1,7 @@
 package pe.upc.pawfectcaremicroservices.iam_service.infrastructure.persistence.jpa.repositories;
 
 import org.springframework.stereotype.Repository;
+import pe.upc.pawfectcaremicroservices.iam_service.domain.model.aggregates.User;
 import pe.upc.pawfectcaremicroservices.iam_service.domain.model.aggregates.UserAdmin;
 import pe.upc.pawfectcaremicroservices.iam_service.domain.repository.UserAdminRepository;
 
@@ -28,5 +29,10 @@ public class UserAdminRepositoryImpl implements UserAdminRepository {
     @Override
     public boolean existsByUserName(String userName) {
         return jpaRepoAdmin.existsByUserName(userName);
+    }
+
+    @Override
+    public Optional<UserAdmin> findByEmail(String email) {
+        return jpaRepoAdmin.findByEmail(email);
     }
 }

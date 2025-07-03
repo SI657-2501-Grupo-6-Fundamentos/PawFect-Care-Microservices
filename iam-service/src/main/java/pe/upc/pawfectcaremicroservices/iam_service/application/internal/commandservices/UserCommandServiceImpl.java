@@ -101,6 +101,7 @@ public class UserCommandServiceImpl implements UserCommandService {
         return userRepository.findByUserName(command.userName());
     }
 
+
     /**
      * Handle Google Sign In command
      * @param command GoogleSignInCommand containing the Google ID token
@@ -112,13 +113,12 @@ public class UserCommandServiceImpl implements UserCommandService {
             String email = payload.getEmail();
             String name = (String) payload.get("name");
 
-            // Buscar usuario existente o crear uno nuevo
-            var existingUser = userRepository.findByUserName(email);
+            // Buscar usuario existente por EMAIL
+            var existingUser = userRepository.findByEmail(email);
             User user;
 
             if (existingUser.isEmpty()) {
-                // Crear nuevo usuario con rol por defecto (asume que tienes un rol ROLE_USER)
-                // Ajusta este código según tus role disponibles
+                // Crear nuevo usuario con rol por defecto
                 var defaultRoles = roleRepository.findAll().stream()
                         .filter(role -> role.getName().name().equals("ROLE_USER"))
                         .toList();
@@ -130,22 +130,19 @@ public class UserCommandServiceImpl implements UserCommandService {
                 // Generar una contraseña aleatoria (no se usará para login con Google)
                 String randomPassword = java.util.UUID.randomUUID().toString();
 
-                // Use builder pattern to ensure all required fields are set
-
                 user = User.builder()
-                        .userName(email.substring(0, email.indexOf("@"))) // username without @gmail.com
+                        .userName(email)  // Usar el email completo como username
                         .password(hashingService.encode(randomPassword))
-                        .fullName(name != null ? name : "Google User") // Use name from Google or default
-                        .phoneNumber("N/A") // Default value since Google might not provide this
+                        .fullName(name != null ? name : "Google User")
+                        .phoneNumber("N/A")
                         .email(email)
                         .address("N/A")
                         .roles(new HashSet<>(defaultRoles))
                         .build();
 
-                //user = new User(email, hashingService.encode(randomPassword), defaultRoles);
-
                 userRepository.save(user);
             } else {
+                // Usuario ya existe, usar el existente
                 user = existingUser.get();
             }
 
@@ -156,6 +153,7 @@ public class UserCommandServiceImpl implements UserCommandService {
             throw new RuntimeException("Google authentication failed: " + e.getMessage());
         }
     }
+
 
     @Override
     public Optional<ImmutablePair<User, String>> handle(GoogleCallbackCommand command) {

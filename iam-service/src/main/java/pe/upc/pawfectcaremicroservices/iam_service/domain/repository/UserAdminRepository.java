@@ -1,5 +1,6 @@
 package pe.upc.pawfectcaremicroservices.iam_service.domain.repository;
 
+import pe.upc.pawfectcaremicroservices.iam_service.domain.model.aggregates.User;
 import pe.upc.pawfectcaremicroservices.iam_service.domain.model.aggregates.UserAdmin;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -28,5 +29,7 @@ public interface UserAdminRepository
     boolean existsByUserName(String userName);
 
     UserAdmin saveAdmin(UserAdmin user);
+
+    Optional<UserAdmin> findByEmail(String email);
 
 }

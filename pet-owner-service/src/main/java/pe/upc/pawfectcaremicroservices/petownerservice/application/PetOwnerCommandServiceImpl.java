@@ -1,6 +1,8 @@
 package pe.upc.pawfectcaremicroservices.petownerservice.application;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 import pe.upc.pawfectcaremicroservices.petownerservice.domain.model.aggregates.PetOwner;
 import pe.upc.pawfectcaremicroservices.petownerservice.domain.model.commands.CreatePetOwnerCommand;
 import pe.upc.pawfectcaremicroservices.petownerservice.domain.model.commands.UpdatePetOwnerCommand;
@@ -20,7 +22,7 @@ public class PetOwnerCommandServiceImpl implements PetOwnerCommandService {
     @Override
     public Long handle(CreatePetOwnerCommand command) {
         if (petOwnerRepository.existsByEmail(command.email())) {
-            throw new IllegalArgumentException("Owner with same email already exists");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Owner with same email already exists");
         }
         var owner = new PetOwner(command);
         try {

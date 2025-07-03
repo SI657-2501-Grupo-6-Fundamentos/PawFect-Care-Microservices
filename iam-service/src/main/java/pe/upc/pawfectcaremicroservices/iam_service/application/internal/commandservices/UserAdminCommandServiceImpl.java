@@ -111,8 +111,8 @@ public class UserAdminCommandServiceImpl implements UserAdminCommandService {
             String email = payload.getEmail();
             String name = (String) payload.get("name");
 
-            // Buscar usuario existente o crear uno nuevo
-            var existingUser = userAdminRepository.findByUserName(email);
+            // Buscar usuario existente por EMAIL
+            var existingUser = userAdminRepository.findByEmail(email);
             UserAdmin userAdmin;
 
             if (existingUser.isEmpty()) {
@@ -128,22 +128,22 @@ public class UserAdminCommandServiceImpl implements UserAdminCommandService {
                 // Generar una contraseña aleatoria (no se usará para login con Google)
                 String randomPassword = java.util.UUID.randomUUID().toString();
 
-                // Use builder pattern to ensure all required fields are set
                 userAdmin = UserAdmin.builder()
-                        .userName(email.substring(0, email.indexOf("@"))) // username without @gmail.com
+                        .userName(email)  // Usar el email completo como username
                         .password(hashingService.encode(randomPassword))
-                        .fullName(name != null ? name : "Google User") // Use name from Google or default
-                        .phoneNumber("N/A") // Default value since Google might not provide this
+                        .fullName(name != null ? name : "Google User")
+                        .phoneNumber("N/A")
                         .email(email)
-                        .dni("N/A") // Default value since Google doesn't provide DNI
-                        .veterinarianSpeciality(VeterinarianSpeciality.GENERAL_MEDICINE) // Default speciality
-                        .availableStartTime(LocalDateTime.now()) // Default availability
-                        .availableEndTime(LocalDateTime.now().plusHours(8)) // Default 8-hour availability
+                        .dni("N/A")
+                        .veterinarianSpeciality(VeterinarianSpeciality.GENERAL_MEDICINE)
+                        .availableStartTime(LocalDateTime.now())
+                        .availableEndTime(LocalDateTime.now().plusHours(8))
                         .roles(new HashSet<>(defaultRoles))
                         .build();
 
                 userAdminRepository.saveAdmin(userAdmin);
             } else {
+                // Usuario ya existe, usar el existente
                 userAdmin = existingUser.get();
             }
 
@@ -154,6 +154,8 @@ public class UserAdminCommandServiceImpl implements UserAdminCommandService {
             throw new RuntimeException("Google authentication failed: " + e.getMessage());
         }
     }
+
+
 
     @Override
     public Optional<ImmutablePair<UserAdmin, String>> handle(GoogleCallbackCommand command) {
