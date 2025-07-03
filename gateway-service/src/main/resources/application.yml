@@ -86,3 +86,24 @@ eureka:
         level:
           org.springframework.security: DEBUG
           org.springframework.security.web.FilterChainProxy: DEBUG
+
+springdoc:
+  swagger-ui:
+    use-root-path: true
+    urls:
+      - url: /pet-owner-service/v3/api-docs
+        name: Pet Owner Service
+      - url: /pet-service/v3/api-docs
+        name: Pet Service
+      - url: /veterinary-service/v3/api-docs
+        name: Veterinary Service
+      - url: /schedule-service/v3/api-docs
+        name: Schedule Service
+      - url: /medical-record-service/v3/api-docs
+        name: Medical Record Service
+      - url: /appointment-service/v3/api-docs
+        name: Appointment Service
+      - url: /review-service/v3/api-docs
+        name: Review Service
+      - url: /diagnostic-service/v3/api-docs
+        name: Diagnostic Service
