@@ -28,10 +28,9 @@ public class SecurityConfig {
                                 "/api/auth/**",
                                 "/api/auth/register-vet",
                                 "/api/v1/authentication/**",
-                                "/api/v1/auth/google/sign-in",
-                                "/iam-service/api/v1/auth/google/sign-in",
+                                "/api/v1/auth/google/**",
+                                "/iam-service/api/v1/auth/google/**",
                                 "/iam-service/api/v1/authentication/**",
-                                "/account-service/api/auth/**",
                                 "/pet-service/**",
                                 "/pet-owner-service/**",
                                 "/appointment-service/**",
@@ -45,7 +44,10 @@ public class SecurityConfig {
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/swagger-config",
-                                "/webjars/**"
+                                "/webjars/**",
+                                "/iam-service/v3/api-docs/**",
+                                "8010/webjars/**",
+                                "/8010/webjars/**"
                         ).permitAll()
                         .anyExchange().authenticated()
                 );

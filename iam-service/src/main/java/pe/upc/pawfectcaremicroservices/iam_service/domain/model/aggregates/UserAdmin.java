@@ -69,8 +69,8 @@ public class UserAdmin extends AuditableAbstractAggregateRoot<UserAdmin> {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
+            name = "user_admin_roles",
+            joinColumns = @JoinColumn(name = "user_admin_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles;

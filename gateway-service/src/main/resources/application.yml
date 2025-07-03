@@ -91,6 +91,8 @@ springdoc:
   swagger-ui:
     use-root-path: true
     urls:
+      - url: /iam-service/v3/api-docs
+        name: Iam Service
       - url: /pet-owner-service/v3/api-docs
         name: Pet Owner Service
       - url: /pet-service/v3/api-docs

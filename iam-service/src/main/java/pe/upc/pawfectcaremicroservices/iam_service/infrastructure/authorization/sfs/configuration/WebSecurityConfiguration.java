@@ -90,14 +90,6 @@ public class WebSecurityConfiguration {
      */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        /*http.cors(configurer -> configurer.configurationSource(request -> {
-            var cors = new CorsConfiguration();
-            //cors.setAllowedOrigins(List.of("http://localhost:4200"));
-            cors.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-            cors.setAllowedHeaders(List.of("*"));
-            cors.setAllowCredentials(true);
-            return cors;
-        }));*/
 
         http.csrf(csrfConfigurer -> csrfConfigurer.disable())
                 .exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(unauthorizedRequestHandler))
@@ -107,8 +99,9 @@ public class WebSecurityConfiguration {
                                 "/api/v1/authentication/sign-in",
                                 "/api/v1/authentication/sign-up",
                                 "/api/v1/authentication/sign-up-admin",
-                                "/iam-service/api/v1/auth/google/health",
-                                "/iam-service/api/v1/auth/google/sign-in",
+                                "/api/v1/auth/google/sign-in-user",
+                                "/api/v1/auth/google/sign-in-user-admin",
+                                "/iam-service/api/v1/auth/google/**",
                                 "/iam-service/api/v1/authentication/**",
                                 "/api/v1/auth/google/sign-in",
                                 "/v3/api-docs/**",
@@ -116,7 +109,9 @@ public class WebSecurityConfiguration {
                                 "/swagger-ui/**",
                                 "/swagger-resources/**",
                                 "/webjars/**",
-                                "/api/v1/users_admin/registro" //
+                                "/api/v1/users_admin/registro",
+                                "8010/webjars/**",
+                                "/8010/webjars/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 );

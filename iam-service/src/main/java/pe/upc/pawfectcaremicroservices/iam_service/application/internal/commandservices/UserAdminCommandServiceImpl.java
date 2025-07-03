@@ -79,7 +79,7 @@ public class UserAdminCommandServiceImpl implements UserAdminCommandService {
         if (userAdminRepository.existsByUserName(command.userName()))
             throw new RuntimeException("Username already exists");
 
-        var roles = roleRepository.findAll().stream()
+        var UserAdminRoles = roleRepository.findAll().stream()
                 .filter(role -> command.role().contains(role.getName().name()))
                 .toList();
 
@@ -93,7 +93,7 @@ public class UserAdminCommandServiceImpl implements UserAdminCommandService {
                 .veterinarianSpeciality(VeterinarianSpeciality.fromValue(command.veterinarianSpeciality()))
                 .availableStartTime(command.availableStartTime())
                 .availableEndTime(command.availableEndTime())
-                .roles(new HashSet<>(roles))
+                .roles(new HashSet<>(UserAdminRoles))
                 .build();
 
         userAdminRepository.saveAdmin(userAdmin);
@@ -103,7 +103,7 @@ public class UserAdminCommandServiceImpl implements UserAdminCommandService {
     /**
      * Handle Google Sign In command
      * @param command GoogleSignInCommand containing the Google ID token
-     * @return Optional containing User and JWT token pair
+     * @return Optional containing UserAdmin and JWT token pair
      */
     public Optional<ImmutablePair<UserAdmin, String>> handle(GoogleSignInCommand command) {
         try {
@@ -113,12 +113,12 @@ public class UserAdminCommandServiceImpl implements UserAdminCommandService {
 
             // Buscar usuario existente o crear uno nuevo
             var existingUser = userAdminRepository.findByUserName(email);
-            UserAdmin user;
+            UserAdmin userAdmin;
 
             if (existingUser.isEmpty()) {
                 // Crear nuevo usuario con rol por defecto
                 var defaultRoles = roleRepository.findAll().stream()
-                        .filter(role -> role.getName().name().equals("ROLE_USER"))
+                        .filter(role -> role.getName().name().equals("ROLE_ADMIN"))
                         .toList();
 
                 if (defaultRoles.isEmpty()) {
@@ -129,8 +129,8 @@ public class UserAdminCommandServiceImpl implements UserAdminCommandService {
                 String randomPassword = java.util.UUID.randomUUID().toString();
 
                 // Use builder pattern to ensure all required fields are set
-                user = UserAdmin.builder()
-                        .userName(email)
+                userAdmin = UserAdmin.builder()
+                        .userName(email.substring(0, email.indexOf("@"))) // username without @gmail.com
                         .password(hashingService.encode(randomPassword))
                         .fullName(name != null ? name : "Google User") // Use name from Google or default
                         .phoneNumber("N/A") // Default value since Google might not provide this
@@ -142,13 +142,13 @@ public class UserAdminCommandServiceImpl implements UserAdminCommandService {
                         .roles(new HashSet<>(defaultRoles))
                         .build();
 
-                userAdminRepository.saveAdmin(user);
+                userAdminRepository.saveAdmin(userAdmin);
             } else {
-                user = existingUser.get();
+                userAdmin = existingUser.get();
             }
 
-            var token = tokenService.generateToken(user.getUserName());
-            return Optional.of(ImmutablePair.of(user, token));
+            var token = tokenService.generateToken(userAdmin.getUserName());
+            return Optional.of(ImmutablePair.of(userAdmin, token));
 
         } catch (Exception e) {
             throw new RuntimeException("Google authentication failed: " + e.getMessage());
@@ -168,6 +168,6 @@ public class UserAdminCommandServiceImpl implements UserAdminCommandService {
      */
     private Roles getDefaultRoleForGoogleUser() {
         // Retorna el rol por defecto - ajusta según tu enum Roles
-        return Roles.ROLE_USER;
+        return Roles.ROLE_ADMIN;
     }
 }

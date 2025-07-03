@@ -13,6 +13,7 @@ import pe.upc.pawfectcaremicroservices.iam_service.domain.services.UserCommandSe
 import pe.upc.pawfectcaremicroservices.iam_service.infrastructure.oauth.google.services.GoogleOAuthService;
 import pe.upc.pawfectcaremicroservices.iam_service.infrastructure.persistence.jpa.repositories.RoleRepository;
 
+import java.util.HashSet;
 import java.util.Optional;
 
 import static org.hibernate.sql.ast.SqlTreeCreationLogger.LOGGER;
@@ -81,15 +82,20 @@ public class UserCommandServiceImpl implements UserCommandService {
     public Optional<User> handle(SignUpCommand command) {
         if (userRepository.existsByUserName(command.userName()))
             throw new RuntimeException("Username already exists");
-        //var roles = command.roles().stream().map(role -> roleRepository.findByName(role.getName()).orElseThrow(() -> new RuntimeException("Role name not found"))).toList();
-        var roles = roleRepository.findAll().stream()
+
+        var userRoles = roleRepository.findAll().stream()
                 .filter(role -> command.role().contains(role.getName().name()))
                 .toList();
-        var user = new User(command.userName(), hashingService.encode(command.password()), roles);
-        user.setFullName(command.fullName());
-        user.setPhoneNumber(command.phoneNumber());
-        user.setEmail(command.email());
-        user.setAddress(command.address());
+
+        var user = User.builder()
+                .userName(command.userName())
+                .password(hashingService.encode(command.password()))
+                .fullName(command.fullName())
+                .phoneNumber(command.phoneNumber())
+                .email(command.email())
+                .address(command.address())
+                .roles(new HashSet<>(userRoles))  // ← Asigna roles directamente
+                .build();
 
         userRepository.save(user);
         return userRepository.findByUserName(command.userName());
@@ -123,7 +129,21 @@ public class UserCommandServiceImpl implements UserCommandService {
 
                 // Generar una contraseña aleatoria (no se usará para login con Google)
                 String randomPassword = java.util.UUID.randomUUID().toString();
-                user = new User(email, hashingService.encode(randomPassword), defaultRoles);
+
+                // Use builder pattern to ensure all required fields are set
+
+                user = User.builder()
+                        .userName(email.substring(0, email.indexOf("@"))) // username without @gmail.com
+                        .password(hashingService.encode(randomPassword))
+                        .fullName(name != null ? name : "Google User") // Use name from Google or default
+                        .phoneNumber("N/A") // Default value since Google might not provide this
+                        .email(email)
+                        .address("N/A")
+                        .roles(new HashSet<>(defaultRoles))
+                        .build();
+
+                //user = new User(email, hashingService.encode(randomPassword), defaultRoles);
+
                 userRepository.save(user);
             } else {
                 user = existingUser.get();

@@ -61,7 +61,7 @@ public class User {
         //addRoles(roles);
     }
 
-    private User addRole(Role role) {
+    public User addRole(Role role) {
         this.roles.add(role);
         return this;
     }
