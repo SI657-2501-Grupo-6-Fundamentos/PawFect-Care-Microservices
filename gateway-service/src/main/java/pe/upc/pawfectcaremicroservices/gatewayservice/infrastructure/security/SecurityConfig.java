@@ -58,7 +58,12 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration cors = new CorsConfiguration();
-        cors.setAllowedOrigins(List.of("https://pawfect-care-app-web-ef319.web.app","http://localhost:4200"));
+        cors.setAllowedOrigins(List.of(
+                "https://pawfect-care-app-web-ef319.web.app",
+                "http://localhost:4200",
+                "http://localhost:8010"  // Agregado para permitir Swagger del gateway
+                )
+        );
         cors.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         cors.setAllowedHeaders(List.of("*"));
         cors.setAllowCredentials(true);
