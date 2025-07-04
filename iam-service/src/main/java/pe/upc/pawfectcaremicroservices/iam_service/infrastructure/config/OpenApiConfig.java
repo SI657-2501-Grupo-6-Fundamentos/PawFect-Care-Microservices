@@ -1,4 +1,4 @@
-package pe.upc.pawfectcaremicroservices.petownerservice.infrastructure.config;
+package pe.upc.pawfectcaremicroservices.iam_service.infrastructure.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -15,15 +15,15 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Pet Owner Service API")
+                        .title("IAM Service API")
                         .version("1.0")
-                        .description("API for Pet Owner Service"))
+                        .description("API for IAM Service"))
                 .servers(List.of(
                         new Server()
-                                .url("http://localhost:8010/pet-owner-service")
+                                .url("http://localhost:8010/iam-service")
                                 .description("Gateway Server")/*,
                         new Server()
-                                .url("http://localhost:8094")
+                                .url("http://localhost:8122")
                                 .description("Direct Service (Development)")*/
                 ));
     }

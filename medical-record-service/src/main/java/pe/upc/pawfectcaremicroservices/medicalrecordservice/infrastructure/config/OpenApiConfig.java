@@ -1,4 +1,4 @@
-package pe.upc.pawfectcaremicroservices.petownerservice.infrastructure.config;
+package pe.upc.pawfectcaremicroservices.medicalrecordservice.infrastructure.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -15,15 +15,15 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Pet Owner Service API")
+                        .title("Medical Record Service API")
                         .version("1.0")
-                        .description("API for Pet Owner Service"))
+                        .description("API for Medical Record Service"))
                 .servers(List.of(
                         new Server()
-                                .url("http://localhost:8010/pet-owner-service")
+                                .url("http://localhost:8010/medical-record-service")
                                 .description("Gateway Server")/*,
                         new Server()
-                                .url("http://localhost:8094")
+                                .url("http://localhost:8099")
                                 .description("Direct Service (Development)")*/
                 ));
     }

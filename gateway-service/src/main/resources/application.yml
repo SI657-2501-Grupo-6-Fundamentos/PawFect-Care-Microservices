@@ -97,6 +97,18 @@ springdoc:
     # Configuración para usar el gateway como servidor base
     config-url: /v3/api-docs/swagger-config
     urls:
+      # Pet Owner Service
       - name: Pet Owner Service
-        url: /pet-owner-service/v3/api-docs  # Con esta url el swagger si encuentra la ruta al menos pero sigo igual que antes # Ya funciona:)
-        #url: /v3/api-docs/pet-owner-service # Probe con esta url y el swagger no encontraba /v3/api-docs/pet-owner-service
+        url: /pet-owner-service/v3/api-docs
+      # Pet Service
+      - name: Pet Service
+        url: /pet-service/v3/api-docs
+      # Veterinary Service
+      - name: Veterinary Service
+        url: /veterinary-service/v3/api-docs
+      # IAM Service
+      - name: IAM Service
+        url: /iam-service/v3/api-docs
+      # Medical Record Service
+      - name: Medical Record Service
+        url: /medical-record-service/v3/api-docs

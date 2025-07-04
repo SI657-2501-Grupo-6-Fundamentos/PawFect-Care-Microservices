@@ -54,14 +54,22 @@ public class SecurityConfig {
         return http.build();
     }
 
-
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration cors = new CorsConfiguration();
         cors.setAllowedOrigins(List.of(
                 "https://pawfect-care-app-web-ef319.web.app",
                 "http://localhost:4200",
-                "http://localhost:8010"  // Agregado para permitir Swagger del gateway
+                "http://localhost:8010", // Gateway Swagger
+                "http://localhost:8122", // IAM Service
+                "http://localhost:8099", // Medical Record Service
+                "http://localhost:8098", // Diagnostic Service
+                "http://localhost:8097", // Schedule Service
+                "http://localhost:8096", // Appointment Service
+                "http://localhost:8095", // Review Service
+                "http://localhost:8094", // Pet Owner Service
+                "http://localhost:8093", // Pet Service
+                "http://localhost:8092" // Veterinary Service
                 )
         );
         cors.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
@@ -71,21 +79,6 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", cors);
         return source;
     }
-
-    /*@Bean
-    public CorsWebFilter corsWebFilter() {
-        CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:4200"));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        config.setAllowedHeaders(List.of("*"));
-        //config.setExposedHeaders(List.of("Authorization"));
-        config.setAllowCredentials(true);
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", config);
-
-        return new CorsWebFilter(source);
-    }*/
 
     @Bean
     public PasswordEncoder passwordEncoder() {
