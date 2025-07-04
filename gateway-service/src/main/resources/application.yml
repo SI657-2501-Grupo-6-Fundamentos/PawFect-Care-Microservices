@@ -112,3 +112,15 @@ springdoc:
       # Medical Record Service
       - name: Medical Record Service
         url: /medical-record-service/v3/api-docs
+      # Appointment Service
+      - name: Appointment Service
+        url: /appointment-service/v3/api-docs
+      # Review Service
+      - name: Review Service
+        url: /review-service/v3/api-docs
+      # Diagnostic Service
+      - name: Diagnostic Service
+        url: /diagnostic-service/v3/api-docs
+      # Schedule Service
+      - name: Schedule Service
+        url: /schedule-service/v3/api-docs
