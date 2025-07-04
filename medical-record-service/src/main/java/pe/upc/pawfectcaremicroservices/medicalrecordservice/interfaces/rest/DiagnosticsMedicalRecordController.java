@@ -12,7 +12,7 @@ import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
-@RequestMapping(value = "/api/v1/treatments/{treatmentId}/medicalRecords", produces = APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/v1/diagnostics/{diagnosticId}/medicalRecords", produces = APPLICATION_JSON_VALUE)
 public class DiagnosticsMedicalRecordController {
     private final MedicalRecordQueryService medicalRecordQueryService;
 
@@ -21,8 +21,8 @@ public class DiagnosticsMedicalRecordController {
     }
 
     @GetMapping
-    public ResponseEntity<List<MedicalRecordResource>> getAllMedicalRecordsByDiagnosticId(@PathVariable Long treatmentId) {
-        var getAllMedicalRecordsByDiagnosticIdQuery = new GetAllMedicalRecordsByDiagnosticIdQuery(treatmentId);
+    public ResponseEntity<List<MedicalRecordResource>> getAllMedicalRecordsByDiagnosticId(@PathVariable Long diagnosticId) {
+        var getAllMedicalRecordsByDiagnosticIdQuery = new GetAllMedicalRecordsByDiagnosticIdQuery(diagnosticId);
         var medicalRecords = medicalRecordQueryService.handle(getAllMedicalRecordsByDiagnosticIdQuery);
         var medicalRecordResources = medicalRecords.stream().map(MedicalRecordResourceFromEntityAssembler::toResourceFromEntity).toList();
         return ResponseEntity.ok(medicalRecordResources);

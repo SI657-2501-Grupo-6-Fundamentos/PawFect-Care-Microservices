@@ -12,9 +12,9 @@ public class ExternalDiagnostic {
         this.restTemplate = restTemplate;
     }
 
-    public boolean existsDiagnosticById(Long treatmentId) {
+    public boolean existsDiagnosticById(Long diagnosticId) {
         try {
-            restTemplate.getForObject("http://localhost:8010/treatment-service/api/v1/treatments/{treatmentId}", Object.class, treatmentId);
+            restTemplate.getForObject("http://localhost:8010/diagnostic-service/api/v1/diagnostics/{diagnosticId}", Object.class, diagnosticId);
             return true;
         } catch (HttpClientErrorException e) {
             System.err.println("HTTP Error: " + e.getStatusCode());

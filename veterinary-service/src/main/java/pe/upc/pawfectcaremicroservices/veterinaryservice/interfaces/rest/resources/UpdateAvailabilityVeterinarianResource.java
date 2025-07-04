@@ -3,7 +3,8 @@ package pe.upc.pawfectcaremicroservices.veterinaryservice.interfaces.rest.resour
 import java.time.LocalDateTime;
 
 public record UpdateAvailabilityVeterinarianResource(
-        //String availableDays,
+        //List<String> availableDays,
         LocalDateTime availableStartTime,
         LocalDateTime availableEndTime
-) {}
+) {
+}

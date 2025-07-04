@@ -94,4 +94,31 @@ public class VeterinariansController {
 
         return ResponseEntity.ok(availability);
     }
+
+    @PutMapping("/{veterinarianId}/availability")
+    public ResponseEntity<VeterinarianAvailabilityResource> updateAvailability(
+            @PathVariable Long veterinarianId,
+            @RequestBody UpdateAvailabilityVeterinarianResource updateAvailabilityResource) {
+
+        var updateAvailabilityCommand = UpdateVeterinarianAvailabilityCommandFromResourceAssembler
+                .toCommandFromResource(veterinarianId, updateAvailabilityResource);
+
+        // Add debug logging
+        System.out.println("Received update availability request for veterinarian: " + veterinarianId);
+        System.out.println("Request data: " + updateAvailabilityResource);
+
+        var updatedVeterinarian = veterinarianCommandService.handle(updateAvailabilityCommand);
+
+        if (updatedVeterinarian.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        var vet = updatedVeterinarian.get();
+        var availability = new VeterinarianAvailabilityResource(
+                vet.getAvailableStartTime(),
+                vet.getAvailableEndTime()
+        );
+
+        return ResponseEntity.ok(availability);
+    }
 }

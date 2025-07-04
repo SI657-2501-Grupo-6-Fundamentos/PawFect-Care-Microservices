@@ -28,14 +28,23 @@ public class ExternalVeterinarian {
         }
     }
 
-    public void updateVeterinarianAvailability(Long vetId, Schedule schedule) {
-        var url = "http://localhost:8010/veterinary-service/api/v1/veterinarians/{id}/availability";
+    public void updateVeterinarianAvailability(Long vetIdveterinarianId, Schedule schedule) {
+        var url = "http://localhost:8010/veterinary-service/api/v1/veterinarians/{veterinarianId}/availability";
 
         var request = new HashMap<String, Object>();
-        request.put("availableDays", schedule.getAvailableDays());
+        //request.put("availableDays", schedule.getAvailableDays());
         request.put("availableStartTime", schedule.getStartDateTime());
         request.put("availableEndTime", schedule.getEndDateTime());
 
-        restTemplate.put(url, request, vetId);
+        try {
+            restTemplate.put(url, request, vetIdveterinarianId);
+        } catch (HttpClientErrorException e) {
+            System.err.println("HTTP Error while updating availability: " + e.getStatusCode());
+            System.err.println("Response body: " + e.getResponseBodyAsString());
+            throw new IllegalArgumentException("Error while saving schedule: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Error while updating availability: " + e.getMessage());
+            throw new IllegalArgumentException("Error while saving schedule: " + e.getMessage());
+        }
     }
 }
