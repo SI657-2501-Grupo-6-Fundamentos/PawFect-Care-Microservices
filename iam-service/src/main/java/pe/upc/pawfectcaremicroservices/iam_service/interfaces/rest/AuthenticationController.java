@@ -49,7 +49,6 @@ public class AuthenticationController {
 
         var signInCommand = SignInCommandFromResourceAssembler.toCommandFromResource(signInResource);
 
-        // 1. Intenta con usuario normal
         try {
             var user = userCommandService.handle(signInCommand);
             if (user.isPresent()) {
@@ -61,7 +60,6 @@ public class AuthenticationController {
             // Opcional: log si quieres ver por qué falló el login como user
         }
 
-        // 2. Intenta con admin
         try {
             var admin = userAdminCommandService.handle(signInCommand);
             if (admin.isPresent()) {
@@ -73,7 +71,31 @@ public class AuthenticationController {
             // Opcional: log si quieres ver por qué falló el login como admin
         }
 
-        // 3. Ninguno válido
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+    }
+
+
+    /**
+     * Handles the sign-in request.
+     * @param signInResource the sign-in request body.
+     * @return the authenticated user resource.
+     */
+    @PostMapping("/sign-in-admin")
+    public ResponseEntity<AuthenticatedGeneralUserResource> signInAdmin(@RequestBody SignInResource signInResource) {
+
+        var signInCommand = SignInCommandFromResourceAssembler.toCommandFromResource(signInResource);
+
+        try {
+            var admin = userAdminCommandService.handle(signInCommand);
+            if (admin.isPresent()) {
+                var resource = AuthenticatedGeneralUserResourceFromEntityAssembler
+                        .toResourceAdminFromEntity(admin.get().getLeft(), admin.get().getRight());
+                return ResponseEntity.ok(resource);
+            }
+        } catch (Exception e) {
+            // Opcional: log si quieres ver por qué falló el login como admin
+        }
+
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     }
 

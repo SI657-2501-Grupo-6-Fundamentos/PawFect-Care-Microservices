@@ -97,6 +97,7 @@ public class WebSecurityConfiguration {
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers(
                                 "/api/v1/authentication/sign-in",
+                                "/api/v1/authentication/sign-in-admin",
                                 "/api/v1/authentication/sign-up",
                                 "/api/v1/authentication/sign-up-admin",
                                 "/api/v1/auth/google/sign-in-user",
