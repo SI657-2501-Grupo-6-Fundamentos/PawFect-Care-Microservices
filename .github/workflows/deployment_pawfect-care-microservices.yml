@@ -1,158 +1,78 @@
-name: Despliegue Secuencial de Microservicios
+name: Build and Deploy Microservices
 
 on:
-  workflow_dispatch:
   push:
-    branches: [ deployment ]
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
-  deploy-services:
+  build-and-deploy:
     runs-on: ubuntu-latest
-    environment: production
+    strategy:
+      matrix:
+        service: [
+          'registry', 'gateway', 'iam', 'veterinary', 'schedule',
+          'pet-owner', 'pet', 'medical-record', 'appointment',
+          'diagnostic', 'review'
+        ]
+        include:
+          - service: registry
+            directory: ./registry-service
+            publish_profile: AZURE_PUBLISHPROFILE_REGISTRY_SERVICE
+          - service: gateway
+            directory: ./gateway-service
+            publish_profile: AZURE_PUBLISHPROFILE_GATEWAY_SERVICE
+          - service: iam
+            directory: ./iam-service
+            publish_profile: AZURE_PUBLISHPROFILE_IAM_SERVICE
+          - service: veterinary
+            directory: ./veterinary-service
+            publish_profile: AZURE_PUBLISHPROFILE_VETERINARY_SERVICE
+          - service: schedule
+            directory: ./schedule-service
+            publish_profile: AZURE_PUBLISHPROFILE_SCHEDULE_SERVICE
+          - service: pet-owner
+            directory: ./pet-owner-service
+            publish_profile: AZURE_PUBLISHPROFILE_PET_OWNER_SERVICE
+          - service: pet
+            directory: ./pet-service
+            publish_profile: AZURE_PUBLISHPROFILE_PET_SERVICE
+          - service: medical-record
+            directory: ./medical-record-service
+            publish_profile: AZURE_PUBLISHPROFILE_MEDICAL_RECORD_SERVICE
+          - service: appointment
+            directory: ./appointment-service
+            publish_profile: AZURE_PUBLISHPROFILE_APPOINTMENT_SERVICE
+          - service: diagnostic
+            directory: ./diagnostic-service
+            publish_profile: AZURE_PUBLISHPROFILE_DIAGNOSTIC_SERVICE
+          - service: review
+            directory: ./review-service
+            publish_profile: AZURE_PUBLISHPROFILE_REVIEW_SERVICE
+
     steps:
-      - name: Checkout código
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
-      - name: Configurar JDK 17
-        uses: actions/setup-java@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to Container Registry
+        uses: docker/login-action@v1
         with:
-          java-version: '17'
-          distribution: 'microsoft'
-          cache: maven
+          registry: ${{ secrets.REGISTRY_URL }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
 
-      # 1. Registry Service (Orden 1)
-      - name: Compilar e implementar Registry Service
-        env:
-          AZURE_WEBAPP_NAME: pawfect-registry-service
-          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_PUBLISHPROFILE_REGISTRY_SERVICE }}
-        run: |
-          echo "Desplegando Registry Service..."
-          mvn clean package -DskipTests -f registry-service/pom.xml
-          mvn azure-webapp:deploy -DskipTests -f registry-service/pom.xml
-          echo "Esperando 30 segundos para inicialización completa..."
-          sleep 30
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ${{ matrix.directory }}
+          push: true
+          tags: ${{ secrets.REGISTRY_URL }}/pawfect-${{ matrix.service }}:${{ github.sha }}, ${{ secrets.REGISTRY_URL }}/pawfect-${{ matrix.service }}:latest
 
-      # 2. Gateway Service (Orden 2)
-      - name: Compilar e implementar Gateway Service
-        env:
-          AZURE_WEBAPP_NAME: pawfect-gateway-service
-          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_PUBLISHPROFILE_GATEWAY_SERVICE }}
-        run: |
-          echo "Desplegando Gateway Service..."
-          mvn clean package -DskipTests -f gateway-service/pom.xml
-          mvn azure-webapp:deploy -DskipTests -f gateway-service/pom.xml
-          echo "Esperando 30 segundos para inicialización completa..."
-          sleep 30
-
-      # 3. IAM Service (Orden 3)
-      - name: Compilar e implementar IAM Service
-        env:
-          AZURE_WEBAPP_NAME: pawfect-iam-service
-          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_PUBLISHPROFILE_IAM_SERVICE }}
-        run: |
-          echo "Desplegando IAM Service..."
-          mvn clean package -DskipTests -f iam-service/pom.xml
-          mvn azure-webapp:deploy -DskipTests -f iam-service/pom.xml
-          echo "Esperando 30 segundos para inicialización completa..."
-          sleep 30
-
-      # 4. Veterinary Service (Orden 4)
-      - name: Compilar e implementar Veterinary Service
-        env:
-          AZURE_WEBAPP_NAME: pawfect-veterinary-service
-          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_PUBLISHPROFILE_VETERINARY_SERVICE }}
-        run: |
-          echo "Desplegando Veterinary Service..."
-          mvn clean package -DskipTests -f veterinary-service/pom.xml
-          mvn azure-webapp:deploy -DskipTests -f veterinary-service/pom.xml
-          echo "Esperando 30 segundos para inicialización completa..."
-          sleep 30
-
-      # 5. Schedule Service (Orden 5)
-      - name: Compilar e implementar Schedule Service
-        env:
-          AZURE_WEBAPP_NAME: pawfect-schedule-service
-          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_PUBLISHPROFILE_SCHEDULE_SERVICE }}
-        run: |
-          echo "Desplegando Schedule Service..."
-          mvn clean package -DskipTests -f schedule-service/pom.xml
-          mvn azure-webapp:deploy -DskipTests -f schedule-service/pom.xml
-          echo "Esperando 30 segundos para inicialización completa..."
-          sleep 30
-
-      # 6. Pet Owner Service (Orden 6)
-      - name: Compilar e implementar Pet Owner Service
-        env:
-          AZURE_WEBAPP_NAME: pawfect-pet-owner-service
-          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_PUBLISHPROFILE_PET_OWNER_SERVICE }}
-        run: |
-          echo "Desplegando Pet Owner Service..."
-          mvn clean package -DskipTests -f pet-owner-service/pom.xml
-          mvn azure-webapp:deploy -DskipTests -f pet-owner-service/pom.xml
-          echo "Esperando 30 segundos para inicialización completa..."
-          sleep 30
-
-      # 7. Pet Service (Orden 7)
-      - name: Compilar e implementar Pet Service
-        env:
-          AZURE_WEBAPP_NAME: pawfect-pet-service
-          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_PUBLISHPROFILE_PET_SERVICE }}
-        run: |
-          echo "Desplegando Pet Service..."
-          mvn clean package -DskipTests -f pet-service/pom.xml
-          mvn azure-webapp:deploy -DskipTests -f pet-service/pom.xml
-          echo "Esperando 30 segundos para inicialización completa..."
-          sleep 30
-
-      # 8. Medical Record Service (Orden 8)
-      - name: Compilar e implementar Medical Record Service
-        env:
-          AZURE_WEBAPP_NAME: pawfect-medical-record-service
-          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_PUBLISHPROFILE_MEDICAL_RECORD_SERVICE }}
-        run: |
-          echo "Desplegando Medical Record Service..."
-          mvn clean package -DskipTests -f medical-record-service/pom.xml
-          mvn azure-webapp:deploy -DskipTests -f medical-record-service/pom.xml
-          echo "Esperando 30 segundos para inicialización completa..."
-          sleep 30
-
-      # 9. Appointment Service (Orden 9)
-      - name: Compilar e implementar Appointment Service
-        env:
-          AZURE_WEBAPP_NAME: pawfect-appointment-service
-          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_PUBLISHPROFILE_APPOINTMENT_SERVICE }}
-        run: |
-          echo "Desplegando Appointment Service..."
-          mvn clean package -DskipTests -f appointment-service/pom.xml
-          mvn azure-webapp:deploy -DskipTests -f appointment-service/pom.xml
-          echo "Esperando 30 segundos para inicialización completa..."
-          sleep 30
-
-      # 10. Diagnostic Service (Orden 10)
-      - name: Compilar e implementar Diagnostic Service
-        env:
-          AZURE_WEBAPP_NAME: pawfect-diagnostic-service
-          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_PUBLISHPROFILE_DIAGNOSTIC_SERVICE }}
-        run: |
-          echo "Desplegando Diagnostic Service..."
-          mvn clean package -DskipTests -f diagnostic-service/pom.xml
-          mvn azure-webapp:deploy -DskipTests -f diagnostic-service/pom.xml
-          echo "Esperando 30 segundos para inicialización completa..."
-          sleep 30
-
-      # 11. Review Service (Orden 11)
-      - name: Compilar e implementar Review Service
-        env:
-          AZURE_WEBAPP_NAME: pawfect-review-service
-          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_PUBLISHPROFILE_REVIEW_SERVICE }}
-        run: |
-          echo "Desplegando Review Service..."
-          mvn clean package -DskipTests -f review-service/pom.xml
-          mvn azure-webapp:deploy -DskipTests -f review-service/pom.xml
-          echo "Esperando 30 segundos para inicialización completa..."
-          sleep 30
-
-      - name: Verificar despliegue
-        run: |
-          echo "Todos los servicios han sido desplegados en el orden correcto."
-          echo "Por favor verifica que cada servicio esté funcionando correctamente."
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: pawfect-${{ matrix.service }}-service
+          publish-profile: ${{ secrets[matrix.publish_profile] }}
+          images: ${{ secrets.REGISTRY_URL }}/pawfect-${{ matrix.service }}:${{ github.sha }}
