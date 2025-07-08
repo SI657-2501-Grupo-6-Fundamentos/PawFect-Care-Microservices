@@ -1,19 +1,16 @@
 name: Deploy Pawfect Care Microservices
 
 on:
-  workflow_dispatch:
   push:
-    branches: [ main ]
-    paths-ignore:
-      - '**.md'
-      - '.gitignore'
-      - 'docs/**'
+    branches: [ deployment ]
+  pull_request:
+    branches: [ deployment ]
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
       matrix:
         include:
           - service: registry-service
@@ -50,10 +47,14 @@ jobs:
             port: 8095
             order: 11
 
-    name: Deploy ${{ matrix.service }} (Order: ${{ matrix.order }})
+    name: Deploy ${{ matrix.service }}
     environment: production
 
     steps:
+      - name: Check service order
+        id: service-order
+        run: echo "Current service order is ${{ matrix.order }}"
+
       - uses: actions/checkout@v3
 
       - name: Set up JDK 17
@@ -63,28 +64,38 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Wait for previous services
+        if: ${{ matrix.order > 1 }}
+        run: |
+          prev_order=${{ matrix.order - 1 }}
+          echo "Waiting for service with order $prev_order to complete"
+          # Aquí se podría implementar un mecanismo de espera
+          sleep 30
+
       - name: Build with Maven
-        run: mvn clean package -DskipTests -f ${{ matrix.service }}/pom.xml
+        run: |
+          cd ${{ matrix.service }}
+          mvn clean package -DskipTests
+
+      - name: Build Docker image
+        run: |
+          cd ${{ matrix.service }}
+          docker build -t pawfect-${{ matrix.service }}:${{ github.sha }} .
+
+      - name: Create publish profile
+        run: |
+          mkdir -p ./zdeploy-settings/profiles
+          echo "${{ secrets[format('AZURE_PUBLISHPROFILE_{0}_SERVICE', matrix.service | upper | replace('-', '_'))] }}" > ./zdeploy-settings/profiles/${{ matrix.service }}-profile.xml
 
       - name: Deploy to Azure Web App
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: pawfect-${{ matrix.service }}
-          publish-profile: ${{ secrets[format('AZURE_WEBAPP_PUBLISH_PROFILE_{0}', matrix.service)] }}
-          package: ${{ matrix.service }}/target/*.jar
+          publish-profile: ${{ secrets[format('AZURE_PUBLISHPROFILE_{0}_SERVICE', matrix.service | upper | replace('-', '_'))] }}
+          images: pawfect-${{ matrix.service }}:${{ github.sha }}
 
-      - name: Wait for service to start
+      - name: Verify deployment
         run: |
-          echo "Waiting for ${{ matrix.service }} to start..."
-          sleep 60
-
-  verify-deployment:
-    needs: build-and-deploy
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check services availability
-        run: |
-          echo "Verificando disponibilidad de servicios..."
-          # Aquí podrías agregar curl o health checks a los endpoints de cada servicio
-          echo "Todos los servicios desplegados correctamente"
+          echo "Verifying deployment of ${{ matrix.service }}"
+          # Aquí podrías agregar un script para verificar que el servicio está en ejecución correctamente
+          # Por ejemplo, una solicitud HTTP al servicio
