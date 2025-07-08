@@ -18,37 +18,37 @@ jobs:
         include:
           - service: registry
             directory: ./registry-service
-            publish_profile: AZURE_PUBLISHPROFILE_REGISTRY_SERVICE
+            publish_profile: ${{ secrets.AZURE_PUBLISHPROFILE_REGISTRY_SERVICE }}
           - service: gateway
             directory: ./gateway-service
-            publish_profile: AZURE_PUBLISHPROFILE_GATEWAY_SERVICE
+            publish_profile: ${{ secrets.AZURE_PUBLISHPROFILE_GATEWAY_SERVICE }}
           - service: iam
             directory: ./iam-service
-            publish_profile: AZURE_PUBLISHPROFILE_IAM_SERVICE
+            publish_profile: ${{ secrets.AZURE_PUBLISHPROFILE_IAM_SERVICE }}
           - service: veterinary
             directory: ./veterinary-service
-            publish_profile: AZURE_PUBLISHPROFILE_VETERINARY_SERVICE
+            publish_profile: ${{ secrets.AZURE_PUBLISHPROFILE_VETERINARY_SERVICE }}
           - service: schedule
             directory: ./schedule-service
-            publish_profile: AZURE_PUBLISHPROFILE_SCHEDULE_SERVICE
+            publish_profile: ${{ secrets.AZURE_PUBLISHPROFILE_SCHEDULE_SERVICE }}
           - service: pet-owner
             directory: ./pet-owner-service
-            publish_profile: AZURE_PUBLISHPROFILE_PET_OWNER_SERVICE
+            publish_profile: ${{ secrets.AZURE_PUBLISHPROFILE_PET_OWNER_SERVICE }}
           - service: pet
             directory: ./pet-service
-            publish_profile: AZURE_PUBLISHPROFILE_PET_SERVICE
+            publish_profile: ${{ secrets.AZURE_PUBLISHPROFILE_PET_SERVICE }}
           - service: medical-record
             directory: ./medical-record-service
-            publish_profile: AZURE_PUBLISHPROFILE_MEDICAL_RECORD_SERVICE
+            publish_profile: ${{ secrets.AZURE_PUBLISHPROFILE_MEDICAL_RECORD_SERVICE }}
           - service: appointment
             directory: ./appointment-service
-            publish_profile: AZURE_PUBLISHPROFILE_APPOINTMENT_SERVICE
+            publish_profile: ${{ secrets.AZURE_PUBLISHPROFILE_APPOINTMENT_SERVICE }}
           - service: diagnostic
             directory: ./diagnostic-service
-            publish_profile: AZURE_PUBLISHPROFILE_DIAGNOSTIC_SERVICE
+            publish_profile: ${{ secrets.AZURE_PUBLISHPROFILE_DIAGNOSTIC_SERVICE }}
           - service: review
             directory: ./review-service
-            publish_profile: AZURE_PUBLISHPROFILE_REVIEW_SERVICE
+            publish_profile: ${{ secrets.AZURE_PUBLISHPROFILE_REVIEW_SERVICE }}
 
     steps:
       - uses: actions/checkout@v3
