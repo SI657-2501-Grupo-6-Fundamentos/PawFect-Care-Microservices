@@ -2,7 +2,7 @@ name: Build and Deploy Microservices
 
 on:
   push:
-    branches: [ main ]
+    branches: [ deployment ]
   workflow_dispatch:
 
 jobs:
