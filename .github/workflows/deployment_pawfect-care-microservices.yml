@@ -24,7 +24,7 @@ jobs:
       - name: Compilar e implementar Registry Service
         env:
           AZURE_WEBAPP_NAME: pawfect-registry-service
-          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.REGISTRY_SERVICE_PUBLISH_PROFILE }}
+          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_PUBLISHPROFILE_REGISTRY_SERVICE }}
         run: |
           echo "Desplegando Registry Service..."
           mvn clean package -DskipTests -f registry-service/pom.xml
@@ -36,7 +36,7 @@ jobs:
       - name: Compilar e implementar Gateway Service
         env:
           AZURE_WEBAPP_NAME: pawfect-gateway-service
-          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.GATEWAY_SERVICE_PUBLISH_PROFILE }}
+          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_PUBLISHPROFILE_GATEWAY_SERVICE }}
         run: |
           echo "Desplegando Gateway Service..."
           mvn clean package -DskipTests -f gateway-service/pom.xml
@@ -48,7 +48,7 @@ jobs:
       - name: Compilar e implementar IAM Service
         env:
           AZURE_WEBAPP_NAME: pawfect-iam-service
-          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.IAM_SERVICE_PUBLISH_PROFILE }}
+          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_PUBLISHPROFILE_IAM_SERVICE }}
         run: |
           echo "Desplegando IAM Service..."
           mvn clean package -DskipTests -f iam-service/pom.xml
@@ -60,7 +60,7 @@ jobs:
       - name: Compilar e implementar Veterinary Service
         env:
           AZURE_WEBAPP_NAME: pawfect-veterinary-service
-          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.VETERINARY_SERVICE_PUBLISH_PROFILE }}
+          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_PUBLISHPROFILE_VETERINARY_SERVICE }}
         run: |
           echo "Desplegando Veterinary Service..."
           mvn clean package -DskipTests -f veterinary-service/pom.xml
@@ -72,7 +72,7 @@ jobs:
       - name: Compilar e implementar Schedule Service
         env:
           AZURE_WEBAPP_NAME: pawfect-schedule-service
-          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.SCHEDULE_SERVICE_PUBLISH_PROFILE }}
+          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_PUBLISHPROFILE_SCHEDULE_SERVICE }}
         run: |
           echo "Desplegando Schedule Service..."
           mvn clean package -DskipTests -f schedule-service/pom.xml
@@ -84,7 +84,7 @@ jobs:
       - name: Compilar e implementar Pet Owner Service
         env:
           AZURE_WEBAPP_NAME: pawfect-pet-owner-service
-          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.PET_OWNER_SERVICE_PUBLISH_PROFILE }}
+          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_PUBLISHPROFILE_PET_OWNER_SERVICE }}
         run: |
           echo "Desplegando Pet Owner Service..."
           mvn clean package -DskipTests -f pet-owner-service/pom.xml
@@ -96,7 +96,7 @@ jobs:
       - name: Compilar e implementar Pet Service
         env:
           AZURE_WEBAPP_NAME: pawfect-pet-service
-          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.PET_SERVICE_PUBLISH_PROFILE }}
+          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_PUBLISHPROFILE_PET_SERVICE }}
         run: |
           echo "Desplegando Pet Service..."
           mvn clean package -DskipTests -f pet-service/pom.xml
@@ -108,7 +108,7 @@ jobs:
       - name: Compilar e implementar Medical Record Service
         env:
           AZURE_WEBAPP_NAME: pawfect-medical-record-service
-          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.MEDICAL_RECORD_SERVICE_PUBLISH_PROFILE }}
+          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_PUBLISHPROFILE_MEDICAL_RECORD_SERVICE }}
         run: |
           echo "Desplegando Medical Record Service..."
           mvn clean package -DskipTests -f medical-record-service/pom.xml
@@ -120,7 +120,7 @@ jobs:
       - name: Compilar e implementar Appointment Service
         env:
           AZURE_WEBAPP_NAME: pawfect-appointment-service
-          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.APPOINTMENT_SERVICE_PUBLISH_PROFILE }}
+          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_PUBLISHPROFILE_APPOINTMENT_SERVICE }}
         run: |
           echo "Desplegando Appointment Service..."
           mvn clean package -DskipTests -f appointment-service/pom.xml
@@ -132,7 +132,7 @@ jobs:
       - name: Compilar e implementar Diagnostic Service
         env:
           AZURE_WEBAPP_NAME: pawfect-diagnostic-service
-          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.DIAGNOSTIC_SERVICE_PUBLISH_PROFILE }}
+          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_PUBLISHPROFILE_DIAGNOSTIC_SERVICE }}
         run: |
           echo "Desplegando Diagnostic Service..."
           mvn clean package -DskipTests -f diagnostic-service/pom.xml
@@ -144,7 +144,7 @@ jobs:
       - name: Compilar e implementar Review Service
         env:
           AZURE_WEBAPP_NAME: pawfect-review-service
-          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.REVIEW_SERVICE_PUBLISH_PROFILE }}
+          AZURE_WEBAPP_PUBLISH_PROFILE: ${{ secrets.AZURE_PUBLISHPROFILE_REVIEW_SERVICE }}
         run: |
           echo "Desplegando Review Service..."
           mvn clean package -DskipTests -f review-service/pom.xml
