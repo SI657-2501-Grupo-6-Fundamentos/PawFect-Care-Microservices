@@ -82,7 +82,7 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://localhost:8090/eureka/
+      defaultZone: ${EUREKA_URL:http://registry-service:8090/eureka/}
       logging:
         level:
           org.springframework.security: DEBUG

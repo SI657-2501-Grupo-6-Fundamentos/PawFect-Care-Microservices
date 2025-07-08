@@ -26,8 +26,11 @@ public class OpenApiConfig {
                         .description("API Gateway for PawfectCare Microservices"))
                 .servers(List.of(
                         new Server()
+                                .url(System.getenv("GATEWAY_SERVER_URL")) // TODO: Configurar el secreto en Azure y mapearlo a esta variable de entorno
+                                .description("Gateway Server Azure"),
+                        new Server()
                                 .url("http://localhost:8010")
-                                .description("Gateway Server")
+                                .description("Gateway Server Local")
                 ));
     }
 

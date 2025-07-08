@@ -1,0 +1,85 @@
+name: Build and Deploy to Azure
+
+on:
+  push:
+    branches:
+      - deployment
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - service: registry-service
+            port: 8090
+            order: 1
+          - service: gateway-service
+            port: 8010
+            order: 2
+          - service: iam-service
+            port: 8122
+            order: 3
+          - service: veterinary-service
+            port: 8092
+            order: 4
+          - service: schedule-service
+            port: 8097
+            order: 5
+          - service: pet-owner-service
+            port: 8094
+            order: 6
+          - service: pet-service
+            port: 8093
+            order: 7
+          - service: medical-record-service
+            port: 8099
+            order: 8
+          - service: appointment-service
+            port: 8096
+            order: 9
+          - service: diagnostic-service
+            port: 8098
+            order: 10
+          - service: review-service
+            port: 8095
+            order: 11
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'microsoft'
+
+      - name: Build with Maven
+        run: mvn -B package -DskipTests --file ${{ matrix.service }}/pom.xml
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Login to Azure Container Registry
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ secrets.REGISTRY_URL }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+
+      - name: Build and Push Docker Image
+        run: |
+          docker build ${{ matrix.service }} -t ${{ secrets.REGISTRY_URL }}/pawfect/${{ matrix.service }}:${{ github.sha }}
+          docker push ${{ secrets.REGISTRY_URL }}/pawfect/${{ matrix.service }}:${{ github.sha }}
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: pawfect-${{ matrix.service }}
+          images: ${{ secrets.REGISTRY_URL }}/pawfect/${{ matrix.service }}:${{ github.sha }}
+          slot-name: 'production'

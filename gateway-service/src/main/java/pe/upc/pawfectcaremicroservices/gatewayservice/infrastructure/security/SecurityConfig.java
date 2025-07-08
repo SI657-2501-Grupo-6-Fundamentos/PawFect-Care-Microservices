@@ -59,6 +59,7 @@ public class SecurityConfig {
         CorsConfiguration cors = new CorsConfiguration();
         cors.setAllowedOrigins(List.of(
                 "https://pawfect-care-app-web-ef319.web.app",
+                "https://*.azurewebsites.net",
                 "http://localhost:4200",
                 "http://localhost:8010", // Gateway Swagger
                 "http://localhost:8122", // IAM Service
