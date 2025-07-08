@@ -1,4 +1,4 @@
-name: Build and Deploy Microservices
+name: Build and Deploy Microservices Sequentially
 
 on:
   push:
@@ -6,83 +6,375 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  deploy-registry:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        service: [
-          'registry', 'gateway', 'iam', 'veterinary', 'schedule',
-          'pet-owner', 'pet', 'medical-record', 'appointment',
-          'diagnostic', 'review'
-        ]
-        include:
-          - service: registry
-            directory: ./registry-service
-            publish_profile: AZURE_PUBLISHPROFILE_REGISTRY_SERVICE
-          - service: gateway
-            directory: ./gateway-service
-            publish_profile: AZURE_PUBLISHPROFILE_GATEWAY_SERVICE
-          - service: iam
-            directory: ./iam-service
-            publish_profile: AZURE_PUBLISHPROFILE_IAM_SERVICE
-          - service: veterinary
-            directory: ./veterinary-service
-            publish_profile: AZURE_PUBLISHPROFILE_VETERINARY_SERVICE
-          - service: schedule
-            directory: ./schedule-service
-            publish_profile: AZURE_PUBLISHPROFILE_SCHEDULE_SERVICE
-          - service: pet-owner
-            directory: ./pet-owner-service
-            publish_profile: AZURE_PUBLISHPROFILE_PET_OWNER_SERVICE
-          - service: pet
-            directory: ./pet-service
-            publish_profile: AZURE_PUBLISHPROFILE_PET_SERVICE
-          - service: medical-record
-            directory: ./medical-record-service
-            publish_profile: AZURE_PUBLISHPROFILE_MEDICAL_RECORD_SERVICE
-          - service: appointment
-            directory: ./appointment-service
-            publish_profile: AZURE_PUBLISHPROFILE_APPOINTMENT_SERVICE
-          - service: diagnostic
-            directory: ./diagnostic-service
-            publish_profile: AZURE_PUBLISHPROFILE_DIAGNOSTIC_SERVICE
-          - service: review
-            directory: ./review-service
-            publish_profile: AZURE_PUBLISHPROFILE_REVIEW_SERVICE
-
     steps:
       - uses: actions/checkout@v3
-
       - name: Configurar JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'microsoft'
           cache: maven
-
       - name: Compilar con Maven
-        run: mvn -B package -DskipTests --file ${{ matrix.directory }}/pom.xml
-
+        run: mvn -B package -DskipTests --file ./registry-service/pom.xml
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
-
       - name: Login to Container Registry
         uses: docker/login-action@v1
         with:
           registry: ${{ secrets.REGISTRY_URL }}
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
-
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          context: ${{ matrix.directory }}
+          context: ./registry-service
           push: true
-          tags: ${{ secrets.REGISTRY_URL }}/pawfect-${{ matrix.service }}:${{ github.sha }}, ${{ secrets.REGISTRY_URL }}/pawfect-${{ matrix.service }}:latest
-
+          tags: ${{ secrets.REGISTRY_URL }}/pawfect-registry:${{ github.sha }}, ${{ secrets.REGISTRY_URL }}/pawfect-registry:latest
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         with:
-          app-name: pawfect-${{ matrix.service }}-service
-          publish-profile: ${{ secrets[matrix.publish_profile] }}
-          images: ${{ secrets.REGISTRY_URL }}/pawfect-${{ matrix.service }}:${{ github.sha }}
+          app-name: pawfect-registry-service
+          publish-profile: ${{ secrets.AZURE_PUBLISHPROFILE_REGISTRY_SERVICE }}
+          images: ${{ secrets.REGISTRY_URL }}/pawfect-registry:${{ github.sha }}
+
+  deploy-gateway:
+    needs: deploy-registry
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Configurar JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'microsoft'
+          cache: maven
+      - name: Compilar con Maven
+        run: mvn -B package -DskipTests --file ./gateway-service/pom.xml
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ secrets.REGISTRY_URL }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./gateway-service
+          push: true
+          tags: ${{ secrets.REGISTRY_URL }}/pawfect-gateway:${{ github.sha }}, ${{ secrets.REGISTRY_URL }}/pawfect-gateway:latest
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: pawfect-gateway-service
+          publish-profile: ${{ secrets.AZURE_PUBLISHPROFILE_GATEWAY_SERVICE }}
+          images: ${{ secrets.REGISTRY_URL }}/pawfect-gateway:${{ github.sha }}
+
+  deploy-iam:
+    needs: deploy-gateway
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Configurar JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'microsoft'
+          cache: maven
+      - name: Compilar con Maven
+        run: mvn -B package -DskipTests --file ./iam-service/pom.xml
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ secrets.REGISTRY_URL }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./iam-service
+          push: true
+          tags: ${{ secrets.REGISTRY_URL }}/pawfect-iam:${{ github.sha }}, ${{ secrets.REGISTRY_URL }}/pawfect-iam:latest
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: pawfect-iam-service
+          publish-profile: ${{ secrets.AZURE_PUBLISHPROFILE_IAM_SERVICE }}
+          images: ${{ secrets.REGISTRY_URL }}/pawfect-iam:${{ github.sha }}
+
+  deploy-veterinary:
+    needs: deploy-iam
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Configurar JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'microsoft'
+          cache: maven
+      - name: Compilar con Maven
+        run: mvn -B package -DskipTests --file ./veterinary-service/pom.xml
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ secrets.REGISTRY_URL }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./veterinary-service
+          push: true
+          tags: ${{ secrets.REGISTRY_URL }}/pawfect-veterinary:${{ github.sha }}, ${{ secrets.REGISTRY_URL }}/pawfect-veterinary:latest
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: pawfect-veterinary-service
+          publish-profile: ${{ secrets.AZURE_PUBLISHPROFILE_VETERINARY_SERVICE }}
+          images: ${{ secrets.REGISTRY_URL }}/pawfect-veterinary:${{ github.sha }}
+
+  deploy-schedule:
+    needs: deploy-veterinary
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Configurar JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'microsoft'
+          cache: maven
+      - name: Compilar con Maven
+        run: mvn -B package -DskipTests --file ./schedule-service/pom.xml
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ secrets.REGISTRY_URL }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./schedule-service
+          push: true
+          tags: ${{ secrets.REGISTRY_URL }}/pawfect-schedule:${{ github.sha }}, ${{ secrets.REGISTRY_URL }}/pawfect-schedule:latest
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: pawfect-schedule-service
+          publish-profile: ${{ secrets.AZURE_PUBLISHPROFILE_SCHEDULE_SERVICE }}
+          images: ${{ secrets.REGISTRY_URL }}/pawfect-schedule:${{ github.sha }}
+
+  deploy-pet-owner:
+    needs: deploy-schedule
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Configurar JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'microsoft'
+          cache: maven
+      - name: Compilar con Maven
+        run: mvn -B package -DskipTests --file ./pet-owner-service/pom.xml
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ secrets.REGISTRY_URL }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./pet-owner-service
+          push: true
+          tags: ${{ secrets.REGISTRY_URL }}/pawfect-pet-owner:${{ github.sha }}, ${{ secrets.REGISTRY_URL }}/pawfect-pet-owner:latest
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: pawfect-pet-owner-service
+          publish-profile: ${{ secrets.AZURE_PUBLISHPROFILE_PET_OWNER_SERVICE }}
+          images: ${{ secrets.REGISTRY_URL }}/pawfect-pet-owner:${{ github.sha }}
+
+  deploy-pet:
+    needs: deploy-pet-owner
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Configurar JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'microsoft'
+          cache: maven
+      - name: Compilar con Maven
+        run: mvn -B package -DskipTests --file ./pet-service/pom.xml
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ secrets.REGISTRY_URL }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./pet-service
+          push: true
+          tags: ${{ secrets.REGISTRY_URL }}/pawfect-pet:${{ github.sha }}, ${{ secrets.REGISTRY_URL }}/pawfect-pet:latest
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: pawfect-pet-service
+          publish-profile: ${{ secrets.AZURE_PUBLISHPROFILE_PET_SERVICE }}
+          images: ${{ secrets.REGISTRY_URL }}/pawfect-pet:${{ github.sha }}
+
+  deploy-medical-record:
+    needs: deploy-pet
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Configurar JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'microsoft'
+          cache: maven
+      - name: Compilar con Maven
+        run: mvn -B package -DskipTests --file ./medical-record-service/pom.xml
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ secrets.REGISTRY_URL }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./medical-record-service
+          push: true
+          tags: ${{ secrets.REGISTRY_URL }}/pawfect-medical-record:${{ github.sha }}, ${{ secrets.REGISTRY_URL }}/pawfect-medical-record:latest
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: pawfect-medical-record-service
+          publish-profile: ${{ secrets.AZURE_PUBLISHPROFILE_MEDICAL_RECORD_SERVICE }}
+          images: ${{ secrets.REGISTRY_URL }}/pawfect-medical-record:${{ github.sha }}
+
+  deploy-appointment:
+    needs: deploy-medical-record
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Configurar JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'microsoft'
+          cache: maven
+      - name: Compilar con Maven
+        run: mvn -B package -DskipTests --file ./appointment-service/pom.xml
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ secrets.REGISTRY_URL }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./appointment-service
+          push: true
+          tags: ${{ secrets.REGISTRY_URL }}/pawfect-appointment:${{ github.sha }}, ${{ secrets.REGISTRY_URL }}/pawfect-appointment:latest
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: pawfect-appointment-service
+          publish-profile: ${{ secrets.AZURE_PUBLISHPROFILE_APPOINTMENT_SERVICE }}
+          images: ${{ secrets.REGISTRY_URL }}/pawfect-appointment:${{ github.sha }}
+
+  deploy-diagnostic:
+    needs: deploy-appointment
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Configurar JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'microsoft'
+          cache: maven
+      - name: Compilar con Maven
+        run: mvn -B package -DskipTests --file ./diagnostic-service/pom.xml
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ secrets.REGISTRY_URL }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./diagnostic-service
+          push: true
+          tags: ${{ secrets.REGISTRY_URL }}/pawfect-diagnostic:${{ github.sha }}, ${{ secrets.REGISTRY_URL }}/pawfect-diagnostic:latest
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: pawfect-diagnostic-service
+          publish-profile: ${{ secrets.AZURE_PUBLISHPROFILE_DIAGNOSTIC_SERVICE }}
+          images: ${{ secrets.REGISTRY_URL }}/pawfect-diagnostic:${{ github.sha }}
+
+  deploy-review:
+    needs: deploy-diagnostic
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Configurar JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'microsoft'
+          cache: maven
+      - name: Compilar con Maven
+        run: mvn -B package -DskipTests --file ./review-service/pom.xml
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ${{ secrets.REGISTRY_URL }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: ./review-service
+          push: true
+          tags: ${{ secrets.REGISTRY_URL }}/pawfect-review:${{ github.sha }}, ${{ secrets.REGISTRY_URL }}/pawfect-review:latest
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: pawfect-review-service
+          publish-profile: ${{ secrets.AZURE_PUBLISHPROFILE_REVIEW_SERVICE }}
+          images: ${{ secrets.REGISTRY_URL }}/pawfect-review:${{ github.sha }}
