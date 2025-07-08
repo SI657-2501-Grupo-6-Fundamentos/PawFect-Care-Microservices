@@ -51,7 +51,17 @@ jobs:
             publish_profile: AZURE_PUBLISHPROFILE_REVIEW_SERVICE
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+
+      - name: Configurar JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'microsoft'
+          cache: maven
+
+      - name: Compilar con Maven
+        run: mvn -B package -DskipTests --file ${{ matrix.directory }}/pom.xml
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
