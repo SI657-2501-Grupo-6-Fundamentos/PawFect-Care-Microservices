@@ -13,6 +13,7 @@ public class PetResourceFromEntityAssembler {
                 entity.getAnimalType(),
                 entity.getAnimalBreed(),
                 entity.getPetGender(),
-                entity.getOwnerId());
+                entity.getOwnerId(),
+                entity.getImageUrl());
     }
 }
