@@ -51,7 +51,9 @@ public class Appointment {
         this.appointmentName = command.appointmentName();
         this.registrationDate = command.registrationDate();
         this.endDate = command.endDate();
-        this.status = AppointmentStatus.SCHEDULED;
+        this.status = command.status() != null
+                ? command.status()
+                : AppointmentStatus.SCHEDULED;
         this.tariff = tariff;
     }
 
