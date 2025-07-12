@@ -15,8 +15,10 @@ import pe.upc.pawfectcaremicroservices.medicalappointment.domain.services.Tariff
 import pe.upc.pawfectcaremicroservices.medicalappointment.infrastructure.persistence.jpa.repositories.TariffRepository;
 import pe.upc.pawfectcaremicroservices.medicalappointment.interfaces.rest.resources.CreateTariffResource;
 import pe.upc.pawfectcaremicroservices.medicalappointment.interfaces.rest.resources.TariffResource;
+import pe.upc.pawfectcaremicroservices.medicalappointment.interfaces.rest.resources.UpdateTariffResource;
 import pe.upc.pawfectcaremicroservices.medicalappointment.interfaces.rest.transform.CreateTariffCommandFromResourceAssembler;
 import pe.upc.pawfectcaremicroservices.medicalappointment.interfaces.rest.transform.TariffResourceFromEntityAssembler;
+import pe.upc.pawfectcaremicroservices.medicalappointment.interfaces.rest.transform.UpdateTariffCommandFromResourceAssembler;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -126,4 +128,21 @@ public class TariffController {
         return ResponseEntity.ok(tariffResources);
     }
 
+    /**
+     * Updates an existing tariff.
+     *
+     * @param tariffId the ID of the tariff to update
+     * @param updateTariffResource the resource containing the updated tariff details
+     * @return the updated tariff resource, or a bad request response if the update fails
+     */
+    @PutMapping("/{tariffId}")
+    public ResponseEntity<TariffResource> updateTariff(@PathVariable Long tariffId, @RequestBody UpdateTariffResource updateTariffResource) {
+        var updateTariffCommand = UpdateTariffCommandFromResourceAssembler.toCommandFromResource(tariffId, updateTariffResource);
+        var updatedTariff = tariffCommandService.handle(updateTariffCommand);
+        if (updatedTariff.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        var tariffResource = TariffResourceFromEntityAssembler.toResourceFromEntity(updatedTariff.get());
+        return ResponseEntity.ok(tariffResource);
+    }
 }
