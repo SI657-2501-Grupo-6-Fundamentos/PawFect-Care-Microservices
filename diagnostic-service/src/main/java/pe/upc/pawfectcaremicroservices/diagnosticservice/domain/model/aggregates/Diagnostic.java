@@ -32,7 +32,9 @@ public class Diagnostic {
         this();
         this.diagnosticDate = command.diagnosticDate();
         this.description = command.description();
-        this.diagnosticSpecialty = DiagnosticSpecialty.GENERAL_MEDICINE;
+        this.diagnosticSpecialty = command.diagnosticSpecialty() != null
+                ? command.diagnosticSpecialty()
+                : DiagnosticSpecialty.GENERAL_MEDICINE;
     }
 
     public Diagnostic updateInformation(LocalDateTime diagnosticDate, String description, DiagnosticSpecialty diagnosticSpecialty) {
