@@ -42,6 +42,9 @@ public class Pet {
 
     private Long ownerId;
 
+    @Column(length = 500)
+    private String imageUrl;
+
 
     public Pet() {
         this.petName = Strings.EMPTY;
@@ -50,15 +53,18 @@ public class Pet {
         this.animalType = AnimalType.DOG;
         this.animalBreed = Breed.LABRADOR;
         this.petGender = PetGender.FEMALE;
+        this.imageUrl = Strings.EMPTY;
     }
 
-    public Pet updateInformation(String petName, LocalDate birthDate,LocalDate registrationDate, AnimalType animalType, Breed animalBreed, PetGender petGender) {
+    public Pet updateInformation(String petName, LocalDate birthDate, LocalDate registrationDate,
+                                 AnimalType animalType, Breed animalBreed, PetGender petGender, String imageUrl) {
         this.petName = petName;
         this.birthDate = birthDate;
         this.registrationDate = registrationDate;
         this.animalType = animalType;
         this.animalBreed = animalBreed;
         this.petGender = petGender;
+        this.imageUrl = imageUrl;
         return this;
     }
 
@@ -69,6 +75,8 @@ public class Pet {
         this.animalType = command.animalType();
         this.animalBreed = command.animalBreed();
         this.petGender = command.petGender();
+        this.ownerId = command.ownerId();
+        this.imageUrl = command.imageUrl();
     }
 
 

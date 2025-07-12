@@ -12,6 +12,7 @@ public class UpdatePetCommandFromResourceAssembler {
                 resource.registrationDate(),
                 resource.animalType(),
                 resource.animalBreed(),
-                resource.petGender());
+                resource.petGender(),
+                resource.imageUrl());
     }
 }

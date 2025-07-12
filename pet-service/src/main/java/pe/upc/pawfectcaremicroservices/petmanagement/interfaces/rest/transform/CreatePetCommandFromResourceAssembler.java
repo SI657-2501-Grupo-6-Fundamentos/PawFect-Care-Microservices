@@ -12,6 +12,7 @@ public class CreatePetCommandFromResourceAssembler {
                 resource.animalType(),
                 resource.animalBreed(),
                 resource.petGender(),
-                resource.ownerId());
+                resource.ownerId(),
+                resource.imageUrl());
     }
 }

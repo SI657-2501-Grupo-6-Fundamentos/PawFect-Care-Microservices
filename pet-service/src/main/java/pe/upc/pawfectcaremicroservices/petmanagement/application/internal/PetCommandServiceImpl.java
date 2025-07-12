@@ -12,11 +12,11 @@ import pe.upc.pawfectcaremicroservices.petmanagement.infrastructure.persistence.
 import java.util.Optional;
 
 @Service
-public class PetCommandServicelmpl implements PetCommandService {
+public class PetCommandServiceImpl implements PetCommandService {
     private final PetRepository petRepository;
     private final ExternalOwner externalOwner;
 
-    public PetCommandServicelmpl(PetRepository petRepository, ExternalOwner externalOwner) {
+    public PetCommandServiceImpl(PetRepository petRepository, ExternalOwner externalOwner) {
         this.petRepository = petRepository;
         this.externalOwner = externalOwner;
     }
@@ -36,7 +36,6 @@ public class PetCommandServicelmpl implements PetCommandService {
         return pet.getId();
     }
 
-
     @Override
     public Optional<Pet> handle(UpdatePetCommand command) {
         if (!petRepository.existsById(command.id())) throw new IllegalArgumentException("petId does not exist");
@@ -50,24 +49,23 @@ public class PetCommandServicelmpl implements PetCommandService {
                     command.registrationDate(),
                     command.animalType(),
                     command.animalBreed(),
-                    command.petGender()));
+                    command.petGender(),
+                    command.imageUrl()));
             return Optional.of(updatedPet);
         } catch (Exception e) {
             throw new IllegalArgumentException("Error while updating pet: " + e.getMessage());
         }
     }
 
-
     @Override
     public void handle(DeletePetCommand command) {
         if (!petRepository.existsById(command.petId())) {
-            throw new IllegalArgumentException("Pe does not exist");
+            throw new IllegalArgumentException("Pet does not exist");
         }
         try {
             petRepository.deleteById(command.petId());
         } catch (Exception e) {
             throw new IllegalArgumentException("Error while deleting pet: " + e.getMessage());
         }
-
     }
 }

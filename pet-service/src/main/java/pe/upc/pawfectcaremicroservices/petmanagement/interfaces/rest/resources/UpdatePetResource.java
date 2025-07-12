@@ -1,3 +1,9 @@
+/**
+ * UpdatePetResource
+ * @Summary
+ *  UpdatePetResource is a record class that represents the resource to update a pet
+ **/
+
 package pe.upc.pawfectcaremicroservices.petmanagement.interfaces.rest.resources;
 
 import pe.upc.pawfectcaremicroservices.petmanagement.domain.model.valueobjects.AnimalType;
@@ -6,12 +12,7 @@ import pe.upc.pawfectcaremicroservices.petmanagement.domain.model.valueobjects.P
 
 import java.time.LocalDate;
 
-public record UpdatePetResource(
-        String petName,
-        LocalDate birthDate,
-        LocalDate registrationDate,
-        AnimalType animalType,
-        Breed animalBreed,
-        PetGender petGender) {
-
+public record UpdatePetResource(String petName, LocalDate birthDate, LocalDate registrationDate,
+                                AnimalType animalType, Breed animalBreed, PetGender petGender,
+                                String imageUrl) {
 }
